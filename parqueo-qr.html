@@ -40,7 +40,8 @@ body{margin:0;font:15px/1.5 var(--fuente);background:var(--papel);color:var(--ti
 @media(max-width:560px){.banner-in{justify-content:flex-end;padding-left:70px}.sello{width:44px;height:44px}.marca b{font-size:32px}.marca .fac{font-size:11px}.marca small{font-size:6px}.logos{gap:4px}}
 @media(max-width:380px){.sello:first-child{display:none}}
 header.u{background:linear-gradient(135deg,var(--navy3),var(--navy) 55%,var(--navy2));color:#fff;border-bottom:4px solid var(--oro)}
-.hwrap{max-width:1320px;margin:0 auto;padding:20px 28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.hwrap{max-width:1320px;margin:0 auto;padding:14px 20px;display:flex;justify-content:center}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .hwrap .titulos{flex:1 1 320px}
 header h1{margin:0;font:700 28px/1.15 var(--fuente)}
 header h1 small{display:block;font:700 13px var(--fuente);letter-spacing:.14em;text-transform:uppercase;color:var(--oro2);margin-bottom:4px}
@@ -227,10 +228,7 @@ footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;pa
 </div>
 <header class="u">
   <div class="hwrap">
-    <div class="titulos">
-      <h1><small>S.PARK · Servicio estudiantil</small>Parqueo con carnet universitario</h1>
-      <p>Ingreso con carnet QR y monedero electrónico: recarga saldo a tu carnet como una tarjeta de bus y paga cada ingreso al pasar por el lector.</p>
-    </div>
+    <h1 class="sr-only">S.PARK · Parqueo con carnet universitario</h1>
     <div class="tarifa" aria-label="Tarifa del parqueo"><span>Tarifa por ingreso</span><b class="tarifaTxt">Q3.00</b><small>Se descuenta del saldo del carnet</small></div>
   </div>
 </header>
