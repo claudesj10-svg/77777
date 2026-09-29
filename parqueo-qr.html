@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parqueo Universitario · Carnet QR</title>
+<style>
+:root{
+  --navy:#0c2d57; --navy2:#16427a; --navy3:#0a2342; --oro:#c9a227; --oro2:#e8c95a; --crema:#f5f2ea;
+  --linea:#e4dfd2; --papel:var(--crema); --blanco:#fff; --tinta:#1a2433; --suave:#5a6474;
+  --asfalto:#23272e; --asfalto2:#2b3037; --amarillo:#f2b705; --azul:#16427a;
+  --ok:#e1f3e9; --okt:#17603f; --aviso:#fbf0cc; --avisot:#7a5700; --crit:#f8dcdc; --critt:#8f2323;
+  --fuente:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  --serif:Georgia,"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:15px/1.5 var(--fuente);background:var(--papel);color:var(--tinta);font-variant-numeric:tabular-nums}
+
+/* ---------- encabezado institucional ---------- */
+header.u{background:linear-gradient(135deg,var(--navy3),var(--navy) 55%,var(--navy2));color:#fff;border-bottom:4px solid var(--oro)}
+.franja{background:rgba(0,0,0,.25);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d8dfeb;padding:6px 28px}
+.hwrap{max-width:1320px;margin:0 auto;padding:22px 28px 16px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.escudo{width:64px;height:74px;flex:none}
+.hwrap .titulos{flex:1 1 320px}
+header h1{margin:0;font:700 30px/1.15 var(--serif);letter-spacing:.3px}
+header h1 small{display:block;font:600 13px var(--fuente);letter-spacing:.14em;text-transform:uppercase;color:var(--oro2);margin-bottom:4px}
+header p{margin:6px 0 0;color:#c8d3e3;max-width:70ch}
+.tarifa{background:rgba(255,255,255,.08);border:1px solid rgba(232,201,90,.55);border-radius:10px;padding:10px 18px;text-align:center;min-width:190px}
+.tarifa span{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#d8dfeb}
+.tarifa b{display:block;font:700 34px/1.1 var(--serif);color:var(--oro2)}
+.tarifa small{color:#c8d3e3;font-size:12px}
+header nav{max-width:1320px;margin:0 auto;padding:0 28px;display:flex;gap:4px;flex-wrap:wrap}
+header nav a{color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:9px 14px;border-radius:6px 6px 0 0}
+header nav a:hover{background:rgba(255,255,255,.1)}
+header nav a:focus-visible{outline:3px solid var(--oro2);outline-offset:-3px}
+
+/* ---------- títulos de sección ---------- */
+.seccion{max-width:1320px;margin:0 auto;padding:26px 20px 0}
+.titulo-sec{font:700 24px var(--serif);color:var(--navy);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.titulo-sec::before{content:"";width:6px;height:26px;background:var(--oro);border-radius:2px}
+.lead{margin:0 0 16px;color:var(--suave);max-width:80ch}
+
+/* ---------- monedero del carnet ---------- */
+.mon-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media(max-width:1150px){.mon-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.mon-grid>.lector-col{grid-column:1/-1}}
+@media(max-width:720px){.mon-grid{grid-template-columns:minmax(0,1fr)}.seccion,.layout{padding-left:16px;padding-right:16px}}
+.carnet{position:relative;overflow:hidden;border-radius:16px;color:#fff;padding:16px 18px 14px;aspect-ratio:1.586;min-height:220px;max-width:460px;
+  background:radial-gradient(circle at 88% 12%,rgba(232,201,90,.35),transparent 42%),linear-gradient(135deg,var(--navy3),var(--navy) 50%,var(--navy2));
+  box-shadow:0 10px 28px rgba(12,45,87,.28);display:flex;flex-direction:column}
+.carnet::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,var(--oro) 0 40px,var(--oro2) 40px 80px)}
+.c-top{display:flex;align-items:center;gap:10px}
+.c-top svg{width:30px;height:35px}
+.c-top div{flex:1;line-height:1.15}.c-top b{display:block;font:700 15px var(--serif);letter-spacing:.08em}.c-top span{font-size:11px;color:#c8d3e3;letter-spacing:.1em;text-transform:uppercase}
+.chip{width:38px;height:28px;border-radius:5px;background:linear-gradient(135deg,#e8c95a,#b38b1d);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.c-body{display:flex;gap:14px;align-items:center;margin-top:12px;flex:1}
+.foto{width:62px;height:74px;border-radius:8px;background:#dfe6f1;color:var(--navy);display:grid;place-items:center;font:700 24px var(--serif);flex:none;border:2px solid var(--oro2)}
+.c-datos{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12.5px;color:#d8dfeb}
+.c-datos .c-nom{font-size:16px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-datos b{color:#fff;letter-spacing:.06em}
+.c-qr{width:78px;height:78px;background:#fff;border-radius:6px;padding:5px;flex:none}
+.c-qr svg{width:100%;height:100%}
+.c-saldo{display:flex;align-items:baseline;gap:10px;margin-top:8px;padding-bottom:6px}
+.c-saldo span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#c8d3e3}
+.c-saldo b{font:700 26px var(--serif);color:var(--oro2)}
+.c-saldo small{margin-left:auto;color:#c8d3e3;font-size:12px}
+.carnet.bloq{filter:grayscale(.85)}
+.panel h3.cab{margin:0 0 10px;font:700 17px var(--serif);color:var(--navy)}
+.estado-carnet{margin-top:10px;font-size:13px}
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.montos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.montos input{position:absolute;opacity:0;pointer-events:none}
+.montos label{margin:0;text-align:center;border:1px solid #cfd4db;border-radius:6px;padding:7px 0;font-weight:700;color:var(--navy);cursor:pointer;background:#fff}
+.montos label:has(input:checked){background:var(--navy);color:#fff;border-color:var(--navy)}
+.montos label:has(input:focus-visible){outline:3px solid var(--oro);outline-offset:1px}
+.tbanco{border-radius:12px;padding:12px 14px;color:#fff;background:linear-gradient(135deg,#39424f,#1d232b);font-family:ui-monospace,Consolas,monospace;margin-bottom:6px;position:relative;min-height:92px}
+.tbanco .tb-num{font-size:17px;letter-spacing:.12em;margin-top:22px}
+.tbanco .tb-pie{display:flex;justify-content:space-between;font-size:12px;color:#c9d1d9;margin-top:6px;text-transform:uppercase}
+.tbanco .tb-marca{position:absolute;right:14px;top:10px;font:700 14px var(--fuente);letter-spacing:.05em;color:var(--oro2)}
+.msg{min-height:1.5em;margin:8px 0 0;font-size:13.5px;font-weight:600}
+.msg.ok{color:var(--okt)}.msg.err{color:var(--critt)}
+.lector{background:#1b2230;border-radius:14px;padding:16px;color:#fff;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.pantalla{flex:1 1 200px;min-height:96px;border-radius:10px;background:#0b1320;border:3px solid #2f3b4f;padding:12px 14px;display:flex;flex-direction:column;justify-content:center;transition:border-color .2s,background .2s}
+.pantalla b{font-size:18px}.pantalla span{color:#aeb9c9;font-size:13px}
+.pantalla[data-estado=ok]{border-color:#3fbf82;background:#0d2a1f}.pantalla[data-estado=ok] b{color:#6fe0a8}
+.pantalla[data-estado=err]{border-color:#e05a5a;background:#2c1215}.pantalla[data-estado=err] b{color:#ff9a9a}
+.barrera{width:120px;height:96px;flex:none}
+.barrera .brazo{transform-origin:18px 60px;transition:transform .6s ease}
+.barrera.arriba .brazo{transform:rotate(-80deg)}
+.lector-col .fila button{flex:1}
+.oro{background:var(--oro);color:var(--navy3);border-color:var(--oro)}
+.oro:hover{background:var(--oro2)}
+.movs{font-size:12.5px}.movs td,.movs th{padding:5px 6px}.movs td:nth-child(2){white-space:normal}
+.pos{color:var(--okt);font-weight:600}.neg{color:var(--critt);font-weight:600}
+
+/* ---------- simulación ---------- */
+.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:20px;max-width:1320px;margin:0 auto;padding:14px 20px 20px}
+@media(max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}}
+aside form{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;background:var(--blanco);border:1px solid var(--linea);border-top:4px solid var(--navy);border-radius:8px;padding:16px}
+@media(max-width:980px){aside form{position:static;max-height:none}}
+h2{font:700 19px var(--serif);margin:0 0 10px;color:var(--navy)}
+h3{font-size:14.5px;margin:16px 0 6px;color:var(--navy)}
+fieldset{border:0;padding:0;margin:0 0 4px}
+legend{font-weight:700;font-size:13px;padding:0;margin:16px 0 6px;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;border-bottom:2px solid var(--oro);padding-bottom:2px}
+label{display:block;font-size:13px;color:var(--suave);margin:8px 0 0}
+label.mini{margin:0}label.mini span{display:block;font-size:11.5px}
+input[type=number],input[type=text],input[type=password],select{width:100%;padding:7px 9px;border:1px solid #cfd4db;border-radius:6px;background:#fff;color:var(--tinta);font:inherit}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--oro);outline-offset:1px}
+input[aria-invalid=true]{border-color:#d64545;background:#fff7f7}
+.checks{display:flex;flex-wrap:wrap;gap:4px 14px}
+.checks label{display:flex;align-items:center;gap:6px;margin:2px 0;color:var(--tinta);font-size:14px}
+.checks input{accent-color:var(--navy)}
+.tasas{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+details summary{cursor:pointer;font-size:14px;margin:8px 0 2px}
+button{font:inherit;font-weight:600;border-radius:6px;padding:8px 14px;cursor:pointer;border:1px solid var(--navy)}
+.primario{background:var(--navy);color:#fff;width:100%;margin-top:14px}
+.primario:hover{background:var(--navy2)}
+.primario:disabled{opacity:.6;cursor:wait}
+.sec{background:transparent;color:var(--navy)}
+.sec:hover{background:#eef2f8}
+.fila{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.fila button{padding:5px 9px;font-size:13px}
+main>section{margin-bottom:20px}
+.panel{background:var(--blanco);border:1px solid var(--linea);border-radius:8px;padding:18px;box-shadow:0 1px 2px rgba(12,45,87,.05)}
+.escena{background:var(--asfalto);border-radius:8px;padding:14px;color:#fff;border-top:4px solid var(--oro)}
+.escena canvas{width:100%;height:230px;display:block;border-radius:4px}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:10px;color:#c9d1d9;font-size:13px}
+.ctrl button{background:transparent;color:#fff;border-color:#6b7683;padding:4px 12px}
+.ctrl select{width:auto;background:#3a414b;color:#fff;border-color:#6b7683}
+.ctrl input[type=range]{accent-color:var(--oro)}
+.ctrl #scrub{flex:1 1 200px}
+.ctrl label{display:flex;align-items:center;gap:8px;margin:0;color:#c9d1d9}
+.veredicto{padding:12px 16px;border-radius:6px;margin:14px 0 12px;border-left:6px solid}
+.veredicto.si{background:var(--ok);color:var(--okt);border-color:#2f9e6b}.veredicto.no{background:var(--crit);color:var(--critt);border-color:#d64545}
+#kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.kpi{border:1px solid var(--linea);border-radius:8px;padding:10px 12px;background:var(--blanco)}
+.kpi b{display:block;font:700 24px/1.2 var(--serif);color:var(--navy)}.kpi span{font-size:12.5px;color:var(--suave)}
+.kpi.dinero{background:linear-gradient(135deg,#fffaf0,#fbf1d3);border-color:#ecd89a}.kpi.dinero b{color:#7a5700}
+.tabla{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:6px 10px;border-bottom:1px solid var(--linea);text-align:right;white-space:nowrap}
+th{font-size:12.5px;color:var(--suave);font-weight:600}
+th:first-child,td:first-child,.izq{text-align:left}
+.rec{background:#fbf3d9}
+small{color:var(--suave)}code{font-size:12.5px}
+.tag{display:inline-block;padding:1px 9px;border-radius:99px;font-size:12px;font-weight:600}
+.tag.ok{background:var(--ok);color:var(--okt)}.tag.warn{background:var(--aviso);color:var(--avisot)}.tag.crit{background:var(--crit);color:var(--critt)}
+.graficos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),1fr));gap:18px}
+@media(max-width:520px){.graficos{grid-template-columns:minmax(0,1fr)}}
+.graficos h3{margin:0 0 4px}
+svg{width:100%;height:auto;display:block}.ax{font:13px var(--fuente);fill:#5d6673}
+.dos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:18px}
+@media(max-width:520px){.dos{grid-template-columns:minmax(0,1fr)}}
+.nota{font-size:13px;color:var(--suave);margin:8px 0 0}
+footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;padding:18px;border-top:4px solid var(--oro);margin-top:10px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="escudo" viewBox="0 0 64 74">
+    <path d="M32 2 60 10v24c0 18-12 30-28 38C16 64 4 52 4 34V10Z" fill="#c9a227"/>
+    <path d="M32 7 55 14v20c0 15-10 25-23 32C19 59 9 49 9 34V14Z" fill="#0c2d57"/>
+    <path d="M17 28c6-2 11-1 15 2 4-3 9-4 15-2v18c-6-2-11-1-15 2-4-3-9-4-15-2Z" fill="#fff"/>
+    <path d="M32 30v18" stroke="#0c2d57" stroke-width="1.6"/>
+    <path d="M22 20h20l-10-6Z" fill="#e8c95a"/>
+    <circle cx="32" cy="56" r="3" fill="#e8c95a"/>
+  </symbol>
+</svg>
+<header class="u">
+  <div class="franja">Universidad · Campus Central — Departamento de Parqueos y Transporte</div>
+  <div class="hwrap">
+    <svg class="escudo" aria-hidden="true"><use href="#escudo"/></svg>
+    <div class="titulos">
+      <h1><small>Servicio estudiantil</small>Parqueo Universitario</h1>
+      <p>Ingreso con carnet QR y monedero electrónico: recarga saldo a tu carnet como una tarjeta de bus y paga cada ingreso al pasar por el lector.</p>
+    </div>
+    <div class="tarifa" aria-label="Tarifa del parqueo"><span>Tarifa por ingreso</span><b class="tarifaTxt">Q3.00</b><small>Se descuenta del saldo del carnet</small></div>
+  </div>
+  <nav aria-label="Secciones"><a href="#monedero">Mi carnet y saldo</a><a href="#simulacion">Simulación de colas</a><a href="#resultados">Resultados</a><a href="#graficos">Gráficos</a></nav>
+</header>
+
+<section class="seccion" id="monedero" aria-labelledby="monTit">
+  <h2 class="titulo-sec" id="monTit">Mi carnet · Monedero de parqueo</h2>
+  <p class="lead">Funciona como una tarjeta de bus: carga dinero al carnet con tu tarjeta de débito o crédito y cada vez que entras al parqueo el lector descuenta <b class="tarifaTxt">Q3.00</b> del saldo.</p>
+  <div class="mon-grid">
+    <div class="panel">
+      <h3 class="cab">1. Tu carnet</h3>
+      <div class="carnet" id="carnet" role="img" aria-label="Carnet universitario">
+        <div class="c-top"><svg aria-hidden="true"><use href="#escudo"/></svg><div><b>UNIVERSIDAD</b><span>Carnet estudiantil · Parqueo</span></div><span class="chip" aria-hidden="true"></span></div>
+        <div class="c-body">
+          <div class="foto" id="cFoto" aria-hidden="true">E</div>
+          <div class="c-datos"><span class="c-nom" id="cNombre">Estudiante</span><span>Carnet <b id="cNum">201900123</b></span><span>Vigente hasta 12/2027</span></div>
+          <div class="c-qr" id="cQr" aria-hidden="true"></div>
+        </div>
+        <div class="c-saldo"><span>Saldo</span><b id="cSaldo">Q0.00</b><small id="cViajes">0 ingresos</small></div>
+      </div>
+      <div class="dos-col">
+        <label>Número de carnet<input type="text" id="carnetIn" inputmode="numeric" maxlength="9" value="201900123" autocomplete="off"></label>
+        <label>Nombre del estudiante<input type="text" id="nombreIn" value="Estudiante" maxlength="40"></label>
+      </div>
+      <p class="estado-carnet" id="cEstado" role="status"></p>
+    </div>
+
+    <form class="panel" id="recarga" novalidate>
+      <h3 class="cab">2. Recargar saldo con tarjeta</h3>
+      <div class="tbanco" aria-hidden="true"><span class="tb-marca" id="tbMarca">TARJETA</span><div class="tb-num" id="tbNum">•••• •••• •••• ••••</div><div class="tb-pie"><span id="tbNom">Nombre del titular</span><span id="tbVence">MM/AA</span></div></div>
+      <label>Número de tarjeta<input type="text" id="tNum" inputmode="numeric" autocomplete="off" placeholder="4111 1111 1111 1111" maxlength="23"></label>
+      <div class="dos-col">
+        <label>Vencimiento (MM/AA)<input type="text" id="tVence" inputmode="numeric" autocomplete="off" placeholder="MM/AA" maxlength="5"></label>
+        <label>CVV<input type="password" id="tCvv" inputmode="numeric" autocomplete="off" placeholder="•••" maxlength="4"></label>
+      </div>
+      <label>Nombre en la tarjeta<input type="text" id="tNom" autocomplete="off" maxlength="40"></label>
+      <fieldset><legend>Monto a recargar</legend>
+        <div class="montos">
+          <label><input type="radio" name="monto" value="10">Q10</label><label><input type="radio" name="monto" value="25" checked>Q25</label>
+          <label><input type="radio" name="monto" value="50">Q50</label><label><input type="radio" name="monto" value="100">Q100</label>
+        </div>
+        <label>Otro monto (Q5 – Q500)<input type="number" id="tOtro" min="5" max="500" step="1" placeholder="Opcional"></label>
+      </fieldset>
+      <button class="primario" type="submit" id="btnRecargar">Recargar Q25.00</button>
+      <p class="msg" id="rMsg" role="status" aria-live="polite"></p>
+      <p class="nota">Simulación académica: no se hace ningún cobro real ni se envían datos. De la tarjeta solo se guardan la marca y los últimos 4 dígitos en el historial de este navegador.</p>
+    </form>
+
+    <div class="panel lector-col">
+      <h3 class="cab">3. Pagar en el lector de entrada</h3>
+      <div class="lector">
+        <div class="pantalla" id="lPant" data-estado="idle" role="status" aria-live="polite"><b id="lTit">Acerque su carnet</b><span id="lSub">Tarifa Q3.00 por ingreso</span></div>
+        <svg class="barrera" id="barrera" viewBox="0 0 120 96" aria-hidden="true">
+          <rect x="8" y="56" width="20" height="36" rx="3" fill="#3a4556"/><circle cx="18" cy="60" r="5" fill="#e8c95a"/>
+          <g class="brazo"><rect x="18" y="56" width="100" height="8" rx="3" fill="#f2b705"/><path d="M38 56h10v8H38zM68 56h10v8H68zM98 56h10v8H98z" fill="#1b2230"/></g>
+          <circle id="luz" cx="18" cy="48" r="4" fill="#e05a5a"/>
+        </svg>
+      </div>
+      <div class="fila"><button type="button" class="oro" id="btnPagar">Pasar carnet · Pagar <span class="tarifaTxt">Q3.00</span></button><button type="button" class="sec" id="btnSalir">Registrar salida</button></div>
+      <h3>Movimientos del carnet</h3>
+      <div class="tabla"><table class="movs" id="movs"></table></div>
+      <div class="fila"><button type="button" class="sec" id="btnBorrar">Borrar historial de este carnet</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="simulacion" aria-labelledby="simTit">
+  <h2 class="titulo-sec" id="simTit">Simulación de colas del parqueo</h2>
+  <p class="lead">Simula un día completo del parqueo y calcula cuántos lectores QR hacen falta para que los estudiantes no esperen de más, incluyendo el cobro de la tarifa y la recaudación del día.</p>
+</section>
+<div class="layout">
+<aside>
+<form id="form">
+  <h2>Parámetros</h2>
+  <fieldset><legend>Lectores de entrada a comparar</legend>
+    <div class="checks">
+      <label><input type="checkbox" name="esc" value="1" checked> 1</label><label><input type="checkbox" name="esc" value="2" checked> 2</label>
+      <label><input type="checkbox" name="esc" value="3" checked> 3</label><label><input type="checkbox" name="esc" value="4"> 4</label>
+      <label><input type="checkbox" name="esc" value="5"> 5</label><label><input type="checkbox" name="esc" value="6"> 6</label>
+    </div>
+  </fieldset>
+  <fieldset><legend>Cobro</legend>
+    <label>Tarifa por ingreso (Q)<input type="number" id="tarifa" step="0.25" min="0" value="3.00"></label>
+    <label>Carnets sin saldo suficiente (%)<input type="number" id="pSaldo" step="0.5" min="0" value="2"></label>
+  </fieldset>
+  <fieldset><legend>Demanda</legend>
+    <label>Factor de demanda<input type="number" id="factor" step="0.05" value="1"></label>
+    <div class="fila"><button type="button" class="sec" data-factor="1">Día normal</button><button type="button" class="sec" data-factor="1.4">Exámenes ×1.4</button><button type="button" class="sec" data-factor="0.6">Vacaciones ×0.6</button></div>
+    <details><summary>Llegadas por hora (vehículos/min)</summary><div class="tasas" id="tasas"></div></details>
+    <label>Capacidad del parqueo (vehículos)<input type="number" id="capacidad" value="650"></label>
+    <label>Ocupación a las 06:00 (%)<input type="number" id="ocupIni" value="10"></label>
+    <label>Permanencia media (min)<input type="number" id="estanciaMin" value="150"></label>
+  </fieldset>
+  <fieldset><legend>Lector QR de entrada</legend>
+    <label>Tiempo medio de atención (s)<input type="number" id="servMedio" step="0.5" value="10"></label>
+    <label>Distribución del tiempo<select id="distrib"><option value="exp">Exponencial (M/M/c)</option><option value="erlang2">Erlang-2 (más regular)</option><option value="const">Constante (M/D/c)</option></select></label>
+    <label>QR defectuosos (%)<input type="number" id="pInv" step="0.5" value="5"></label>
+    <label>Tiempo extra si se rechaza (s)<input type="number" id="extraInv" value="12"></label>
+    <label>Vehículos en cola antes de que otro se vaya (0 = nunca)<input type="number" id="maxCola" value="0"></label>
+  </fieldset>
+  <fieldset><legend>Salida</legend>
+    <label>Barreras de salida<input type="number" id="cSalida" value="2"></label>
+    <label>Tiempo por vehículo (s)<input type="number" id="salidaMedio" value="6"></label>
+  </fieldset>
+  <fieldset><legend>Objetivos y ejecución</legend>
+    <label>Se considera espera larga a partir de (s)<input type="number" id="umbral" value="60"></label>
+    <label>Espera promedio máxima aceptable (s)<input type="number" id="objWq" value="30"></label>
+    <label>Máximo de vehículos con espera larga (%)<input type="number" id="objPct" step="0.5" value="5"></label>
+    <label>Repeticiones por escenario<input type="number" id="replicas" value="20"></label>
+    <label>Semilla aleatoria<input type="number" id="semilla" value="2026"></label>
+  </fieldset>
+  <button class="primario" id="ejecutar" type="submit">Ejecutar simulación</button>
+  <div class="fila"><button type="button" class="sec" id="exportar" style="width:100%">Descargar resultados (CSV)</button></div>
+</form>
+</aside>
+
+<main>
+<section class="escena" aria-label="Animación de la entrada del parqueo">
+  <canvas id="lane" role="img" aria-label="Vehículos en cola frente a los lectores QR y ocupación del parqueo a lo largo del día"></canvas>
+  <div class="ctrl">
+    <button type="button" id="playBtn">Pausar</button>
+    <input type="range" id="scrub" min="0" max="100" step="0.01" value="0" aria-label="Hora del día">
+    <label>Velocidad <input type="range" id="vel" min="2" max="40" value="8"></label>
+    <label>Escenario <select id="animSel"></select></label>
+  </div>
+</section>
+
+<section class="panel" id="resultados">
+  <h2>Resultado</h2>
+  <div id="veredicto" class="veredicto"></div>
+  <div id="kpis"></div>
+</section>
+
+<section class="panel">
+  <h2>Comparación de escenarios</h2>
+  <div class="tabla"><table id="comparacion"></table></div>
+  <p class="nota">Si ρ se acerca a 100 % o quedan vehículos en cola al cierre, el sistema está saturado. Los valores con ± indican el intervalo de confianza al 95 % entre repeticiones. La recaudación cuenta solo a quienes pagaron y entraron.</p>
+</section>
+
+<section class="panel">
+  <h2>Horas de mayor congestión</h2>
+  <div class="tabla"><table id="congestion"><tr><th>Escenario</th><th class="izq">Horas con espera promedio o porcentaje de espera larga sobre el objetivo</th></tr></table></div>
+  <h3 id="detalleTitulo"></h3>
+  <div class="tabla"><table id="detalle"></table></div>
+  <p class="nota">El valor teórico usa la fórmula M/M/c con la tasa de cada hora como si fuera constante. En las horas pico la simulación da más porque arrastra la cola de la hora anterior.</p>
+</section>
+
+<section class="panel" id="graficos">
+  <h2>Gráficos</h2>
+  <div class="graficos">
+    <div><h3>Llegadas por hora</h3><div id="g1"></div></div>
+    <div><h3>Espera promedio por hora (s)</h3><div id="g2"></div></div>
+    <div><h3>Cola máxima por hora (vehículos)</h3><div id="g3"></div></div>
+    <div><h3 id="g4t"></h3><div id="g4"></div></div>
+    <div><h3 id="g5t"></h3><div id="g5"></div></div>
+    <div><h3>Uso de los lectores QR (%)</h3><div id="g6"></div></div>
+    <div><h3>Cuánto espera cada vehículo (segundos)</h3><div id="g7"></div></div>
+    <div><h3>Simulación frente a la teoría (espera por hora, s)</h3><div id="g8"></div></div>
+    <div><h3 id="g9t">Recaudación por hora (Q)</h3><div id="g9"></div></div>
+  </div>
+</section>
+
+<section class="dos">
+  <div class="panel"><h2>Bitácora del lector QR</h2>
+    <div class="tabla"><table id="bitacora"></table></div>
+    <p class="nota">Formato del QR: <code>USAC|carnet|vigencia|firma</code>. <span id="bdInfo"></span></p></div>
+  <div class="panel"><h2>Por qué se rechaza un ingreso</h2>
+    <div class="tabla"><table id="motivos"></table></div>
+    <h3>Modelo utilizado</h3><p class="nota" id="modelo"></p></div>
+</section>
+</main>
+</div>
+<footer>Universidad · Departamento de Parqueos y Transporte — Tarifa vigente <b class="tarifaTxt">Q3.00</b> por ingreso · Proyecto académico de simulación</footer>
+<script>
+/* ================= MOTOR DE SIMULACIÓN (eventos discretos) ================= */
+const CFG0 = {
+  horaInicio: 6, horaFin: 20,
+  tasas: {6:3, 7:8, 8:6, 9:3, 10:2.5, 11:3, 12:5, 13:7, 14:4, 15:3, 16:4, 17:6, 18:3, 19:1.5},
+  factor: 1, tarifa: 3, pSaldo: 0.02, servMedio: 10, distrib: 'exp', pInv: 0.05, extraInv: 12,
+  capacidad: 650, ocupIni: 0.10, estanciaMin: 150, cSalida: 2, salidaMedio: 6, maxCola: 0,
+  nEst: 5000, umbral: 60, objWq: 30, objPct: 5, replicas: 20, semilla: 2026, escenarios: [1, 2, 3]
+};
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* Hash con clave (cyrb53) usado como "firma" del QR */
+function firmaHash(str) {
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (h1 >>> 0).toString(16).padStart(8, '0');
+}
+
+/* Módulo QR + validación. Formato: USAC|carnet|vigencia|firma */
+class ValidadorQR {
+  constructor(secreto, nEst) {
+    this.secreto = secreto; this.cache = new Map(); this.bd = new Map(); this.activos = []; this.inactivos = [];
+    for (let i = 0; i < nEst; i++) {
+      const carnet = 201900000 + i, activo = (i % 100) >= 3;   // 3 % de carnets inactivos
+      this.bd.set(carnet, activo);
+      (activo ? this.activos : this.inactivos).push(carnet);
+    }
+  }
+  firma(carnet, vig) {
+    // caché: las firmas legítimas se repiten y el hash es lo más costoso del modelo
+    const k = vig === 20271231 ? carnet * 2 : vig === 20260630 ? carnet * 2 + 1 : -1;
+    if (k < 0) return firmaHash(carnet + '|' + vig + '|' + this.secreto);
+    let f = this.cache.get(k);
+    if (f === undefined) { f = firmaHash(carnet + '|' + vig + '|' + this.secreto); this.cache.set(k, f); }
+    return f;
+  }
+  fabricar(tipo, u) {
+    const lista = tipo === 'inactivo' ? this.inactivos : this.activos;
+    const carnet = lista[Math.floor(u * lista.length)];
+    switch (tipo) {
+      case 'vencido':  return `USAC|${carnet}|20260630|${this.firma(carnet, 20260630)}`;
+      case 'firma':    return `USAC|${carnet}|20271231|00000000`;
+      case 'ilegible': return 'USAC|' + Math.floor(u * 16777215).toString(16).padStart(6, '0');
+      default:         return `USAC|${carnet}|20271231|${this.firma(carnet, 20271231)}`;
+    }
+  }
+  validar(token) {
+    const p = token.split('|');
+    if (p.length !== 4 || p[0] !== 'USAC') return [false, 'QR ilegible'];
+    const carnet = +p[1], vig = +p[2];
+    if (this.firma(carnet, vig) !== p[3]) return [false, 'Firma inválida'];
+    if (!this.bd.has(carnet)) return [false, 'Carnet inexistente'];
+    if (!this.bd.get(carnet)) return [false, 'Carnet inactivo'];
+    if (vig < 20260929) return [false, 'Carnet vencido'];
+    return [true, 'OK'];
+  }
+}
+
+/* Cola de prioridad (montículo binario) ordenada por tiempo y luego por secuencia */
+class Heap {
+  constructor() { this.a = []; }
+  get size() { return this.a.length; }
+  less(x, y) { return x.t < y.t || (x.t === y.t && x.s < y.s); }
+  push(e) {
+    const a = this.a; a.push(e); let i = a.length - 1;
+    while (i > 0) { const p = (i - 1) >> 1; if (!this.less(a[i], a[p])) break; [a[i], a[p]] = [a[p], a[i]]; i = p; }
+  }
+  pop() {
+    const a = this.a, top = a[0], last = a.pop();
+    if (a.length) {
+      a[0] = last; let i = 0;
+      for (;;) {
+        let l = 2 * i + 1, r = l + 1, m = i;
+        if (l < a.length && this.less(a[l], a[m])) m = l;
+        if (r < a.length && this.less(a[r], a[m])) m = r;
+        if (m === i) break; [a[i], a[m]] = [a[m], a[i]]; i = m;
+      }
+    }
+    return top;
+  }
+}
+
+/* Cola FIFO simple */
+class Fifo {
+  constructor() { this.a = []; this.i = 0; }
+  get length() { return this.a.length - this.i; }
+  push(x) { this.a.push(x); }
+  shift() { const x = this.a[this.i++]; if (this.i > 1024 && this.i * 2 > this.a.length) { this.a = this.a.slice(this.i); this.i = 0; } return x; }
+}
+
+const BINS = [5, 10, 20, 30, 60, 120, 300];
+const etiquetasBins = () => ['≤5 s', ...BINS.slice(1).map((b, i) => `${BINS[i]}–${b} s`), '>300 s'];
+const hms = s => { s = Math.floor(s); const p = n => String(n).padStart(2, '0'); return `${p(Math.floor(s / 3600))}:${p(Math.floor(s % 3600 / 60))}:${p(s % 60)}`; };
+
+/*  Vehículo -> Cola FIFO -> [c lectores QR] -> Parqueo (capacidad K) -> Cola y barrera de salida  */
+function simular(cfg, qr, cIn, semilla, conLog) {
+  const rnd = mulberry32(semilla);
+  const expo = m => -m * Math.log(1 - rnd());
+  const servicio = () => cfg.distrib === 'const' ? cfg.servMedio
+    : cfg.distrib === 'erlang2' ? expo(cfg.servMedio / 2) + expo(cfg.servMedio / 2) : expo(cfg.servMedio);
+
+  const t0 = cfg.horaInicio * 3600, tFin = cfg.horaFin * 3600;
+  const LLEGADA = 1, FIN_ENT = 2, SALIDA = 3, FIN_SAL = 4, MUESTRA = 5;
+  const pq = new Heap(); let seq = 0;
+  const push = (t, tipo, id) => pq.push({ t, s: seq++, tipo, id });
+  const qIn = new Fifo(), qOut = new Fifo();
+  let busyIn = 0, busyOut = 0, occ = 0, maxQ = 0, t = t0, last = t0;
+  let aQ = 0, aB = 0, aOcc = 0, aQo = 0, sumEspSal = 0, nSal = 0;
+  const V = [], serie = [], hMaxQ = {}, log = [];
+
+  const avanzar = tn => {
+    const dt = tn - last;
+    if (dt > 0) { aQ += qIn.length * dt; aB += busyIn * dt; aOcc += occ * dt; aQo += qOut.length * dt; }
+    last = tn; t = tn;
+  };
+  const registrarCola = () => {
+    const n = qIn.length, h = Math.floor(t / 3600);
+    if (n > (hMaxQ[h] || 0)) hMaxQ[h] = n;
+    if (n > maxQ) maxQ = n;
+  };
+
+  // Módulo 1: llegadas (Poisson no homogéneo: una tasa por hora)
+  const llegadas = [];
+  for (let h = cfg.horaInicio; h < cfg.horaFin; h++) {
+    const lam = (cfg.tasas[h] || 0) * cfg.factor / 60;
+    if (lam <= 0) continue;
+    let x = h * 3600;
+    for (;;) { x += expo(1 / lam); if (x >= (h + 1) * 3600) break; llegadas.push(x); }
+  }
+  let iL = 0;
+
+  function iniciarServicio(id) {
+    busyIn++;
+    const v = V[id]; v.ini = t; v.estado = 'SERVICIO';
+    // Módulos 3 y 4: el conductor presenta el QR y se valida
+    let tipo = 'valido';
+    if (rnd() < cfg.pInv) { const r = rnd(); tipo = r < 0.4 ? 'ilegible' : r < 0.7 ? 'vencido' : r < 0.9 ? 'firma' : 'inactivo'; }
+    v.token = qr.fabricar(tipo, rnd());
+    [v.ok, v.motivo] = qr.validar(v.token);
+    // Módulo 5: cobro de la tarifa desde el monedero del carnet
+    if (v.ok && rnd() < cfg.pSaldo) { v.ok = false; v.motivo = 'Saldo insuficiente'; }
+    push(t + servicio() + (v.ok ? 0 : cfg.extraInv), FIN_ENT, id);
+  }
+  function llegada() {
+    const id = V.length;
+    V.push({ lleg: t, ini: null, fin: null, estado: 'COLA', ok: true, motivo: '', token: '', previo: false });
+    if (occ >= cfg.capacidad) V[id].estado = 'LLENO';                       // cartel "parqueo lleno"
+    else if (busyIn < cIn) iniciarServicio(id);
+    else if (cfg.maxCola > 0 && qIn.length >= cfg.maxCola) V[id].estado = 'ABANDONO';
+    else { qIn.push(id); registrarCola(); }
+    if (iL < llegadas.length) push(llegadas[iL++], LLEGADA, -1);
+  }
+  function finEntrada(id) {
+    busyIn--;
+    const v = V[id]; v.fin = t;
+    if (!v.ok) v.estado = 'QR_INVALIDO';
+    else if (occ >= cfg.capacidad) v.estado = 'LLENO';
+    else {
+      occ++; v.estado = 'OK';
+      const est = 1800 + expo(Math.max(60, cfg.estanciaMin * 60 - 1800));
+      if (t + est <= tFin) push(t + est, SALIDA, id);
+    }
+    if (conLog && log.length < 40 && !v.previo)
+      log.push({ hora: hms(v.lleg), token: v.token, motivo: v.motivo, estado: v.estado, espera: +(v.ini - v.lleg).toFixed(1), cobro: v.estado === 'OK' ? cfg.tarifa : 0 });
+    if (qIn.length) iniciarServicio(qIn.shift());
+  }
+  function iniciarSalida(id) {
+    busyOut++; sumEspSal += t - V[id].salLleg; nSal++;
+    push(t + expo(cfg.salidaMedio), FIN_SAL, id);
+  }
+  function salida(id) { V[id].salLleg = t; if (busyOut < cfg.cSalida) iniciarSalida(id); else qOut.push(id); }
+  function finSalida(id) { busyOut--; occ--; V[id].estado = V[id].previo ? 'PREVIO' : 'SALIO'; if (qOut.length) iniciarSalida(qOut.shift()); }
+  function muestra() {
+    serie.push([t, qIn.length, busyIn, occ, qOut.length]);
+    if (t + 300 <= tFin) push(t + 300, MUESTRA, -1);
+  }
+
+  // vehículos que ya estaban dentro al abrir
+  const previos = Math.round(cfg.capacidad * cfg.ocupIni);
+  for (let i = 0; i < previos; i++) {
+    const id = V.length;
+    V.push({ lleg: t0, ini: null, fin: null, estado: 'PREVIO_DENTRO', ok: true, motivo: '', token: '', previo: true });
+    occ++;
+    const s = t0 + expo(cfg.estanciaMin * 30);
+    if (s <= tFin) push(s, SALIDA, id);
+  }
+  if (llegadas.length) push(llegadas[iL++], LLEGADA, -1);
+  push(t0, MUESTRA, -1);
+
+  while (pq.size) {
+    const e = pq.pop();
+    if (e.t > tFin) break;
+    avanzar(e.t);
+    switch (e.tipo) {
+      case LLEGADA: llegada(); break; case FIN_ENT: finEntrada(e.id); break;
+      case SALIDA: salida(e.id); break; case FIN_SAL: finSalida(e.id); break; default: muestra();
+    }
+  }
+  avanzar(tFin);
+
+  // ---- resultados
+  const T = tFin - t0, esperas = [], cnt = { OK: 0, QR_INVALIDO: 0, LLENO: 0, ABANDONO: 0, PEND: 0 }, motivos = {};
+  const horas = {}; let llego = 0, pendSum = 0, pendN = 0, sumSist = 0, nSist = 0;
+  for (let h = cfg.horaInicio; h < cfg.horaFin; h++) horas[h] = { n: 0, nw: 0, sw: 0, max: 0, sobre: 0, rech: 0, pagos: 0, cola_max: hMaxQ[h] || 0 };
+  const hist = new Array(BINS.length + 1).fill(0);
+  for (const x of V) {
+    if (x.previo) continue;
+    llego++;
+    const h = Math.floor(x.lleg / 3600), H = horas[h]; H.n++;
+    const e = x.estado;
+    if (e === 'COLA' || e === 'SERVICIO') { cnt.PEND++; if (e === 'COLA') { pendSum += tFin - x.lleg; pendN++; } }
+    else cnt[(e === 'OK' || e === 'SALIO') ? 'OK' : e]++;
+    if (e === 'OK' || e === 'SALIO') H.pagos++;
+    if (e === 'QR_INVALIDO') motivos[x.motivo] = (motivos[x.motivo] || 0) + 1;
+    if (e === 'LLENO' || e === 'ABANDONO' || e === 'QR_INVALIDO') H.rech++;
+    if (x.ini !== null) {
+      const w = x.ini - x.lleg; esperas.push(w); H.nw++; H.sw += w;
+      if (w > H.max) H.max = w; if (w > cfg.umbral) H.sobre++;
+      if (x.fin !== null) { sumSist += x.fin - x.lleg; nSist++; }
+      let b = 0; while (b < BINS.length && w > BINS[b]) b++; hist[b]++;
+    }
+  }
+  esperas.sort((a, b) => a - b);
+  const n = esperas.length, sobre = esperas.filter(w => w > cfg.umbral).length;
+  const porHora = {};
+  for (const [ts, q, , o, qo] of serie) { const h = Math.floor(ts / 3600); (porHora[h] ||= { q: [], o: [], qo: [] }); porHora[h].q.push(q); porHora[h].o.push(o); porHora[h].qo.push(qo); }
+  const prom = a => a && a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0;
+  for (const h in horas) {
+    const H = horas[h];
+    H.espera_prom = H.nw ? H.sw / H.nw : 0; H.pct_sobre = H.nw ? 100 * H.sobre / H.nw : 0;
+    H.cola_prom = prom(porHora[h]?.q); H.ocup_prom = prom(porHora[h]?.o); H.recaudacion = H.pagos * cfg.tarifa;
+  }
+  return {
+    resumen: {
+      servidores: cIn, llegaron: llego, ingresaron: cnt.OK, qr_invalidos: cnt.QR_INVALIDO, parqueo_lleno: cnt.LLENO,
+      abandonos: cnt.ABANDONO, pendientes: cnt.PEND, lambda_min: llego / (T / 60), rho: Math.min(1, aB / (cIn * T)),
+      wq: n ? esperas.reduce((s, x) => s + x, 0) / n : 0, w: nSist ? sumSist / nSist : 0,
+      p95: n ? esperas[Math.floor(0.95 * (n - 1))] : 0, espera_max: n ? esperas[n - 1] : 0,
+      pct_sobre: n ? 100 * sobre / n : 0, lq: aQ / T, l: (aQ + aB) / T, cola_max: maxQ,
+      ocup_prom: aOcc / T, ocup_max: serie.length ? Math.max(...serie.map(s => s[3])) : 0,
+      espera_salida: nSal ? sumEspSal / nSal : 0, recaudacion: cnt.OK * cfg.tarifa
+    },
+    horas, hist, motivos, serie, log
+  };
+}
+
+/* ---- Análisis: réplicas, IC 95 %, teoría M/M/c, recomendación ---- */
+const T_STUDENT = { 1: 12.71, 2: 4.30, 3: 3.18, 4: 2.78, 5: 2.57, 6: 2.45, 7: 2.36, 8: 2.31, 9: 2.26, 10: 2.23, 15: 2.13, 20: 2.09, 30: 2.04 };
+function ic95(x) {
+  const n = x.length; if (n < 2) return 0;
+  const m = x.reduce((s, v) => s + v, 0) / n, sd = Math.sqrt(x.reduce((s, v) => s + (v - m) ** 2, 0) / (n - 1));
+  const df = n - 1, keys = Object.keys(T_STUDENT).map(Number).filter(k => k <= df);
+  const t = df > 30 ? 1.96 : T_STUDENT[Math.max(...keys)];
+  return t * sd / Math.sqrt(n);
+}
+function replicar(cfg, qr, cIn) {
+  let acum = {}, horas = {}, hist = [], motivos = {}, primera = null; const wqs = [], lqs = [], R = cfg.replicas;
+  for (let r = 0; r < R; r++) {
+    const res = simular(cfg, qr, cIn, cfg.semilla + r, r === 0);
+    if (r === 0) primera = res;
+    for (const k in res.resumen) acum[k] = (acum[k] || 0) + res.resumen[k];
+    wqs.push(res.resumen.wq); lqs.push(res.resumen.lq);
+    for (const h in res.horas) { horas[h] ||= {}; for (const k in res.horas[h]) horas[h][k] = (horas[h][k] || 0) + res.horas[h][k]; }
+    res.hist.forEach((v, i) => hist[i] = (hist[i] || 0) + v);
+    for (const m in res.motivos) motivos[m] = (motivos[m] || 0) + res.motivos[m];
+  }
+  for (const k in acum) acum[k] /= R;
+  for (const h in horas) for (const k in horas[h]) horas[h][k] /= R;
+  for (const m in motivos) motivos[m] /= R;
+  acum.servidores = cIn; acum.wq_ic = ic95(wqs); acum.lq_ic = ic95(lqs);
+  return { resumen: acum, horas, hist: hist.map(v => v / R), motivos, serie: primera.serie, log: primera.log };
+}
+function mmc(c, lam, mu) {
+  if (lam <= 0) return { wq: 0 };
+  const a = lam / mu, rho = a / c; if (rho >= 1) return null;
+  let term = 1, sum = 1; for (let k = 1; k < c; k++) { term *= a / k; sum += term; }
+  const cola = (term * a / c) / (1 - rho), pw = cola / (sum + cola), wq = pw / (c * mu - lam);
+  return { rho, pw, wq, lq: lam * wq };
+}
+function teoriaPorHora(cfg, c) {
+  const pRech = cfg.pInv + (1 - cfg.pInv) * cfg.pSaldo, mu = 1 / (cfg.servMedio + pRech * cfg.extraInv), out = {};
+  for (let h = cfg.horaInicio; h < cfg.horaFin; h++) {
+    const lam = (cfg.tasas[h] || 0) * cfg.factor / 60;
+    out[h] = { lambda_min: lam * 60, teo: mmc(c, lam, mu) };
+  }
+  return out;
+}
+function recomendar(esc, objWq, objPct) {
+  const cs = Object.keys(esc).map(Number).sort((a, b) => a - b);
+  for (const c of cs) { const r = esc[c].resumen; if (r.wq <= objWq && r.pct_sobre <= objPct && r.pendientes < 1) return { c, cumple: true }; }
+  return { c: cs[cs.length - 1], cumple: false };
+}
+
+/* ================= INTERFAZ ================= */
+const $ = id => document.getElementById(id);
+const num = (x, d = 1) => x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const quetzal = x => 'Q' + num(x, 2);
+const PAL = ['#16427a', '#d64545', '#2f9e6b', '#c98a00', '#7a5cb8', '#0f8b9d'];
+let RES = null;   // último resultado
+
+/* ---------- formulario <-> configuración ---------- */
+function construirTasas() {
+  $('tasas').innerHTML = Object.keys(CFG0.tasas).map(h =>
+    `<label class="mini"><span>${String(h).padStart(2, '0')}:00</span><input type="number" step="0.5" min="0" id="tasa_${h}" value="${CFG0.tasas[h]}"></label>`).join('');
+}
+function leer() {
+  const v = id => { const x = parseFloat($(id).value); return Number.isFinite(x) ? x : NaN; };
+  const cl = (x, a, b, d) => Number.isFinite(x) ? Math.max(a, Math.min(b, x)) : d;
+  const c = JSON.parse(JSON.stringify(CFG0));
+  c.factor = cl(v('factor'), 0.1, 5, 1);
+  c.tarifa = cl(v('tarifa'), 0, 100, 3);
+  c.pSaldo = cl(v('pSaldo'), 0, 60, 2) / 100;
+  c.servMedio = cl(v('servMedio'), 1, 120, 10);
+  c.distrib = $('distrib').value;
+  c.pInv = cl(v('pInv'), 0, 60, 5) / 100;
+  c.extraInv = cl(v('extraInv'), 0, 300, 12);
+  c.maxCola = Math.round(cl(v('maxCola'), 0, 1000, 0));
+  c.capacidad = Math.round(cl(v('capacidad'), 10, 5000, 650));
+  c.ocupIni = cl(v('ocupIni'), 0, 100, 10) / 100;
+  c.estanciaMin = cl(v('estanciaMin'), 40, 600, 150);
+  c.cSalida = Math.round(cl(v('cSalida'), 1, 10, 2));
+  c.salidaMedio = cl(v('salidaMedio'), 1, 120, 6);
+  c.umbral = cl(v('umbral'), 5, 600, 60);
+  c.objWq = cl(v('objWq'), 1, 600, 30);
+  c.objPct = cl(v('objPct'), 0, 100, 5);
+  c.replicas = Math.round(cl(v('replicas'), 1, 60, 20));
+  c.semilla = Math.round(cl(v('semilla'), 1, 999999, 2026));
+  for (const h in c.tasas) c.tasas[h] = cl(v('tasa_' + h), 0, 60, CFG0.tasas[h]);
+  const esc = [...document.querySelectorAll('input[name=esc]:checked')].map(e => +e.value).sort((a, b) => a - b);
+  c.escenarios = (esc.length ? esc : [1, 2, 3]).slice(0, 5);
+  return c;
+}
+
+/* ---------- gráficos SVG sin dependencias ---------- */
+function nice(max) {
+  if (max <= 0) return 1;
+  const p = Math.pow(10, Math.floor(Math.log10(max))), f = max / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+}
+function grafico(id, o) {
+  const W = 560, H = 290, m = { l: 58, r: 10, t: 12, b: 62 }, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const n = o.labels.length;
+  const vals = o.series.flatMap(s => s.data.filter(v => v !== null));
+  const ymax = o.yMax ?? nice(Math.max(...vals, 1e-9) * 1.05);
+  const y = v => m.t + ph - (v / ymax) * ph, band = pw / n, cx = i => m.l + (i + 0.5) * band;
+  const nb = o.series.filter(s => s.tipo === 'bar').length;
+  let g = '';
+  for (let k = 0; k <= 5; k++) {
+    const v = ymax * k / 5, yy = y(v);
+    g += `<line x1="${m.l}" x2="${W - m.r}" y1="${yy}" y2="${yy}" stroke="#e3e6ea"/><text x="${m.l - 6}" y="${yy + 4}" text-anchor="end" class="ax">${num(v, ymax < 5 ? 1 : 0)}</text>`;
+  }
+  const step = Math.ceil(n / (o.maxTicks || 12));
+  o.labels.forEach((l, i) => { if (i % step === 0) g += `<text x="${cx(i)}" y="${m.t + ph + 16}" text-anchor="middle" class="ax">${l}</text>`; });
+  let bi = 0;
+  o.series.forEach((s, si) => {
+    const col = s.color || PAL[si % PAL.length];
+    if (s.tipo === 'bar') {
+      const bw = band * 0.78 / nb, x0 = (i) => cx(i) - band * 0.39 + bi * bw;
+      s.data.forEach((v, i) => {
+        if (v === null) return;
+        const c = s.colors ? s.colors[i] : col;
+        g += `<rect x="${x0(i)}" y="${y(v)}" width="${Math.max(1, bw - 1)}" height="${m.t + ph - y(v)}" fill="${c}"><title>${o.labels[i]} · ${s.name}: ${num(v, 1)}</title></rect>`;
+      });
+      bi++;
+    } else {
+      let d = '', pen = false, area = '';
+      s.data.forEach((v, i) => { if (v === null) { pen = false; return; } d += `${pen ? 'L' : 'M'}${cx(i).toFixed(1)},${y(v).toFixed(1)}`; pen = true; });
+      if (s.fill) area = `<path d="${d}L${cx(n - 1)},${m.t + ph}L${cx(0)},${m.t + ph}Z" fill="${col}" opacity=".14"/>`;
+      g += area + `<path d="${d}" fill="none" stroke="${col}" stroke-width="${s.w || 2}" ${s.dash ? 'stroke-dasharray="6 4"' : ''} stroke-linejoin="round"/>`;
+      if (n <= 30) s.data.forEach((v, i) => { if (v !== null) g += `<circle cx="${cx(i)}" cy="${y(v)}" r="3.2" fill="${col}"><title>${o.labels[i]} · ${s.name}: ${num(v, 1)}</title></circle>`; });
+    }
+  });
+  let lx = m.l; const ly = H - 14;
+  if (o.series.length > 1 || o.legend) o.series.forEach((s, si) => {
+    const col = s.color || PAL[si % PAL.length];
+    g += `<rect x="${lx}" y="${ly - 9}" width="11" height="11" fill="${col}"/><text x="${lx + 16}" y="${ly}" class="ax">${s.name}</text>`;
+    lx += 28 + s.name.length * 7.4;
+  });
+  if (o.yTitle) g += `<text transform="translate(14 ${m.t + ph / 2}) rotate(-90)" text-anchor="middle" class="ax">${o.yTitle}</text>`;
+  $(id).innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${o.aria}">${g}</svg>`;
+}
+
+/* ---------- animación de la entrada ---------- */
+const anim = { serie: [], c: 1, cap: 650, p: 0, play: true, vel: 8, last: 0 };
+function dibujarEntrada(p) {
+  const cv = $('lane'), ctx = cv.getContext('2d'), dpr = window.devicePixelRatio || 1;
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+  const S = anim.serie; if (!S.length) return;
+  const i0 = Math.floor(p), i1 = Math.min(S.length - 1, i0 + 1), f = p - i0;
+  const L = k => S[i0][k] + (S[i1][k] - S[i0][k]) * f;
+  const t = L(0), q = Math.round(L(1)), b = Math.round(L(2)), occ = Math.round(L(3)), c = anim.c;
+  const gx = w * 0.62, top = 46, bot = h - 16, laneH = (bot - top) / c;
+  ctx.fillStyle = '#2b3037'; ctx.fillRect(0, 0, w, h);
+  ctx.font = '600 13px Bahnschrift, "Segoe UI", system-ui, sans-serif';
+  for (let j = 0; j < c; j++) {
+    const y0 = top + j * laneH, yc = y0 + laneH / 2;
+    ctx.fillStyle = '#39404a'; ctx.fillRect(0, y0 + 3, gx, laneH - 6);
+    ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.setLineDash([10, 10]); ctx.beginPath(); ctx.moveTo(0, yc); ctx.lineTo(gx - 30, yc); ctx.stroke(); ctx.setLineDash([]);
+    const enCola = Math.floor(q / c) + (j < q % c ? 1 : 0), ocupado = j < b, ch = Math.min(laneH - 14, 22);
+    const car = (x, col) => { ctx.fillStyle = col; ctx.beginPath(); ctx.roundRect(x, yc - ch / 2, 26, ch, 4); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(x + 16, yc - ch / 2 + 3, 5, ch - 6); };
+    const cols = ['#c9d1d9', '#8fb4d9', '#e0a96d', '#a5c9a1', '#d98c8c'];
+    if (ocupado) car(gx - 34, cols[(j + i0) % 5]);
+    const dib = Math.min(enCola, Math.max(3, Math.floor((gx - 90) / 32)));
+    for (let k = 0; k < dib; k++) car(gx - 72 - k * 32, cols[(k + j * 2) % 5]);
+    if (enCola > dib) { ctx.fillStyle = '#f2b705'; ctx.textAlign = 'left'; ctx.fillText('+' + (enCola - dib), 8, yc + 4); }
+    // barrera: bajada = cruza el carril; levantada = queda a lo largo del camino
+    const arm = (x1, y1, x2, y2) => {
+      ctx.lineWidth = 6; ctx.strokeStyle = '#f2b705'; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      ctx.strokeStyle = '#23272e'; ctx.setLineDash([6, 8]); ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.setLineDash([]); ctx.lineWidth = 1;
+    };
+    ctx.fillStyle = '#1a1d22'; ctx.fillRect(gx - 4, y0 + 4, 12, 12);
+    if (ocupado) arm(gx + 2, y0 + 10, gx + 2 + Math.min(laneH, 44), y0 + 10); else arm(gx + 2, y0 + 10, gx + 2, y0 + laneH - 5);
+    ctx.fillStyle = ocupado ? '#3fbf82' : '#e05a5a'; ctx.beginPath(); ctx.arc(gx + 2, y0 + 10, 3.5, 0, 7); ctx.fill();
+  }
+  // parqueo
+  const px = gx + 70, pw = w - px - 16, ph = bot - top, fill = Math.min(1, occ / anim.cap), by = top + 52, bh = ph - 52;
+  ctx.fillStyle = '#39404a'; ctx.fillRect(px, top, pw, ph);
+  ctx.fillStyle = fill > 0.95 ? '#e05a5a' : fill > 0.8 ? '#f2b705' : '#3fbf82'; ctx.fillRect(px, by + bh * (1 - fill), pw, bh * fill);
+  ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.strokeRect(px + .5, by + .5, pw - 1, bh - 1);
+  ctx.fillStyle = '#c9d1d9'; ctx.textAlign = 'center'; ctx.fillText('Parqueo', px + pw / 2, top + 18);
+  ctx.fillStyle = '#fff'; ctx.font = '700 20px Bahnschrift, "Segoe UI", system-ui, sans-serif'; ctx.fillText(occ + ' / ' + anim.cap, px + pw / 2, top + 42);
+  ctx.textAlign = 'left'; ctx.font = '700 26px Bahnschrift, "Segoe UI", system-ui, sans-serif'; ctx.fillStyle = '#fff';
+  const hh = Math.floor(t / 3600), mm = Math.floor(t % 3600 / 60);
+  ctx.fillText(String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0'), 12, 32);
+  ctx.font = '600 13px Bahnschrift, "Segoe UI", system-ui, sans-serif'; ctx.fillStyle = '#c9d1d9';
+  ctx.fillText(q + ' en cola · ' + b + '/' + c + ' lectores atendiendo', 100, 30);
+  $('scrub').value = p;
+}
+function tick(ts) {
+  if (anim.play && anim.serie.length) {
+    const dt = Math.min(0.1, (ts - anim.last) / 1000); anim.p += dt * anim.vel;
+    if (anim.p >= anim.serie.length - 1) anim.p = 0;
+  }
+  anim.last = ts; if (anim.serie.length) dibujarEntrada(anim.p);
+  requestAnimationFrame(tick);
+}
+function fijarAnimacion(c) {
+  anim.serie = RES.esc[c].serie; anim.c = c; anim.cap = RES.cfg.capacidad;
+  $('scrub').max = anim.serie.length - 1; anim.p = 0;
+}
+
+/* ---------- tablas y textos ---------- */
+function rangos(hs) {
+  if (!hs.length) return '—';
+  const out = []; let ini = hs[0], prev = hs[0];
+  for (const x of hs.slice(1)) { if (x !== prev + 1) { out.push([ini, prev]); ini = x; } prev = x; }
+  out.push([ini, prev]);
+  const p = n => String(n).padStart(2, '0');
+  return out.map(r => `${p(r[0])}:00–${p(r[1] + 1)}:00`).join(', ');
+}
+const FILAS = [
+  ['Vehículos que llegaron', 'llegaron', 0], ['Ingresaron al parqueo', 'ingresaron', 0], ['Rechazados en el lector (QR o saldo)', 'qr_invalidos', 0],
+  ['Rechazados por parqueo lleno', 'parqueo_lleno', 0], ['Abandonaron la cola', 'abandonos', 0], ['Quedaron en cola al cierre', 'pendientes', 1],
+  ['λ llegadas (veh/min)', 'lambda_min', 2], ['ρ utilización de los lectores', 'rho', 'pct'], ['Wq espera promedio (s)', 'wq', 'ic'],
+  ['P95 de la espera (s)', 'p95', 1], ['Espera máxima (s)', 'espera_max', 0], ['% con espera larga', 'pct_sobre', 1],
+  ['W tiempo en el sistema (s)', 'w', 1], ['Lq vehículos en cola (prom.)', 'lq', 'icq'], ['L vehículos en el sistema (prom.)', 'l', 2],
+  ['Cola máxima (vehículos)', 'cola_max', 0], ['Ocupación máxima del parqueo', 'ocup_max', 0], ['Espera promedio en la salida (s)', 'espera_salida', 1], ['Recaudación del día', 'recaudacion', 'q']
+];
+function celda(r, k, t) {
+  const v = r[k];
+  if (t === 'q') return quetzal(v);
+  if (t === 'pct') return num(v * 100, 1) + ' %';
+  if (t === 'ic') return `${num(v, 1)} <small>± ${num(r.wq_ic, 1)}</small>`;
+  if (t === 'icq') return `${num(v, 2)} <small>± ${num(r.lq_ic, 2)}</small>`;
+  return num(v, t);
+}
+
+/* ---------- ejecución y render ---------- */
+function ejecutar() {
+  const cfg = leer(), qr = new ValidadorQR('secreto-usac', cfg.nEst), esc = {};
+  for (const c of cfg.escenarios) esc[c] = replicar(cfg, qr, c);
+  const rec = recomendar(esc, cfg.objWq, cfg.objPct);
+  RES = { cfg, esc, rec, qr };
+  render();
+}
+function render() {
+  const { cfg, esc, rec, qr } = RES, R = esc[rec.c], r = R.resumen, cs = Object.keys(esc).map(Number);
+  const horas = []; for (let h = cfg.horaInicio; h < cfg.horaFin; h++) horas.push(h);
+  const lab = horas.map(h => String(h).padStart(2, '0') + ':00'), p2 = n => String(n).padStart(2, '0');
+  const nom = c => c + (c === 1 ? ' entrada' : ' entradas');
+
+  // veredicto + indicadores
+  $('veredicto').className = 'veredicto ' + (rec.cumple ? 'si' : 'no');
+  $('veredicto').innerHTML = rec.cumple
+    ? `Con <b>${nom(rec.c)}</b> se cumplen los objetivos: espera promedio de ${num(cfg.objWq, 0)} s o menos y no más de ${num(cfg.objPct, 1)} % de vehículos esperando más de ${num(cfg.umbral, 0)} s.`
+    : `Ningún escenario cumple los objetivos. Se muestra el de mayor capacidad (${nom(rec.c)}). Agrega entradas, acelera la lectura o revisa la demanda.`;
+  const kpis = [
+    [num(r.wq, 1) + ' s', `Espera promedio (IC 95 %: ± ${num(r.wq_ic, 1)})`], [num(r.p95, 1) + ' s', 'El 95 % espera menos que esto'],
+    [num(r.rho * 100, 0) + ' %', 'Uso de los lectores QR'], [num(r.cola_max, 0), 'Máximo de vehículos en cola'],
+    [num(r.ingresaron, 0), `Ingresaron de ${num(r.llegaron, 0)} que llegaron`], [`${num(r.ocup_max, 0)} / ${cfg.capacidad}`, 'Ocupación máxima del parqueo'],
+    [quetzal(r.recaudacion), `Recaudación del día (${num(r.ingresaron, 0)} ingresos × ${quetzal(cfg.tarifa)})`, 'dinero']];
+  $('kpis').innerHTML = kpis.map(k => `<div class="kpi ${k[2] || ''}"><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
+
+  // selector de animación
+  $('animSel').innerHTML = cs.map(c => `<option value="${c}" ${c === rec.c ? 'selected' : ''}>${nom(c)}</option>`).join('');
+  fijarAnimacion(rec.c);
+
+  // comparación
+  $('comparacion').innerHTML = `<tr><th>Indicador</th>${cs.map(c => `<th class="${c === rec.c ? 'rec' : ''}">${nom(c)}${c === rec.c ? ' (recomendado)' : ''}</th>`).join('')}</tr>` +
+    FILAS.map(([n, k, t]) => `<tr><td>${n}</td>${cs.map(c => `<td class="${c === rec.c ? 'rec' : ''}">${celda(esc[c].resumen, k, t)}</td>`).join('')}</tr>`).join('');
+
+  // congestión
+  $('congestion').innerHTML = cs.map(c => {
+    const l = horas.filter(h => esc[c].horas[h].espera_prom > cfg.objWq || esc[c].horas[h].pct_sobre > cfg.objPct);
+    return `<tr><td>${nom(c)}</td><td class="izq">${rangos(l)}</td></tr>`;
+  }).join('');
+  const teoria = teoriaPorHora(cfg, rec.c);
+  $('detalleTitulo').textContent = `Detalle por hora con ${nom(rec.c)}`;
+  $('detalle').innerHTML = `<tr><th>Hora</th><th>Llegadas</th><th>λ (veh/min)</th><th>Espera prom. (s)</th><th>Espera máx. (s)</th><th>% espera larga</th><th>Cola máx.</th><th>Cola prom.</th><th>Ocupación prom.</th><th>Rechazos</th><th>Wq teórico (s)</th><th>Estado</th></tr>` +
+    horas.map(h => {
+      const d = R.horas[h], teo = teoria[h].teo;
+      const cls = (d.espera_prom > 2 * cfg.objWq || d.pct_sobre > 4 * cfg.objPct) ? 'crit' : (d.espera_prom > cfg.objWq || d.pct_sobre > cfg.objPct) ? 'warn' : 'ok';
+      return `<tr><td>${p2(h)}:00</td><td>${num(d.n, 0)}</td><td>${num(teoria[h].lambda_min, 1)}</td><td>${num(d.espera_prom, 1)}</td><td>${num(d.max, 0)}</td><td>${num(d.pct_sobre, 1)}</td><td>${num(d.cola_max, 0)}</td><td>${num(d.cola_prom, 1)}</td><td>${num(d.ocup_prom, 0)}</td><td>${num(d.rech, 0)}</td><td>${teo === null ? '∞ (ρ ≥ 1)' : num(teo.wq, 1)}</td><td><span class="tag ${cls}">${{ ok: 'Fluido', warn: 'Congestión', crit: 'Crítico' }[cls]}</span></td></tr>`;
+    }).join('');
+
+  // gráficos
+  const horaTxt = s => p2(Math.floor(s[0] / 3600)) + ':' + p2(Math.floor(s[0] % 3600 / 60));
+  const labT = R.serie.map(horaTxt);
+  grafico('g1', { labels: lab, series: [{ name: 'Vehículos', tipo: 'bar', data: horas.map(h => Math.round(R.horas[h].n)), color: '#6b7683' }], yTitle: 'vehículos', aria: 'Llegadas por hora' });
+  grafico('g2', { labels: lab, series: cs.map((c, i) => ({ name: nom(c), data: horas.map(h => +esc[c].horas[h].espera_prom.toFixed(1)), color: PAL[i % 6] })), yTitle: 'segundos', aria: 'Espera promedio por hora' });
+  grafico('g3', { labels: lab, series: cs.map((c, i) => ({ name: nom(c), tipo: 'bar', data: horas.map(h => +esc[c].horas[h].cola_max.toFixed(1)), color: PAL[i % 6] })), yTitle: 'vehículos', aria: 'Cola máxima por hora' });
+  grafico('g4', { labels: labT, maxTicks: 10, series: cs.map((c, i) => ({ name: nom(c), data: esc[c].serie.map(s => s[1]), color: PAL[i % 6], w: 1.6 })), yTitle: 'vehículos en cola', aria: 'Longitud de la cola durante el día' });
+  grafico('g5', { labels: labT, maxTicks: 10, yMax: nice(Math.max(cfg.capacidad, ...R.serie.map(s => s[3])) * 1.02), series: [{ name: 'Ocupación', data: R.serie.map(s => s[3]), color: '#2f9e6b', fill: true }, { name: 'Capacidad', data: R.serie.map(() => cfg.capacidad), color: '#d64545', dash: true, w: 1.5 }], yTitle: 'vehículos', aria: 'Ocupación del parqueo' });
+  grafico('g6', { labels: cs.map(nom), yMax: 100, legend: false, series: [{ name: 'ρ (%)', tipo: 'bar', data: cs.map(c => +(esc[c].resumen.rho * 100).toFixed(1)), colors: cs.map(c => esc[c].resumen.rho >= .95 ? '#d64545' : esc[c].resumen.rho >= .8 ? '#c98a00' : '#3b6ea5') }], yTitle: '% de uso', aria: 'Utilización de los lectores' });
+  grafico('g7', { labels: etiquetasBins().map(s => s.replace(' s', '')), series: [{ name: 'Vehículos por día', tipo: 'bar', data: R.hist.map(v => +v.toFixed(1)), color: '#7a5cb8' }], yTitle: 'vehículos', aria: 'Distribución de la espera' });
+  grafico('g8', { labels: lab, series: [{ name: 'Simulación', data: horas.map(h => +R.horas[h].espera_prom.toFixed(1)), color: '#3b6ea5' }, { name: 'Teoría M/M/c (sin dato si ρ ≥ 1)', data: horas.map(h => teoria[h].teo === null ? null : +teoria[h].teo.wq.toFixed(1)), color: '#c98a00', dash: true }], yTitle: 'segundos', aria: 'Simulación contra teoría' });
+  grafico('g9', { labels: lab, series: [{ name: 'Recaudación (Q)', tipo: 'bar', data: horas.map(h => +R.horas[h].recaudacion.toFixed(2)), color: '#c9a227' }], yTitle: 'quetzales', aria: 'Recaudación por hora' });
+  $('g9t').textContent = `Recaudación por hora con ${nom(rec.c)} (Q)`;
+  $('g4t').textContent = 'Longitud de la cola durante el día (primera réplica)';
+  $('g5t').textContent = `Ocupación del parqueo con ${nom(rec.c)}`;
+
+  // bitácora y motivos
+  $('bitacora').innerHTML = `<tr><th>Llegada</th><th class="izq">Contenido del QR</th><th class="izq">Validación</th><th>Resultado</th><th>Cobro</th><th>Espera (s)</th></tr>` +
+    R.log.slice(0, 15).map(l => `<tr><td>${l.hora}</td><td class="izq"><code>${l.token}</code></td><td class="izq">${l.motivo}</td><td><span class="tag ${l.estado === 'OK' ? 'ok' : 'crit'}">${l.estado === 'OK' ? 'Ingresó' : l.estado === 'QR_INVALIDO' ? 'Rechazado' : l.estado === 'LLENO' ? 'Parqueo lleno' : l.estado}</span></td><td>${l.cobro ? quetzal(l.cobro) : '—'}</td><td>${l.espera}</td></tr>`).join('');
+  $('bdInfo').textContent = `Validación: formato, firma, existencia en la base de datos (${qr.bd.size.toLocaleString('en-US')} estudiantes), carnet activo y vigente, y saldo suficiente para pagar ${quetzal(cfg.tarifa)}.`;
+  const mo = Object.entries(R.motivos).sort((a, b) => b[1] - a[1]);
+  $('motivos').innerHTML = `<tr><th>Motivo</th><th>Vehículos por día</th></tr>` + mo.map(([m, v]) => `<tr><td>${m}</td><td>${num(v, 1)}</td></tr>`).join('');
+  const dn = { exp: 'exponencial', erlang2: 'Erlang-2', const: 'constante' }[cfg.distrib];
+  $('modelo').textContent = `Llegadas: proceso de Poisson con una tasa distinta cada hora. Lectura del QR: ${dn}, media de ${cfg.servMedio} s (más ${cfg.extraInv} s si el QR falla). Si el QR es válido se cobra la tarifa de ${quetzal(cfg.tarifa)} del monedero del carnet; el ${num(cfg.pSaldo * 100, 1)} % no tiene saldo y se rechaza. Una sola cola FIFO atiende a todos los lectores. Si el parqueo llega a ${cfg.capacidad} vehículos, los siguientes se rechazan. Salida: ${cfg.cSalida} barrera(s) de ${cfg.salidaMedio} s. Cada escenario se repite ${cfg.replicas} veces con semillas distintas y se promedian los resultados.`;
+}
+
+/* ---------- exportar CSV ---------- */
+function exportar() {
+  if (!RES) return;
+  const { esc, cfg } = RES, cs = Object.keys(esc), q = [];
+  q.push('escenario_entradas,llegaron,ingresaron,rechazados_lector,parqueo_lleno,rho,wq_s,p95_s,pct_espera_larga,lq,cola_max,ocup_max,recaudacion_q');
+  for (const c of cs) { const r = esc[c].resumen; q.push([c, r.llegaron, r.ingresaron, r.qr_invalidos, r.parqueo_lleno, r.rho, r.wq, r.p95, r.pct_sobre, r.lq, r.cola_max, r.ocup_max, r.recaudacion].map((x, i) => i ? (+x).toFixed(3) : x).join(',')); }
+  q.push('', 'escenario_entradas,hora,llegadas,espera_prom_s,espera_max_s,pct_espera_larga,cola_max,cola_prom,ocupacion_prom');
+  for (const c of cs) for (const h in esc[c].horas) { const d = esc[c].horas[h]; q.push([c, h + ':00', d.n, d.espera_prom, d.max, d.pct_sobre, d.cola_max, d.cola_prom, d.ocup_prom].map((x, i) => i > 1 ? (+x).toFixed(2) : x).join(',')); }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff' + q.join('\n')], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'parqueo_qr_resultados.csv'; a.click(); URL.revokeObjectURL(a.href);
+}
+
+/* ================= MONEDERO DEL CARNET (como tarjeta de bus) ================= */
+const MON_KEY = 'parqueo-monedero-v1', SEL_KEY = 'parqueo-carnet-sel';
+const monedero = (() => { try { return JSON.parse(localStorage.getItem(MON_KEY)) || {}; } catch { return {}; } })();
+const guardarMon = () => { try { localStorage.setItem(MON_KEY, JSON.stringify(monedero)); } catch {} };
+const tarifaActual = () => { const x = parseFloat($('tarifa').value); return Number.isFinite(x) && x >= 0 ? Math.min(100, x) : 3; };
+const escHtml = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+const soloDig = s => s.replace(/\D/g, '');
+const cuenta = n => (monedero[n] ||= { saldo: 0, movs: [], dentro: false, nombre: '' });
+
+// misma regla que la base de datos del ValidadorQR: 5000 carnets, 3 % inactivos
+function estadoCarnet(txt) {
+  if (!/^\d{9}$/.test(txt)) return 'formato';
+  const i = +txt - 201900000;
+  if (i < 0 || i >= CFG0.nEst) return 'inexistente';
+  return i % 100 >= 3 ? 'activo' : 'inactivo';
+}
+/* Dibujo decorativo con aspecto de QR, generado a partir de la firma del carnet */
+function qrSvg(texto) {
+  const N = 25, rnd = mulberry32(parseInt(firmaHash(texto), 16));
+  const finder = (x, y) => `M${x},${y}h7v7h-7zM${x + 1},${y + 1}v5h5v-5zM${x + 2},${y + 2}h3v3h-3z`;
+  const enFinder = (x, y) => (x < 8 && y < 8) || (x >= N - 8 && y < 8) || (x < 8 && y >= N - 8);
+  let d = finder(0, 0) + finder(N - 7, 0) + finder(0, N - 7);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!enFinder(x, y) && rnd() < 0.5) d += `M${x},${y}h1v1h-1z`;
+  return `<svg viewBox="0 0 ${N} ${N}" shape-rendering="crispEdges"><path fill="#0a2342" fill-rule="evenodd" d="${d}"/></svg>`;
+}
+const iniciales = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('') || 'E';
+const fechaCorta = () => new Date().toLocaleString('es-GT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+function registrar(c, detalle, monto) {
+  c.saldo = Math.round((c.saldo + monto) * 100) / 100;
+  c.movs.unshift({ fecha: fechaCorta(), detalle, monto, saldo: c.saldo });
+  if (c.movs.length > 50) c.movs.length = 50;
+  guardarMon();
+}
+
+function renderCarnet() {
+  const n = $('carnetIn').value.trim(), est = estadoCarnet(n), T = tarifaActual();
+  const nombre = $('nombreIn').value.trim() || 'Estudiante';
+  const c = est === 'activo' ? cuenta(n) : null, saldo = c ? c.saldo : 0;
+  $('cNombre').textContent = nombre; $('cFoto').textContent = iniciales(nombre); $('cNum').textContent = n || '—';
+  $('cQr').innerHTML = qrSvg(`USAC|${n}|20271231`);
+  $('cSaldo').textContent = quetzal(saldo);
+  const viajes = T > 0 ? Math.floor(saldo / T + 1e-9) : 0;
+  $('cViajes').textContent = T > 0 ? `Alcanza para ${viajes} ingreso${viajes === 1 ? '' : 's'}` : 'Ingreso sin costo';
+  $('carnet').classList.toggle('bloq', est !== 'activo');
+  $('carnet').setAttribute('aria-label', `Carnet ${n} de ${nombre}, saldo ${quetzal(saldo)}`);
+  $('carnetIn').setAttribute('aria-invalid', est === 'activo' ? 'false' : 'true');
+  $('cEstado').innerHTML = {
+    activo: `<span class="tag ok">Carnet activo</span> ${c.dentro ? 'Tu vehículo está dentro del parqueo.' : 'Listo para ingresar.'}`,
+    formato: '<span class="tag warn">Faltan dígitos</span> El carnet tiene 9 dígitos.',
+    inexistente: '<span class="tag crit">Carnet no registrado</span> Prueba con uno entre 201900000 y 201904999.',
+    inactivo: '<span class="tag crit">Carnet inactivo</span> No puede recargar ni ingresar; acude a Registro.'
+  }[est];
+  const m = c ? c.movs.slice(0, 8) : [];
+  $('movs').innerHTML = '<tr><th>Fecha</th><th class="izq">Movimiento</th><th>Monto</th><th>Saldo</th></tr>' + (m.length
+    ? m.map(x => `<tr><td>${escHtml(x.fecha)}</td><td class="izq">${escHtml(x.detalle)}</td><td class="${x.monto >= 0 ? 'pos' : 'neg'}">${x.monto >= 0 ? '+' : '−'}${quetzal(Math.abs(x.monto))}</td><td>${quetzal(x.saldo)}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="izq"><small>Sin movimientos todavía. Recarga saldo para empezar.</small></td></tr>');
+}
+function actualizarTarifa() {
+  const t = quetzal(tarifaActual());
+  document.querySelectorAll('.tarifaTxt').forEach(e => { e.textContent = t; });
+  if ($('lPant').dataset.estado === 'idle') $('lSub').textContent = `Tarifa ${t} por ingreso`;
+  renderCarnet();
+}
+
+/* ---- recarga con tarjeta bancaria ---- */
+function luhn(n) { let s = 0, alt = false; for (let i = n.length - 1; i >= 0; i--) { let d = +n[i]; if (alt) { d *= 2; if (d > 9) d -= 9; } s += d; alt = !alt; } return s % 10 === 0; }
+const marca = n => /^4/.test(n) ? 'VISA' : /^(5[1-5]|2[2-7])/.test(n) ? 'MASTERCARD' : /^3[47]/.test(n) ? 'AMEX' : 'TARJETA';
+function montoSel() {
+  const otro = parseFloat($('tOtro').value);
+  if ($('tOtro').value.trim() !== '') return otro;
+  return +(document.querySelector('input[name=monto]:checked')?.value || 0);
+}
+function actualizarTarjeta() {
+  const d = soloDig($('tNum').value).slice(0, 19);
+  $('tNum').value = d.replace(/(\d{4})(?=\d)/g, '$1 ');
+  const v = soloDig($('tVence').value).slice(0, 4);
+  $('tVence').value = v.length > 2 ? v.slice(0, 2) + '/' + v.slice(2) : v;
+  const vis = (d + '•'.repeat(Math.max(0, 16 - d.length))).replace(/(.{4})(?=.)/g, '$1 ');
+  $('tbNum').textContent = vis; $('tbMarca').textContent = marca(d);
+  $('tbNom').textContent = $('tNom').value.trim() || 'Nombre del titular';
+  $('tbVence').textContent = $('tVence').value || 'MM/AA';
+}
+function actualizarBoton() {
+  const m = montoSel();
+  $('btnRecargar').textContent = Number.isFinite(m) && m > 0 ? `Recargar ${quetzal(m)}` : 'Recargar';
+}
+function recargar(e) {
+  e.preventDefault();
+  const campos = ['carnetIn', 'tNum', 'tVence', 'tCvv', 'tNom', 'tOtro'];
+  campos.slice(1).forEach(id => $(id).removeAttribute('aria-invalid'));
+  const err = (msg, campo) => { $('rMsg').className = 'msg err'; $('rMsg').textContent = msg; $(campo).setAttribute('aria-invalid', 'true'); $(campo).focus(); };
+  const n = $('carnetIn').value.trim(), tn = soloDig($('tNum').value);
+  if (estadoCarnet(n) !== 'activo') return err('Primero ingresa un carnet activo.', 'carnetIn');
+  if (tn.length < 13 || !luhn(tn)) return err('El número de tarjeta no es válido.', 'tNum');
+  const [mm, aa] = $('tVence').value.split('/').map(Number);
+  if (!(mm >= 1 && mm <= 12) || !Number.isFinite(aa) || new Date(2000 + aa, mm, 1) <= new Date())
+    return err('La fecha de vencimiento no es válida o la tarjeta está vencida.', 'tVence');
+  const largoCvv = marca(tn) === 'AMEX' ? 4 : 3;
+  if (soloDig($('tCvv').value).length !== largoCvv) return err(`El CVV debe tener ${largoCvv} dígitos.`, 'tCvv');
+  if ($('tNom').value.trim().length < 3) return err('Escribe el nombre como aparece en la tarjeta.', 'tNom');
+  const m = montoSel();
+  if (!(m >= 5 && m <= 500)) return err('El monto debe estar entre Q5 y Q500.', 'tOtro');
+  const b = $('btnRecargar'); b.disabled = true; b.textContent = 'Procesando…';
+  $('rMsg').className = 'msg'; $('rMsg').textContent = 'Conectando con el banco (simulado)…';
+  setTimeout(() => {
+    const c = cuenta(n);
+    registrar(c, `Recarga ${marca(tn)} •••• ${tn.slice(-4)}`, Math.round(m * 100) / 100);
+    ['tNum', 'tVence', 'tCvv', 'tNom', 'tOtro'].forEach(id => { $(id).value = ''; });
+    b.disabled = false; actualizarTarjeta(); actualizarBoton();
+    $('rMsg').className = 'msg ok'; $('rMsg').textContent = `Recarga aprobada: +${quetzal(m)}. Nuevo saldo: ${quetzal(c.saldo)}.`;
+    renderCarnet();
+  }, 700);
+}
+
+/* ---- lector de entrada: cobra la tarifa ---- */
+let tBarrera = 0;
+function pantalla(estado, tit, sub) { $('lPant').dataset.estado = estado; $('lTit').textContent = tit; $('lSub').textContent = sub; }
+function ciclarLector(abrir) {
+  $('barrera').classList.toggle('arriba', abrir); $('luz').setAttribute('fill', abrir ? '#3fbf82' : '#e05a5a');
+  clearTimeout(tBarrera);
+  tBarrera = setTimeout(() => {
+    $('barrera').classList.remove('arriba'); $('luz').setAttribute('fill', '#e05a5a');
+    pantalla('idle', 'Acerque su carnet', `Tarifa ${quetzal(tarifaActual())} por ingreso`);
+  }, 3500);
+}
+function pagar() {
+  const n = $('carnetIn').value.trim(), est = estadoCarnet(n), T = tarifaActual();
+  if (est === 'formato' || est === 'inexistente') { pantalla('err', 'Carnet no reconocido', 'Verifique el número de carnet'); return ciclarLector(false); }
+  if (est === 'inactivo') { pantalla('err', 'Carnet inactivo', 'Acuda a Registro para activarlo'); return ciclarLector(false); }
+  const c = cuenta(n);
+  if (c.dentro) { pantalla('err', 'Ingreso ya registrado', 'Registre la salida antes de volver a entrar'); return ciclarLector(false); }
+  if (c.saldo + 1e-9 < T) { pantalla('err', 'Saldo insuficiente', `Saldo ${quetzal(c.saldo)} · recargue al menos ${quetzal(T - c.saldo)}`); return ciclarLector(false); }
+  if (T > 0) registrar(c, 'Pago de parqueo · ingreso', -T);
+  c.dentro = true; guardarMon();
+  pantalla('ok', 'Bienvenido · puede pasar', `Se cobró ${quetzal(T)} · saldo ${quetzal(c.saldo)}`);
+  ciclarLector(true); renderCarnet();
+}
+function registrarSalida() {
+  const n = $('carnetIn').value.trim();
+  const c = estadoCarnet(n) === 'activo' ? cuenta(n) : null;
+  if (!c || !c.dentro) { pantalla('err', 'Sin ingreso registrado', 'Este carnet no tiene un vehículo dentro'); return ciclarLector(false); }
+  c.dentro = false; guardarMon();
+  pantalla('ok', 'Hasta pronto', 'Salida registrada · la salida no tiene costo');
+  ciclarLector(true); renderCarnet();
+}
+function iniciarMonedero() {
+  try { const s = localStorage.getItem(SEL_KEY); if (s) $('carnetIn').value = s; } catch {}
+  const cargarNombre = () => { const n = $('carnetIn').value.trim(); if (estadoCarnet(n) === 'activo' && monedero[n]?.nombre) $('nombreIn').value = monedero[n].nombre; };
+  cargarNombre();
+  $('carnetIn').addEventListener('input', () => {
+    $('carnetIn').value = soloDig($('carnetIn').value).slice(0, 9);
+    try { localStorage.setItem(SEL_KEY, $('carnetIn').value); } catch {}
+    cargarNombre(); renderCarnet();
+  });
+  $('nombreIn').addEventListener('input', () => {
+    const n = $('carnetIn').value.trim();
+    if (estadoCarnet(n) === 'activo') { cuenta(n).nombre = $('nombreIn').value.trim(); guardarMon(); }
+    renderCarnet();
+  });
+  ['tNum', 'tVence', 'tNom'].forEach(id => $(id).addEventListener('input', actualizarTarjeta));
+  $('tCvv').addEventListener('input', () => { $('tCvv').value = soloDig($('tCvv').value).slice(0, 4); });
+  $('tOtro').addEventListener('input', actualizarBoton);
+  document.querySelectorAll('input[name=monto]').forEach(r => r.addEventListener('change', () => { $('tOtro').value = ''; actualizarBoton(); }));
+  $('recarga').addEventListener('submit', recargar);
+  $('btnPagar').addEventListener('click', pagar);
+  $('btnSalir').addEventListener('click', registrarSalida);
+  $('btnBorrar').addEventListener('click', () => {
+    const n = $('carnetIn').value.trim();
+    if (estadoCarnet(n) !== 'activo' || !confirm('¿Borrar el historial de movimientos de este carnet? El saldo se conserva.')) return;
+    cuenta(n).movs = []; guardarMon(); renderCarnet();
+  });
+  $('tarifa').addEventListener('input', actualizarTarifa);
+  actualizarTarjeta(); actualizarBoton(); actualizarTarifa();
+}
+
+/* ---------- arranque ---------- */
+construirTasas();
+iniciarMonedero();
+$('form').addEventListener('submit', e => { e.preventDefault(); const b = $('ejecutar'); b.disabled = true; b.textContent = 'Calculando…'; setTimeout(() => { ejecutar(); b.disabled = false; b.textContent = 'Ejecutar simulación'; }, 30); });
+$('exportar').addEventListener('click', exportar);
+document.querySelectorAll('[data-factor]').forEach(b => b.addEventListener('click', () => { $('factor').value = b.dataset.factor; }));
+$('playBtn').addEventListener('click', () => { anim.play = !anim.play; $('playBtn').textContent = anim.play ? 'Pausar' : 'Reanudar'; });
+$('scrub').addEventListener('input', e => { anim.p = +e.target.value; if (anim.play) { anim.play = false; $('playBtn').textContent = 'Reanudar'; } });
+$('vel').addEventListener('input', e => { anim.vel = +e.target.value; });
+$('animSel').addEventListener('change', e => fijarAnimacion(+e.target.value));
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { anim.play = false; $('playBtn').textContent = 'Reanudar'; }
+ejecutar();
+if (!anim.play && anim.serie.length) anim.p = anim.serie.reduce((bi, s, i, a) => s[1] > a[bi][1] ? i : bi, 0);
+requestAnimationFrame(tick);
+
+</script>
+</body>
+</html>
