@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Parqueo FIUSAC · Carnet QR</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<title>S.PARK · Parqueo FIUSAC</title>
 <style>
 :root{
   /* Paleta provisional tomada del carnet (azul petróleo). Ajustar aquí con los colores exactos de la facultad. */
@@ -13,30 +11,44 @@
   --linea:#dde5e8; --papel:var(--crema); --blanco:#fff; --tinta:#1a2433; --suave:#5a6474;
   --asfalto:#23272e; --asfalto2:#2b3037; --amarillo:#f2b705; --azul:#16427a;
   --ok:#e1f3e9; --okt:#17603f; --aviso:#fbf0cc; --avisot:#7a5700; --crit:#f8dcdc; --critt:#8f2323;
-  --fuente:"Open Sans","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
-  --serif:Montserrat,"Segoe UI",system-ui,sans-serif;   /* títulos */
+  --fuente:Arial,"Helvetica Neue",Helvetica,sans-serif;
+  --serif:var(--fuente);   /* títulos: también Arial */
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font:15px/1.5 var(--fuente);background:var(--papel);color:var(--tinta);font-variant-numeric:tabular-nums}
 
 /* ---------- encabezado institucional ---------- */
+/* banner estilo FIUSAC */
+.banner{position:relative;background:#fff;border-top:4px solid #2b2b2b;border-bottom:1px solid #d9d9d9;color:#4d4d4d}
+.banner-in{max-width:1320px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:center;min-height:92px;position:relative}
+.hamb{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:48px;height:44px;border:0;background:transparent;padding:8px;display:flex;flex-direction:column;justify-content:space-between}
+.hamb span{display:block;height:4px;border-radius:2px;background:#333;transition:transform .25s,opacity .25s}
+.hamb[aria-expanded=true] span:nth-child(1){transform:translateY(12px) rotate(45deg)}
+.hamb[aria-expanded=true] span:nth-child(2){opacity:0}
+.hamb[aria-expanded=true] span:nth-child(3){transform:translateY(-12px) rotate(-45deg)}
+.logos{display:flex;align-items:center;gap:8px}
+.sello{width:66px;height:66px;flex:none}
+.marca{border-left:2px solid #5a5a5a;margin-left:6px;padding-left:12px;line-height:1;display:flex;flex-direction:column;gap:3px}
+.marca b{font:700 44px/1 var(--fuente);letter-spacing:-1.5px;color:#4d4d4d}
+.marca b .s{color:#8c8c8c}
+.marca .fac{font:700 14.5px var(--fuente);color:#3d3d3d;letter-spacing:.2px}
+.marca small{font:400 7.6px var(--fuente);color:#555;letter-spacing:.2px;text-transform:uppercase}
+.menu{position:absolute;left:20px;top:100%;z-index:20;background:#fff;border:1px solid #d9d9d9;border-top:3px solid var(--navy);box-shadow:0 10px 24px rgba(0,0,0,.14);min-width:240px;padding:6px 0}
+.menu a{display:block;padding:11px 18px;color:#333;text-decoration:none;font-weight:700;font-size:14.5px}
+.menu a:hover,.menu a:focus-visible{background:#f0f4f5;color:var(--navy);outline:none}
+@media(max-width:560px){.banner-in{justify-content:flex-end;padding-left:70px}.sello{width:44px;height:44px}.marca b{font-size:32px}.marca .fac{font-size:11px}.marca small{font-size:6px}.logos{gap:4px}}
+@media(max-width:380px){.sello:first-child{display:none}}
 header.u{background:linear-gradient(135deg,var(--navy3),var(--navy) 55%,var(--navy2));color:#fff;border-bottom:4px solid var(--oro)}
-.franja{background:rgba(0,0,0,.25);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d8dfeb;padding:6px 28px}
-.hwrap{max-width:1320px;margin:0 auto;padding:22px 28px 16px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.escudo{width:68px;height:68px;flex:none}
+.hwrap{max-width:1320px;margin:0 auto;padding:20px 28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .hwrap .titulos{flex:1 1 320px}
-header h1{margin:0;font:800 30px/1.15 var(--serif);letter-spacing:-.01em}
-header h1 small{display:block;font:600 13px var(--fuente);letter-spacing:.14em;text-transform:uppercase;color:var(--oro2);margin-bottom:4px}
+header h1{margin:0;font:700 28px/1.15 var(--fuente)}
+header h1 small{display:block;font:700 13px var(--fuente);letter-spacing:.14em;text-transform:uppercase;color:var(--oro2);margin-bottom:4px}
 header p{margin:6px 0 0;color:#c8d3e3;max-width:70ch}
 .tarifa{background:rgba(255,255,255,.08);border:1px solid rgba(232,201,90,.55);border-radius:10px;padding:10px 18px;text-align:center;min-width:190px}
 .tarifa span{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#d8dfeb}
-.tarifa b{display:block;font:700 34px/1.1 var(--serif);color:var(--oro2)}
+.tarifa b{display:block;font:700 34px/1.1 var(--fuente);color:var(--oro2)}
 .tarifa small{color:#c8d3e3;font-size:12px}
-header nav{max-width:1320px;margin:0 auto;padding:0 28px;display:flex;gap:4px;flex-wrap:wrap}
-header nav a{color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:9px 14px;border-radius:6px 6px 0 0}
-header nav a:hover{background:rgba(255,255,255,.1)}
-header nav a:focus-visible{outline:3px solid var(--oro2);outline-offset:-3px}
 
 /* ---------- títulos de sección ---------- */
 .seccion{max-width:1320px;margin:0 auto;padding:26px 20px 0}
@@ -53,7 +65,7 @@ header nav a:focus-visible{outline:3px solid var(--oro2);outline-offset:-3px}
 .carnet.reverso{transform:rotateY(180deg)}
 .carnet.bloq .cara{filter:grayscale(.9) brightness(.8)}
 .cara{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:4.5cqw;overflow:hidden;color:#fff;
-  font-family:Montserrat,Arial,sans-serif;box-shadow:0 12px 28px rgba(6,35,49,.35);
+  font-family:var(--fuente);box-shadow:0 12px 28px rgba(6,35,49,.35);
   background:radial-gradient(120% 95% at 62% 45%,#1f7384 0%,#0f4b5e 32%,#082f40 62%,#041620 100%)}
 .cara::before{content:"";position:absolute;inset:0;background:linear-gradient(118deg,transparent 38%,rgba(255,255,255,.06) 38% 58%,transparent 58%),radial-gradient(60% 50% at 0 100%,rgba(0,0,0,.35),transparent)}
 .cara>*{position:absolute}
@@ -184,24 +196,43 @@ footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;pa
     <circle cx="32" cy="32" r="22" fill="#2b86b8"/><path d="M12 44 26 20l8 12 5-7 13 19Z" fill="#fff"/><path d="M26 20 22 44h8Z" fill="#2e8b57"/>
     <circle cx="42" cy="20" r="4" fill="#f2c14e"/><circle cx="32" cy="32" r="22" fill="none" stroke="#1f5f3f" stroke-width="2"/>
   </symbol>
-  <symbol id="escudo" viewBox="0 0 64 64">
-    <circle cx="32" cy="32" r="30" fill="#fff"/><circle cx="32" cy="32" r="30" fill="none" stroke="#e8c95a" stroke-width="3"/>
-    <g fill="none" stroke="#0b3c50" stroke-width="4"><circle cx="32" cy="32" r="11"/></g>
-    <g fill="#0b3c50"><rect x="29" y="12" width="6" height="8" rx="1"/><rect x="29" y="44" width="6" height="8" rx="1"/><rect x="12" y="29" width="8" height="6" rx="1"/><rect x="44" y="29" width="8" height="6" rx="1"/>
-    <rect x="29" y="12" width="6" height="8" rx="1" transform="rotate(45 32 32)"/><rect x="29" y="44" width="6" height="8" rx="1" transform="rotate(45 32 32)"/><rect x="12" y="29" width="8" height="6" rx="1" transform="rotate(45 32 32)"/><rect x="44" y="29" width="8" height="6" rx="1" transform="rotate(45 32 32)"/></g>
+  <symbol id="sello-u" viewBox="0 0 66 66">
+    <path id="arcU" d="M33 33m-25 0a25 25 0 1 1 50 0a25 25 0 1 1-50 0" fill="none"/>
+    <circle cx="33" cy="33" r="32" fill="#fff" stroke="#6b6b6b" stroke-width="1.2"/><circle cx="33" cy="33" r="30" fill="none" stroke="#6b6b6b" stroke-width=".6"/>
+    <circle cx="33" cy="33" r="21" fill="#e6e6e6" stroke="#6b6b6b" stroke-width=".8"/>
+    <text font-family="Arial" font-size="5" font-weight="700" fill="#555" letter-spacing=".3"><textPath href="#arcU">UNIVERSIDAD DE SAN CARLOS DE GUATEMALA ·</textPath></text>
+    <g fill="#777"><path d="M20 42h26v3H20z"/><path d="M22 30h22l-11-7z"/><path d="M23 31h3v11h-3zM28 31h3v11h-3zM35 31h3v11h-3zM40 31h3v11h-3z"/></g>
+  </symbol>
+  <symbol id="sello-i" viewBox="0 0 66 66">
+    <path id="arcI" d="M12 33a21 21 0 0 1 42 0" fill="none"/>
+    <circle cx="33" cy="33" r="32" fill="#fff" stroke="#6b6b6b" stroke-width="1.2"/><circle cx="33" cy="33" r="29" fill="none" stroke="#6b6b6b" stroke-width=".6"/>
+    <text font-family="Arial" font-size="6.4" font-weight="700" fill="#555" text-anchor="middle" letter-spacing=".4"><textPath href="#arcI" startOffset="50%">INGENIERÍA</textPath></text>
+    <g fill="none" stroke="#666" stroke-width="2.2"><circle cx="33" cy="37" r="8"/></g>
+    <g fill="#666"><rect x="31.5" y="25.5" width="3" height="4"/><rect x="31.5" y="44.5" width="3" height="4"/><rect x="21.5" y="35.5" width="4" height="3"/><rect x="40.5" y="35.5" width="4" height="3"/></g>
+    <path d="M33 22l-6 18M33 22l6 18" stroke="#444" stroke-width="1.4" fill="none"/>
+    <rect x="23" y="51" width="20" height="8" rx="1.5" fill="#fff" stroke="#6b6b6b" stroke-width=".8"/>
+    <text x="33" y="57.4" font-family="Arial" font-size="6" font-weight="700" fill="#555" text-anchor="middle">USAC</text>
   </symbol>
 </svg>
+<div class="banner">
+  <div class="banner-in">
+    <button type="button" class="hamb" id="hamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <a class="logos" href="#monedero" aria-label="S.PARK, Facultad de Ingeniería, Universidad de San Carlos de Guatemala" style="text-decoration:none">
+      <svg class="sello" aria-hidden="true"><use href="#sello-u"/></svg>
+      <svg class="sello" aria-hidden="true"><use href="#sello-i"/></svg>
+      <span class="marca"><b><span class="s">S.</span>PARK</b><span class="fac">FACULTAD DE INGENIERÍA</span><small>Universidad de San Carlos de Guatemala</small></span>
+    </a>
+  </div>
+  <nav class="menu" id="menu" aria-label="Secciones" hidden><a href="#monedero">Mi carnet y saldo</a><a href="#simulacion">Simulación de colas</a><a href="#resultados">Resultados</a><a href="#graficos">Gráficos</a></nav>
+</div>
 <header class="u">
-  <div class="franja">Universidad de San Carlos de Guatemala · Facultad de Ingeniería</div>
   <div class="hwrap">
-    <svg class="escudo" aria-hidden="true"><use href="#escudo"/></svg>
     <div class="titulos">
-      <h1><small>Facultad de Ingeniería · Servicio estudiantil</small>Parqueo con carnet universitario</h1>
+      <h1><small>S.PARK · Servicio estudiantil</small>Parqueo con carnet universitario</h1>
       <p>Ingreso con carnet QR y monedero electrónico: recarga saldo a tu carnet como una tarjeta de bus y paga cada ingreso al pasar por el lector.</p>
     </div>
     <div class="tarifa" aria-label="Tarifa del parqueo"><span>Tarifa por ingreso</span><b class="tarifaTxt">Q3.00</b><small>Se descuenta del saldo del carnet</small></div>
   </div>
-  <nav aria-label="Secciones"><a href="#monedero">Mi carnet y saldo</a><a href="#simulacion">Simulación de colas</a><a href="#resultados">Resultados</a><a href="#graficos">Gráficos</a></nav>
 </header>
 
 <section class="seccion" id="monedero" aria-labelledby="monTit">
@@ -386,7 +417,7 @@ footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;pa
 </section>
 </main>
 </div>
-<footer>Facultad de Ingeniería · USAC — Tarifa vigente <b class="tarifaTxt">Q3.00</b> por ingreso · Proyecto académico de simulación, no es un sitio oficial</footer>
+<footer><b>S.PARK</b> · Facultad de Ingeniería · USAC — Tarifa vigente <b class="tarifaTxt">Q3.00</b> por ingreso · Proyecto académico de simulación, no es un sitio oficial</footer>
 <script>
 /* ================= MOTOR DE SIMULACIÓN (eventos discretos) ================= */
 const CFG0 = {
@@ -795,7 +826,7 @@ function dibujarEntrada(p) {
   const t = L(0), q = Math.round(L(1)), b = Math.round(L(2)), occ = Math.round(L(3)), c = anim.c;
   const gx = w * 0.62, top = 46, bot = h - 16, laneH = (bot - top) / c;
   ctx.fillStyle = '#2b3037'; ctx.fillRect(0, 0, w, h);
-  ctx.font = '600 13px Bahnschrift, "Segoe UI", system-ui, sans-serif';
+  ctx.font = '600 13px Arial, Helvetica, sans-serif';
   for (let j = 0; j < c; j++) {
     const y0 = top + j * laneH, yc = y0 + laneH / 2;
     ctx.fillStyle = '#39404a'; ctx.fillRect(0, y0 + 3, gx, laneH - 6);
@@ -822,11 +853,11 @@ function dibujarEntrada(p) {
   ctx.fillStyle = fill > 0.95 ? '#e05a5a' : fill > 0.8 ? '#f2b705' : '#3fbf82'; ctx.fillRect(px, by + bh * (1 - fill), pw, bh * fill);
   ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.strokeRect(px + .5, by + .5, pw - 1, bh - 1);
   ctx.fillStyle = '#c9d1d9'; ctx.textAlign = 'center'; ctx.fillText('Parqueo', px + pw / 2, top + 18);
-  ctx.fillStyle = '#fff'; ctx.font = '700 20px Bahnschrift, "Segoe UI", system-ui, sans-serif'; ctx.fillText(occ + ' / ' + anim.cap, px + pw / 2, top + 42);
-  ctx.textAlign = 'left'; ctx.font = '700 26px Bahnschrift, "Segoe UI", system-ui, sans-serif'; ctx.fillStyle = '#fff';
+  ctx.fillStyle = '#fff'; ctx.font = '700 20px Arial, Helvetica, sans-serif'; ctx.fillText(occ + ' / ' + anim.cap, px + pw / 2, top + 42);
+  ctx.textAlign = 'left'; ctx.font = '700 26px Arial, Helvetica, sans-serif'; ctx.fillStyle = '#fff';
   const hh = Math.floor(t / 3600), mm = Math.floor(t % 3600 / 60);
   ctx.fillText(String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0'), 12, 32);
-  ctx.font = '600 13px Bahnschrift, "Segoe UI", system-ui, sans-serif'; ctx.fillStyle = '#c9d1d9';
+  ctx.font = '600 13px Arial, Helvetica, sans-serif'; ctx.fillStyle = '#c9d1d9';
   ctx.fillText(q + ' en cola · ' + b + '/' + c + ' lectores atendiendo', 100, 30);
   $('scrub').value = p;
 }
@@ -1182,6 +1213,14 @@ function iniciarMonedero() {
 /* ---------- arranque ---------- */
 construirTasas();
 iniciarMonedero();
+(() => {
+  const b = $('hamb'), m = $('menu');
+  const fijar = abierto => { m.hidden = !abierto; b.setAttribute('aria-expanded', abierto); b.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú'); };
+  b.addEventListener('click', () => { fijar(m.hidden); if (!m.hidden) m.querySelector('a').focus(); });
+  m.addEventListener('click', e => { if (e.target.closest('a')) fijar(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !m.hidden) { fijar(false); b.focus(); } });
+  document.addEventListener('click', e => { if (!m.hidden && !m.contains(e.target) && !b.contains(e.target)) fijar(false); });
+})();
 $('form').addEventListener('submit', e => { e.preventDefault(); const b = $('ejecutar'); b.disabled = true; b.textContent = 'Calculando…'; setTimeout(() => { ejecutar(); b.disabled = false; b.textContent = 'Ejecutar simulación'; }, 30); });
 $('exportar').addEventListener('click', exportar);
 document.querySelectorAll('[data-factor]').forEach(b => b.addEventListener('click', () => { $('factor').value = b.dataset.factor; }));
