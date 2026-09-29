@@ -3,15 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Parqueo Universitario · Carnet QR</title>
+<title>Parqueo FIUSAC · Carnet QR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0c2d57; --navy2:#16427a; --navy3:#0a2342; --oro:#c9a227; --oro2:#e8c95a; --crema:#f5f2ea;
-  --linea:#e4dfd2; --papel:var(--crema); --blanco:#fff; --tinta:#1a2433; --suave:#5a6474;
+  /* Paleta provisional tomada del carnet (azul petróleo). Ajustar aquí con los colores exactos de la facultad. */
+  --navy:#0b3c50; --navy2:#12627a; --navy3:#062331; --oro:#c9a227; --oro2:#e8c95a; --crema:#f2f5f6;
+  --linea:#dde5e8; --papel:var(--crema); --blanco:#fff; --tinta:#1a2433; --suave:#5a6474;
   --asfalto:#23272e; --asfalto2:#2b3037; --amarillo:#f2b705; --azul:#16427a;
   --ok:#e1f3e9; --okt:#17603f; --aviso:#fbf0cc; --avisot:#7a5700; --crit:#f8dcdc; --critt:#8f2323;
-  --fuente:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
-  --serif:Georgia,"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;
+  --fuente:"Open Sans","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  --serif:Montserrat,"Segoe UI",system-ui,sans-serif;   /* títulos */
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -21,9 +24,9 @@ body{margin:0;font:15px/1.5 var(--fuente);background:var(--papel);color:var(--ti
 header.u{background:linear-gradient(135deg,var(--navy3),var(--navy) 55%,var(--navy2));color:#fff;border-bottom:4px solid var(--oro)}
 .franja{background:rgba(0,0,0,.25);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d8dfeb;padding:6px 28px}
 .hwrap{max-width:1320px;margin:0 auto;padding:22px 28px 16px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.escudo{width:64px;height:74px;flex:none}
+.escudo{width:68px;height:68px;flex:none}
 .hwrap .titulos{flex:1 1 320px}
-header h1{margin:0;font:700 30px/1.15 var(--serif);letter-spacing:.3px}
+header h1{margin:0;font:800 30px/1.15 var(--serif);letter-spacing:-.01em}
 header h1 small{display:block;font:600 13px var(--fuente);letter-spacing:.14em;text-transform:uppercase;color:var(--oro2);margin-bottom:4px}
 header p{margin:6px 0 0;color:#c8d3e3;max-width:70ch}
 .tarifa{background:rgba(255,255,255,.08);border:1px solid rgba(232,201,90,.55);border-radius:10px;padding:10px 18px;text-align:center;min-width:190px}
@@ -45,26 +48,46 @@ header nav a:focus-visible{outline:3px solid var(--oro2);outline-offset:-3px}
 .mon-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr);gap:18px}
 @media(max-width:1150px){.mon-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.mon-grid>.lector-col{grid-column:1/-1}}
 @media(max-width:720px){.mon-grid{grid-template-columns:minmax(0,1fr)}.seccion,.layout{padding-left:16px;padding-right:16px}}
-.carnet{position:relative;overflow:hidden;border-radius:16px;color:#fff;padding:16px 18px 14px;aspect-ratio:1.586;min-height:220px;max-width:460px;
-  background:radial-gradient(circle at 88% 12%,rgba(232,201,90,.35),transparent 42%),linear-gradient(135deg,var(--navy3),var(--navy) 50%,var(--navy2));
-  box-shadow:0 10px 28px rgba(12,45,87,.28);display:flex;flex-direction:column}
-.carnet::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,var(--oro) 0 40px,var(--oro2) 40px 80px)}
-.c-top{display:flex;align-items:center;gap:10px}
-.c-top svg{width:30px;height:35px}
-.c-top div{flex:1;line-height:1.15}.c-top b{display:block;font:700 15px var(--serif);letter-spacing:.08em}.c-top span{font-size:11px;color:#c8d3e3;letter-spacing:.1em;text-transform:uppercase}
-.chip{width:38px;height:28px;border-radius:5px;background:linear-gradient(135deg,#e8c95a,#b38b1d);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
-.c-body{display:flex;gap:14px;align-items:center;margin-top:12px;flex:1}
-.foto{width:62px;height:74px;border-radius:8px;background:#dfe6f1;color:var(--navy);display:grid;place-items:center;font:700 24px var(--serif);flex:none;border:2px solid var(--oro2)}
-.c-datos{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12.5px;color:#d8dfeb}
-.c-datos .c-nom{font-size:16px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.c-datos b{color:#fff;letter-spacing:.06em}
-.c-qr{width:78px;height:78px;background:#fff;border-radius:6px;padding:5px;flex:none}
-.c-qr svg{width:100%;height:100%}
-.c-saldo{display:flex;align-items:baseline;gap:10px;margin-top:8px;padding-bottom:6px}
-.c-saldo span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#c8d3e3}
-.c-saldo b{font:700 26px var(--serif);color:var(--oro2)}
-.c-saldo small{margin-left:auto;color:#c8d3e3;font-size:12px}
-.carnet.bloq{filter:grayscale(.85)}
+.carnet-wrap{perspective:1400px;max-width:480px;container-type:inline-size}
+.carnet{position:relative;aspect-ratio:1.586;transition:transform .7s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.carnet.reverso{transform:rotateY(180deg)}
+.carnet.bloq .cara{filter:grayscale(.9) brightness(.8)}
+.cara{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:4.5cqw;overflow:hidden;color:#fff;
+  font-family:Montserrat,Arial,sans-serif;box-shadow:0 12px 28px rgba(6,35,49,.35);
+  background:radial-gradient(120% 95% at 62% 45%,#1f7384 0%,#0f4b5e 32%,#082f40 62%,#041620 100%)}
+.cara::before{content:"";position:absolute;inset:0;background:linear-gradient(118deg,transparent 38%,rgba(255,255,255,.06) 38% 58%,transparent 58%),radial-gradient(60% 50% at 0 100%,rgba(0,0,0,.35),transparent)}
+.cara>*{position:absolute}
+.cara.rev{transform:rotateY(180deg)}
+/* anverso */
+.a-qr{left:6%;top:9%;width:37%;aspect-ratio:1;background:#fff;padding:2.6%;border-radius:1cqw}
+.a-qr svg{width:100%;height:100%}
+.a-logo{left:47%;right:4%;top:10%;display:flex;align-items:center;gap:2.4cqw}
+.a-logo svg{width:13cqw;height:13cqw;flex:none}
+.a-logo b{display:block;font-weight:900;font-size:10.5cqw;line-height:.9;letter-spacing:-.02em}
+.a-logo span{display:block;font-weight:500;font-size:3.3cqw;letter-spacing:.1em}
+.a-logo small{display:block;font-size:1.6cqw;opacity:.8;letter-spacing:.04em}
+.a-texto{left:47%;right:4%;top:42%;bottom:8%;display:flex;flex-direction:column;justify-content:center;gap:1.4cqw}
+.a-nom{font-weight:800;font-size:5.4cqw;line-height:1.08;text-transform:uppercase;overflow-wrap:anywhere}
+.a-rol{font-weight:600;font-size:2.9cqw;letter-spacing:.08em}
+/* reverso */
+.r-foto{left:5%;top:7%;width:31%;height:60%;background:#f3f5f6;border-radius:.6cqw;overflow:hidden;display:grid;place-items:center}
+.r-foto img{width:100%;height:100%;object-fit:cover}
+.r-foto svg{width:70%;height:70%}
+.r-num{left:5%;width:31%;top:71%;text-align:center;font-weight:800;font-size:6.4cqw;letter-spacing:.02em}
+.r-datos{left:40%;right:5%;top:6%;text-align:center}
+.r-datos .dep{font-weight:500;font-size:3.1cqw}
+.r-datos hr{border:0;border-top:.35cqw solid rgba(255,255,255,.85);margin:1.6cqw 0}
+.r-datos .cui{font-weight:700;font-size:5.4cqw;letter-spacing:.02em}
+.r-datos .fac{font-weight:700;font-size:4.4cqw;text-transform:uppercase;margin-top:3cqw;line-height:1.2}
+.r-barra{left:40%;right:5%;bottom:13%;height:17%;background:#fff;border-radius:.6cqw;padding:1.4cqw 3cqw}
+.r-barra svg{width:100%;height:100%}
+.r-emer{left:40%;right:5%;bottom:3.5%;text-align:center;font-size:2.9cqw;font-weight:500}
+.saldo-bar{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--navy3);color:#fff;border-radius:10px;padding:10px 14px;margin-top:12px}
+.saldo-bar span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#bcd0d7}
+.saldo-bar b{font:800 24px var(--serif);color:var(--oro2)}
+.saldo-bar small{margin-left:auto;color:#bcd0d7;font-size:12.5px}
+.foto-in{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:13px;color:var(--suave)}
+.foto-in input{font-size:12.5px;max-width:100%}
 .panel h3.cab{margin:0 0 10px;font:700 17px var(--serif);color:var(--navy)}
 .estado-carnet{margin-top:10px;font-size:13px}
 .dos-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -156,21 +179,24 @@ footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;pa
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="escudo" viewBox="0 0 64 74">
-    <path d="M32 2 60 10v24c0 18-12 30-28 38C16 64 4 52 4 34V10Z" fill="#c9a227"/>
-    <path d="M32 7 55 14v20c0 15-10 25-23 32C19 59 9 49 9 34V14Z" fill="#0c2d57"/>
-    <path d="M17 28c6-2 11-1 15 2 4-3 9-4 15-2v18c-6-2-11-1-15 2-4-3-9-4-15-2Z" fill="#fff"/>
-    <path d="M32 30v18" stroke="#0c2d57" stroke-width="1.6"/>
-    <path d="M22 20h20l-10-6Z" fill="#e8c95a"/>
-    <circle cx="32" cy="56" r="3" fill="#e8c95a"/>
+  <symbol id="emblema" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="31" fill="#e9eef0"/><circle cx="32" cy="32" r="27" fill="none" stroke="#8aa3ad" stroke-width="1.2" stroke-dasharray="1.5 2"/>
+    <circle cx="32" cy="32" r="22" fill="#2b86b8"/><path d="M12 44 26 20l8 12 5-7 13 19Z" fill="#fff"/><path d="M26 20 22 44h8Z" fill="#2e8b57"/>
+    <circle cx="42" cy="20" r="4" fill="#f2c14e"/><circle cx="32" cy="32" r="22" fill="none" stroke="#1f5f3f" stroke-width="2"/>
+  </symbol>
+  <symbol id="escudo" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30" fill="#fff"/><circle cx="32" cy="32" r="30" fill="none" stroke="#e8c95a" stroke-width="3"/>
+    <g fill="none" stroke="#0b3c50" stroke-width="4"><circle cx="32" cy="32" r="11"/></g>
+    <g fill="#0b3c50"><rect x="29" y="12" width="6" height="8" rx="1"/><rect x="29" y="44" width="6" height="8" rx="1"/><rect x="12" y="29" width="8" height="6" rx="1"/><rect x="44" y="29" width="8" height="6" rx="1"/>
+    <rect x="29" y="12" width="6" height="8" rx="1" transform="rotate(45 32 32)"/><rect x="29" y="44" width="6" height="8" rx="1" transform="rotate(45 32 32)"/><rect x="12" y="29" width="8" height="6" rx="1" transform="rotate(45 32 32)"/><rect x="44" y="29" width="8" height="6" rx="1" transform="rotate(45 32 32)"/></g>
   </symbol>
 </svg>
 <header class="u">
-  <div class="franja">Universidad · Campus Central — Departamento de Parqueos y Transporte</div>
+  <div class="franja">Universidad de San Carlos de Guatemala · Facultad de Ingeniería</div>
   <div class="hwrap">
     <svg class="escudo" aria-hidden="true"><use href="#escudo"/></svg>
     <div class="titulos">
-      <h1><small>Servicio estudiantil</small>Parqueo Universitario</h1>
+      <h1><small>Facultad de Ingeniería · Servicio estudiantil</small>Parqueo con carnet universitario</h1>
       <p>Ingreso con carnet QR y monedero electrónico: recarga saldo a tu carnet como una tarjeta de bus y paga cada ingreso al pasar por el lector.</p>
     </div>
     <div class="tarifa" aria-label="Tarifa del parqueo"><span>Tarifa por ingreso</span><b class="tarifaTxt">Q3.00</b><small>Se descuenta del saldo del carnet</small></div>
@@ -184,19 +210,34 @@ footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;pa
   <div class="mon-grid">
     <div class="panel">
       <h3 class="cab">1. Tu carnet</h3>
+      <div class="carnet-wrap">
       <div class="carnet" id="carnet" role="img" aria-label="Carnet universitario">
-        <div class="c-top"><svg aria-hidden="true"><use href="#escudo"/></svg><div><b>UNIVERSIDAD</b><span>Carnet estudiantil · Parqueo</span></div><span class="chip" aria-hidden="true"></span></div>
-        <div class="c-body">
-          <div class="foto" id="cFoto" aria-hidden="true">E</div>
-          <div class="c-datos"><span class="c-nom" id="cNombre">Estudiante</span><span>Carnet <b id="cNum">201900123</b></span><span>Vigente hasta 12/2027</span></div>
-          <div class="c-qr" id="cQr" aria-hidden="true"></div>
+        <div class="cara anv">
+          <div class="a-qr" id="cQr"></div>
+          <div class="a-logo"><svg aria-hidden="true"><use href="#emblema"/></svg><div><b>USAC</b><span>TRICENTENARIA</span><small>Universidad de San Carlos de Guatemala</small></div></div>
+          <div class="a-texto"><div class="a-nom" id="cNombre">Nombre del estudiante</div><div class="a-rol">ESTUDIANTE UNIVERSITARIO</div></div>
         </div>
-        <div class="c-saldo"><span>Saldo</span><b id="cSaldo">Q0.00</b><small id="cViajes">0 ingresos</small></div>
+        <div class="cara rev">
+          <div class="r-foto" id="cFoto"></div>
+          <div class="r-num" id="cNum">201900123</div>
+          <div class="r-datos"><div class="dep">Departamento de Registro y Estadística</div><hr><div class="cui">CUI: •••• ••••• ••••</div><hr><div class="fac">Facultad de Ingeniería<br><span id="cCarrera">Ingeniería Industrial</span></div></div>
+          <div class="r-barra" id="cBarra"></div>
+          <div class="r-emer">En caso de emergencia marca 1592</div>
+        </div>
       </div>
+      </div>
+      <div class="fila"><button type="button" class="sec" id="btnVoltear" aria-pressed="false">Ver reverso del carnet</button></div>
+      <div class="saldo-bar"><span>Saldo del monedero</span><b id="cSaldo">Q0.00</b><small id="cViajes">0 ingresos</small></div>
       <div class="dos-col">
         <label>Número de carnet<input type="text" id="carnetIn" inputmode="numeric" maxlength="9" value="201900123" autocomplete="off"></label>
-        <label>Nombre del estudiante<input type="text" id="nombreIn" value="Estudiante" maxlength="40"></label>
+        <label>Nombre del estudiante<input type="text" id="nombreIn" value="" placeholder="Nombre y apellidos" maxlength="48"></label>
       </div>
+      <label>Carrera<select id="carreraIn">
+        <option>Ingeniería Industrial</option><option>Ingeniería Civil</option><option>Ingeniería Mecánica</option><option>Ingeniería Mecánica Industrial</option>
+        <option>Ingeniería Química</option><option>Ingeniería Eléctrica</option><option>Ingeniería Electrónica</option><option>Ingeniería en Ciencias y Sistemas</option>
+        <option>Ingeniería Ambiental</option><option>Licenciatura en Matemática</option><option>Licenciatura en Física</option>
+      </select></label>
+      <div class="foto-in"><label style="margin:0">Foto del carnet <input type="file" id="fotoIn" accept="image/*"></label><button type="button" class="sec" id="btnQuitarFoto" style="padding:3px 9px;font-size:12.5px">Quitar foto</button></div>
       <p class="estado-carnet" id="cEstado" role="status"></p>
     </div>
 
@@ -345,7 +386,7 @@ footer{background:var(--navy3);color:#c8d3e3;text-align:center;font-size:13px;pa
 </section>
 </main>
 </div>
-<footer>Universidad · Departamento de Parqueos y Transporte — Tarifa vigente <b class="tarifaTxt">Q3.00</b> por ingreso · Proyecto académico de simulación</footer>
+<footer>Facultad de Ingeniería · USAC — Tarifa vigente <b class="tarifaTxt">Q3.00</b> por ingreso · Proyecto académico de simulación, no es un sitio oficial</footer>
 <script>
 /* ================= MOTOR DE SIMULACIÓN (eventos discretos) ================= */
 const CFG0 = {
@@ -940,7 +981,28 @@ function qrSvg(texto) {
   for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!enFinder(x, y) && rnd() < 0.5) d += `M${x},${y}h1v1h-1z`;
   return `<svg viewBox="0 0 ${N} ${N}" shape-rendering="crispEdges"><path fill="#0a2342" fill-rule="evenodd" d="${d}"/></svg>`;
 }
-const iniciales = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('') || 'E';
+const SILUETA = '<svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="22" r="12" fill="#b8c6cc"/><path d="M8 58c2-14 11-20 22-20s20 6 22 20Z" fill="#b8c6cc"/></svg>';
+/* Código de barras Code 39 real (se puede escanear) con el número de carnet */
+const C39 = { 0: '000110100', 1: '100100001', 2: '001100001', 3: '101100000', 4: '000110001', 5: '100110000', 6: '001110000', 7: '000100101', 8: '100100100', 9: '001100100', '*': '010010100' };
+function code39Svg(txt) {
+  let x = 0, d = '';
+  for (const ch of '*' + txt + '*') {
+    [...C39[ch]].forEach((w, k) => { const a = w === '1' ? 3 : 1; if (k % 2 === 0) d += `M${x},0h${a}v10h-${a}z`; x += a; });
+    x += 1;
+  }
+  return `<svg viewBox="0 0 ${x - 1} 10" preserveAspectRatio="none" shape-rendering="crispEdges"><path fill="#111" d="${d}"/></svg>`;
+}
+function cargarFoto(file, listo) {
+  const img = new Image(), url = URL.createObjectURL(file);
+  img.onload = () => {
+    const W = 180, H = 225, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const k = Math.max(W / img.width, H / img.height), w = img.width * k, h = img.height * k;
+    cv.getContext('2d').drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
+    URL.revokeObjectURL(url); listo(cv.toDataURL('image/jpeg', 0.8));
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); listo(null); };
+  img.src = url;
+}
 const fechaCorta = () => new Date().toLocaleString('es-GT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
 function registrar(c, detalle, monto) {
   c.saldo = Math.round((c.saldo + monto) * 100) / 100;
@@ -951,10 +1013,14 @@ function registrar(c, detalle, monto) {
 
 function renderCarnet() {
   const n = $('carnetIn').value.trim(), est = estadoCarnet(n), T = tarifaActual();
-  const nombre = $('nombreIn').value.trim() || 'Estudiante';
+  const nombre = $('nombreIn').value.trim() || 'Nombre del estudiante';
   const c = est === 'activo' ? cuenta(n) : null, saldo = c ? c.saldo : 0;
-  $('cNombre').textContent = nombre; $('cFoto').textContent = iniciales(nombre); $('cNum').textContent = n || '—';
+  $('cNombre').textContent = nombre; $('cNum').textContent = n || '—';
+  $('cCarrera').textContent = $('carreraIn').value;
   $('cQr').innerHTML = qrSvg(`USAC|${n}|20271231`);
+  $('cBarra').innerHTML = /^\d+$/.test(n) ? code39Svg(n) : '';
+  $('cFoto').innerHTML = c && /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(c.foto || '') ? `<img src="${c.foto}" alt="">` : SILUETA;
+  $('btnQuitarFoto').hidden = !(c && c.foto);
   $('cSaldo').textContent = quetzal(saldo);
   const viajes = T > 0 ? Math.floor(saldo / T + 1e-9) : 0;
   $('cViajes').textContent = T > 0 ? `Alcanza para ${viajes} ingreso${viajes === 1 ? '' : 's'}` : 'Ingreso sin costo';
@@ -1062,7 +1128,11 @@ function registrarSalida() {
 }
 function iniciarMonedero() {
   try { const s = localStorage.getItem(SEL_KEY); if (s) $('carnetIn').value = s; } catch {}
-  const cargarNombre = () => { const n = $('carnetIn').value.trim(); if (estadoCarnet(n) === 'activo' && monedero[n]?.nombre) $('nombreIn').value = monedero[n].nombre; };
+  const cargarNombre = () => {
+    const n = $('carnetIn').value.trim(), c = estadoCarnet(n) === 'activo' ? monedero[n] : null;
+    $('nombreIn').value = c?.nombre || '';
+    if (c?.carrera) $('carreraIn').value = c.carrera;
+  };
   cargarNombre();
   $('carnetIn').addEventListener('input', () => {
     $('carnetIn').value = soloDig($('carnetIn').value).slice(0, 9);
@@ -1073,6 +1143,25 @@ function iniciarMonedero() {
     const n = $('carnetIn').value.trim();
     if (estadoCarnet(n) === 'activo') { cuenta(n).nombre = $('nombreIn').value.trim(); guardarMon(); }
     renderCarnet();
+  });
+  $('carreraIn').addEventListener('change', () => {
+    const n = $('carnetIn').value.trim();
+    if (estadoCarnet(n) === 'activo') { cuenta(n).carrera = $('carreraIn').value; guardarMon(); }
+    renderCarnet();
+  });
+  $('fotoIn').addEventListener('change', e => {
+    const f = e.target.files[0], n = $('carnetIn').value.trim(); e.target.value = '';
+    if (!f || estadoCarnet(n) !== 'activo') return;
+    cargarFoto(f, url => { if (url) { cuenta(n).foto = url; guardarMon(); renderCarnet(); } });
+  });
+  $('btnQuitarFoto').addEventListener('click', () => {
+    const n = $('carnetIn').value.trim();
+    if (estadoCarnet(n) === 'activo') { delete cuenta(n).foto; guardarMon(); renderCarnet(); }
+  });
+  $('btnVoltear').addEventListener('click', () => {
+    const rev = $('carnet').classList.toggle('reverso');
+    $('btnVoltear').textContent = rev ? 'Ver frente del carnet' : 'Ver reverso del carnet';
+    $('btnVoltear').setAttribute('aria-pressed', rev);
   });
   ['tNum', 'tVence', 'tNom'].forEach(id => $(id).addEventListener('input', actualizarTarjeta));
   $('tCvv').addEventListener('input', () => { $('tCvv').value = soloDig($('tCvv').value).slice(0, 4); });
