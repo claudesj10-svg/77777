@@ -1,1209 +1,1317 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VECTOR-IA | Optimización Inteligente Lean Six Sigma & Manufactura</title>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-<script>
-tailwind.config = {
-darkMode: 'class',
-theme: {
-extend: {
-colors: {
-brand: {
-navy: '#223843',
-darkNavy: '#16252C',
-blue: '#0077B6',
-sky: '#00B4D8',
-orange: '#E87A24',
-amber: '#F39C12',
-lightBg: '#F8FAFC',
-cardBg: '#FFFFFF',
-darkCard: '#1E293B'
-}
-},
-fontFamily: {
-sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-}
-}
-}
-}
-</script>
-<!-- Lucide Icons & Google Fonts -->
+<meta name="description" content="VECTOR-IA: ingeniería industrial, Lean Six Sigma (DMAIC / DMADV), manufactura y almacenes. Calculadoras gratuitas y asistente técnico con IA.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-body {
-font-family: 'Inter', sans-serif;
-background-color: #F8FAFC;
+:root{
+  --navy:#0E2230; --navy-2:#15303F; --navy-3:#1E3E50;
+  --ink:#0F1B24; --text:#2E3D48; --muted:#5E6E7A; --line:#E2E8EE; --line-2:#CBD5DE;
+  --bg:#F5F7F9; --card:#FFFFFF;
+  --blue:#0B6FA4; --sky:#2BB3D9; --accent:#E3761F; --accent-2:#C9621A;
+  --ok:#15803D; --ok-bg:#ECFDF3; --err:#B42318;
+  --radius:14px; --shadow:0 1px 2px rgba(15,27,36,.05),0 8px 24px rgba(15,27,36,.06);
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
 }
-.code-font {
-font-family: 'JetBrains Mono', monospace;
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+.ico{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ico.sm{width:15px;height:15px}.ico.lg{width:22px;height:22px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-2)}
+.btn-dark{background:var(--navy);color:#fff}.btn-dark:hover{background:var(--navy-3)}
+.btn-outline{background:#fff;border-color:var(--line-2);color:var(--ink)}.btn-outline:hover{border-color:var(--ink)}
+.btn-ghost-light{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}.btn-ghost-light:hover{background:rgba(255,255,255,.16)}
+.btn-block{width:100%;white-space:normal;text-align:center}
+.btn-sm{padding:7px 12px;font-size:13px;border-radius:8px}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-name{font-weight:800;font-size:18px;letter-spacing:.06em;color:var(--ink);line-height:1}
+.brand-tag{display:block;white-space:nowrap;font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--blue);margin-top:4px}
+.nav-links{display:flex;gap:22px;white-space:nowrap;font-size:14px;font-weight:500;color:var(--muted)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{display:flex;gap:10px}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px;cursor:pointer}
+.mobile-menu{display:none;border-top:1px solid var(--line);background:#fff;padding:8px 20px 16px}
+.mobile-menu a{display:block;padding:11px 0;border-bottom:1px solid var(--line);font-weight:500}
+.mobile-menu.open{display:block}
+
+/* Sections */
+section{padding:88px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+.section-head{max-width:720px;margin-bottom:48px}
+.section-head.center{text-align:center;margin-left:auto;margin-right:auto}
+.section-head.center .eyebrow::after{content:"";width:22px;height:2px;background:currentColor}
+h1,h2,h3,h4{color:var(--ink);line-height:1.2;letter-spacing:-.02em}
+h2{font-size:clamp(28px,3.4vw,38px);font-weight:800;margin:12px 0 14px}
+.lead{font-size:17px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+/* Hero */
+.hero{background:var(--navy);color:#C9D6DF;padding:84px 0 96px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
+  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px;pointer-events:none}
+.hero::after{content:"";position:absolute;right:-200px;top:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(43,179,217,.18),transparent 65%);pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-size:12.5px;font-weight:600;color:#E6EEF3;background:rgba(255,255,255,.05)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:#34D399;box-shadow:0 0 0 3px rgba(52,211,153,.2)}
+.hero h1{color:#fff;font-size:clamp(34px,4.6vw,54px);font-weight:800;margin:22px 0 20px;letter-spacing:-.03em}
+.hero h1 em{font-style:normal;color:var(--sky)}
+.hero p.lead{color:#B4C4CF;max-width:600px}
+.hero p.lead strong{color:#fff;font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 44px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.12);padding-top:26px;gap:16px}
+.metric b{display:block;font-size:28px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.metric span{font-size:12.5px;color:#93A7B4}
+.calc-card{background:#fff;color:var(--text);border-radius:18px;padding:26px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.calc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.calc-head h3{font-size:17px;display:flex;align-items:center;gap:8px}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:#E8F3FA;padding:4px 9px;border-radius:6px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.input,select.input,textarea.input{width:100%;padding:10px 13px;border:1px solid var(--line-2);border-radius:9px;background:#fff;font-size:14px;outline:none;transition:border-color .15s,box-shadow .15s}
+.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,111,164,.14)}
+.input.mono{font-family:var(--mono)}
+textarea.input{resize:vertical}
+.result{margin-top:16px;padding:16px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
+.result small{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.result .big{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--ink);line-height:1.2;margin:4px 0}
+.result .sub{font-size:13px;color:var(--muted)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--sky));border-radius:99px;transition:width .4s}
+
+/* Methodology */
+.tabs{display:inline-flex;padding:5px;background:#E9EEF2;border-radius:12px;gap:4px;margin-bottom:32px;flex-wrap:wrap}
+.tab{border:0;background:transparent;padding:10px 18px;border-radius:9px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:8px}
+.tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.phase{padding:22px;position:relative}
+.phase .letter{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:800;font-size:18px;margin-bottom:16px}
+.phase:nth-child(2) .letter{background:var(--navy-3)}.phase:nth-child(3) .letter{background:var(--blue)}.phase:nth-child(4) .letter{background:#1A8BB8}.phase:nth-child(5) .letter{background:var(--accent)}
+.phase h3{font-size:16px;margin-bottom:8px}
+.phase p{font-size:13.5px;color:var(--muted)}
+.phase .tools{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-2);font-size:12px;color:var(--ink);font-weight:600}
+.waste{margin-top:28px;padding:26px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--navy);border:0;color:#C9D6DF}
+.waste h4{color:#fff;font-size:17px;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E6EEF3}
+.chip b{color:var(--sky);margin-right:4px}
+
+/* Engineers */
+.bg-white{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.eng-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.eng{padding:30px;display:flex;flex-direction:column;min-width:0}
+.eng-top{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
+.avatar{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:#E8F3FA;color:var(--blue);flex:none}
+.eng:nth-child(2) .avatar{background:#FDF1E7;color:var(--accent)}
+.eng-top small{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.eng h3{font-size:20px;margin:2px 0}
+.eng .role{font-size:13.5px;color:var(--blue);font-weight:600}
+.status{margin-left:auto;font-size:12px;font-weight:600;color:var(--ok);background:var(--ok-bg);padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.eng p.desc{font-size:14.5px;color:var(--muted);margin-bottom:20px}
+.impact{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.impact div{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;font-weight:600;color:var(--ink)}
+.impact .ico{color:var(--ok);margin-top:2px}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.stack span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--text)}
+.eng .btn{margin-top:auto}
+.label-sm{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+
+/* Tools */
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tool{padding:24px}
+.tool h3{font-size:16px;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.tool > p{font-size:13px;color:var(--muted);margin-bottom:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* AI */
+.ai{background:var(--navy);color:#C9D6DF}
+.ai h2{color:#fff}.ai .lead{color:#A9BBC7}
+.ai .section-head .eyebrow{color:var(--sky)}
+.chat{background:#0B1B26;border:1px solid #22404F;border-radius:18px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.3)}
+.chat-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #22404F;background:#0F2230}
+.domains{display:flex;flex-wrap:wrap;gap:6px}
+.dom{border:1px solid #2A4A5B;background:transparent;color:#A9BBC7;padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.dom:hover{color:#fff;border-color:#3E6477}
+.dom.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.chat-actions{display:flex;gap:6px;align-items:center}
+.icon-btn{background:transparent;border:1px solid #2A4A5B;color:#A9BBC7;padding:7px 10px;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.icon-btn:hover{color:#fff;border-color:#3E6477}
+.mode{display:flex;background:#0B1B26;border:1px solid #2A4A5B;border-radius:9px;padding:3px}
+.mode button{border:0;background:transparent;color:#8FA5B3;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px;cursor:pointer}
+.mode button.active{background:#1E3E50;color:#fff}
+.chat-win{height:460px;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:18px;scrollbar-width:thin;scrollbar-color:#2A4A5B transparent}
+.msg{display:flex;gap:12px;align-items:flex-start;max-width:900px}
+.msg.user{flex-direction:row-reverse;margin-left:auto}
+.av{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--accent);color:#fff;font-size:11px;font-weight:800}
+.msg.user .av{background:#1E3E50;color:#C9D6DF}
+.bubble{background:#132A38;border:1px solid #22404F;border-radius:4px 14px 14px 14px;padding:14px 16px;color:#DCE6EC;font-size:14.5px;min-width:0}
+.msg.user .bubble{background:var(--blue);border-color:var(--blue);color:#fff;border-radius:14px 4px 14px 14px}
+.bubble-head{display:flex;justify-content:space-between;gap:12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-bottom:8px;margin-bottom:10px;border-bottom:1px solid #22404F}
+.bubble-head span:last-child{color:#6F8796;font-family:var(--mono);letter-spacing:0;text-transform:none;font-weight:500}
+.md h2,.md h3,.md h4{color:#fff;font-size:15px;margin:14px 0 6px;letter-spacing:0}
+.md h2:first-child,.md h3:first-child{margin-top:0}
+.md p{margin:6px 0}
+.md ul,.md ol{margin:6px 0 6px 20px}
+.md li{margin:3px 0}
+.md strong{color:#fff}
+.md code{font-family:var(--mono);font-size:12.5px;background:#0B1B26;border:1px solid #22404F;padding:1px 5px;border-radius:5px}
+.md table{border-collapse:collapse;margin:10px 0;font-size:13px;width:100%;display:block;overflow-x:auto}
+.md th,.md td{border:1px solid #2A4A5B;padding:6px 9px;text-align:left;vertical-align:top}
+.md th{background:#0F2230;color:#fff}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.quick button{font-size:12.5px;background:#0F2230;border:1px solid #2A4A5B;color:#B9CAD4;padding:6px 10px;border-radius:8px;cursor:pointer;text-align:left}
+.quick button:hover{border-color:var(--sky);color:#fff}
+.typing{display:flex;gap:5px;padding:4px 0}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.chat-input{padding:14px 18px;border-top:1px solid #22404F;background:#0F2230}
+.chat-input form{display:flex;gap:10px}
+.chat-input textarea{flex:1;background:#0B1B26;border:1px solid #2A4A5B;border-radius:12px;padding:11px 14px;color:#fff;font-size:14px;resize:none;outline:none}
+.chat-input textarea:focus{border-color:var(--accent)}
+.chat-input textarea::placeholder{color:#6F8796}
+.chat-note{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#6F8796;margin-top:10px}
+
+/* Plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.plan{padding:30px;display:flex;flex-direction:column;position:relative}
+.plan.featured{border:2px solid var(--accent);box-shadow:0 20px 50px rgba(227,118,31,.14)}
+.plan .badge{position:absolute;top:-13px;left:30px;background:var(--accent);color:#fff;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.04em}
+.plan .picon{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);color:var(--navy);margin-bottom:18px}
+.plan h3{font-size:19px}
+.plan .kind{font-size:13px;color:var(--muted);margin:4px 0 18px}
+.plan .price{padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:18px}
+.plan .price small{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.plan .price b{display:block;font-size:22px;color:var(--ink);margin:2px 0}
+.plan .price span{font-size:13px;color:var(--muted)}
+.plan ul{list-style:none;display:grid;gap:10px;margin-bottom:26px}
+.plan li{display:flex;gap:9px;font-size:14px}
+.plan li .ico{color:var(--ok);margin-top:3px}
+.plan .btn{margin-top:auto}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.cinfo{display:grid;gap:14px;margin:28px 0}
+.cinfo-item{display:flex;gap:14px;align-items:center;padding:16px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.cinfo-item .ci{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:var(--bg);color:var(--blue);flex:none}
+.cinfo-item small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cinfo-item a,.cinfo-item p{font-size:14.5px;font-weight:600;color:var(--ink)}
+.cinfo-item p{font-weight:500;font-size:13.5px;color:var(--text)}
+.cinfo-item a:hover{color:var(--blue)}
+.nda{padding:20px;border-radius:12px;background:var(--navy);color:#B4C4CF;font-size:13.5px}
+.nda b{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.form-card{padding:32px}
+.form-card h3{font-size:21px}
+.form-card > p{font-size:14px;color:var(--muted);margin:4px 0 22px}
+.success{display:none;margin-top:18px;padding:18px;border-radius:12px;background:var(--ok-bg);border:1px solid #ABEFC6;color:#05603A;font-size:14px}
+.success.show{display:block}
+.success .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+
+/* Footer */
+footer{background:#0A1A24;color:#8FA5B3;padding:48px 0 32px;font-size:13.5px}
+.foot{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.foot .brand-name{color:#fff}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap}
+.foot-links a:hover{color:#fff}
+.foot-bottom{margin-top:32px;padding-top:22px;border-top:1px solid #1C3342;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#6F8796}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:.25s;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:1180px){.nav-links{display:none}}
+@media (max-width:1024px){
+  .nav-links,.nav-cta{display:none}.menu-btn{display:block}
+  .hero-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .phases{grid-template-columns:repeat(2,1fr)}
+  .tools-grid,.plans{grid-template-columns:1fr 1fr}
 }
-.glow-orange {
-box-shadow: 0 0 25px rgba(232, 122, 36, 0.25);
-}
-.glow-blue {
-box-shadow: 0 0 25px rgba(0, 119, 182, 0.25);
-}
-.glass-panel {
-background: rgba(255, 255, 255, 0.95);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-}
-.custom-scrollbar::-webkit-scrollbar {
-width: 6px;
-height: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-background: #f1f5f9;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-background: #cbd5e1;
-border-radius: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-background: #94a3b8;
+@media (max-width:720px){
+  section{padding:64px 0}.hero{padding:56px 0 64px}
+  .container{padding:0 16px}
+  .phases,.tools-grid,.plans,.eng-grid,.impact{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr 1fr}.metric b{font-size:22px}
+  .chat-win{height:420px;padding:16px}
+  .chat-input form{flex-direction:column}
+  .eng-top{flex-wrap:wrap}.status{margin-left:0}
+  .form-card{padding:22px}.eng,.plan{padding:22px}
+  .row2.stack-sm{grid-template-columns:1fr}
 }
 </style>
 </head>
-<body class="text-slate-800 bg-slate-50 antialiased selection:bg-brand-orange selection:text-white">
-<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all duration-300">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-20">
-<!-- Brand Logo (Recreated with precision from VECTOR-IA Brand Image) -->
-<a href="#inicio" class="flex items-center gap-3 group">
-<div class="w-12 h-12 flex items-center justify-center bg-white rounded-xl shadow-sm border border-slate-200 group-hover:scale-105 transition-transform duration-300">
-<svg viewBox="0 0 100 100" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<!-- Upper Navy Chevron with White Pin Hole -->
-<path d="M15 18 H52 L70 47 H33 L15 18Z" fill="#223843"/>
-<circle cx="38" cy="32" r="3.5" fill="#FFFFFF"/>
-<!-- Lower Blue Chevron with White Pin Hole -->
-<path d="M15 82 H52 L70 53 H33 L15 82Z" fill="#0077B6"/>
-<circle cx="38" cy="68" r="3.5" fill="#FFFFFF"/>
-<!-- Orange Forward Pointer Triangle with Pin Hole -->
-<path d="M72 26 L100 50 L72 74 Z" fill="#E87A24"/>
-<circle cx="83" cy="50" r="3" fill="#FFFFFF"/>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8.5 12 2.5 2.5 5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8.5 6.5h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h.01M15.5 18h.01"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-boxes" viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></symbol>
+  <symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20V9l6 4V9l6 4V4h4l2 16z"/><path d="M6 17h2M11 17h2"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="19" height="5" rx="1"/><path d="M4.5 8.5V19a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V8.5M10 12.5h4"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2.5"/><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 7.5v9M18 10.5c0 4-5 3.5-10.5 7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M2.5 13h19"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.5 5.2 2 2 0 0 1 4.5 3h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.4 10.9a16 16 0 0 0 4.7 4.7l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M12 14l4-4"/><path d="M3.5 18a9.5 9.5 0 1 1 17 0z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15c2-6 4-9 5-9s3 3 5 9"/><path d="M5 12h14" stroke-dasharray="2 2"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z"/></symbol>
+  <symbol id="logo" viewBox="0 0 100 100"><path d="M15 18 H52 L70 47 H33 L15 18Z" fill="#15303F"/><circle cx="38" cy="32" r="3.5" fill="#fff"/><path d="M15 82 H52 L70 53 H33 L15 82Z" fill="#0B6FA4"/><circle cx="38" cy="68" r="3.5" fill="#fff"/><path d="M72 26 L100 50 L72 74 Z" fill="#E3761F"/><circle cx="83" cy="50" r="3" fill="#fff"/></symbol>
 </svg>
-</div>
-<div>
-<span class="text-xl font-black tracking-wider text-brand-navy block leading-none">VECTOR-IA</span>
-<span class="text-[10px] uppercase font-bold tracking-widest text-brand-blue block mt-1">OPTIMIZACIÓN INTELIGENTE</span>
-</div>
-</a>
-<!-- Desktop Navigation Links -->
-<nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
-<a href="#metodologias" class="hover:text-brand-blue transition-colors">Metodologías</a>
-<a href="#ingenieros" class="hover:text-brand-blue transition-colors">Equipo de Ingenieros</a>
-<a href="#ia-gemini" class="hover:text-brand-orange flex items-center gap-1.5 font-semibold text-brand-navy bg-orange-50 px-3 py-1.5 rounded-full border border-orange-200/60">
-<i data-lucide="sparkles" class="w-4 h-4 text-brand-orange animate-pulse"></i> Gemini Industrial IA
-</a>
-<a href="#contratacion" class="hover:text-brand-blue transition-colors">Modalidades & Tarifas</a>
-<a href="#contacto" class="hover:text-brand-blue transition-colors">Contacto</a>
-</nav>
-<!-- CTA Action Button -->
-<div class="hidden sm:flex items-center gap-3">
-<a href="#ia-gemini" class="px-4 py-2 text-sm font-semibold text-brand-navy bg-slate-100 hover:bg-slate-200 rounded-xl transition-all">
-Diagnóstico IA
-</a>
-<a href="#contratacion" class="px-5 py-2.5 text-sm font-semibold text-white bg-brand-orange hover:bg-amber-600 shadow-md shadow-orange-500/20 rounded-xl transition-all flex items-center gap-2">
-<i data-lucide="user-check" class="w-4 h-4"></i> Contratar Ingeniero
-</a>
-</div>
-<!-- Mobile menu toggle -->
-<button id="mobileMenuBtn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg" aria-label="Abrir menú">
-<i data-lucide="menu" class="w-6 h-6"></i>
-</button>
-</div>
-</div>
-<!-- Mobile dropdown menu -->
-<div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3">
-<a href="#metodologias" class="block py-2 text-slate-700 font-medium" onclick="toggleMobileMenu()">Metodologías</a>
-<a href="#ingenieros" class="block py-2 text-slate-700 font-medium" onclick="toggleMobileMenu()">Equipo de Ingenieros</a>
-<a href="#ia-gemini" class="block py-2 text-brand-orange font-bold flex items-center gap-2" onclick="toggleMobileMenu()">
-<i data-lucide="sparkles" class="w-4 h-4"></i> Gemini Industrial IA
-</a>
-<a href="#contratacion" class="block py-2 text-slate-700 font-medium" onclick="toggleMobileMenu()">Modalidades de Trabajo</a>
-<a href="#contacto" class="block py-2 text-slate-700 font-medium" onclick="toggleMobileMenu()">Contacto y Cotización</a>
-<div class="pt-2 flex flex-col gap-2">
-<a href="#ia-gemini" class="w-full text-center py-2.5 text-sm font-semibold text-brand-navy bg-slate-100 rounded-xl" onclick="toggleMobileMenu()">Diagnóstico IA</a>
-<a href="#contratacion" class="w-full text-center py-2.5 text-sm font-semibold text-white bg-brand-orange rounded-xl" onclick="toggleMobileMenu()">Contratar Ingenieros</a>
-</div>
-</div>
+
+<header>
+  <div class="container nav">
+    <a href="#inicio" class="brand" aria-label="VECTOR-IA inicio">
+      <svg width="38" height="38"><use href="#logo"/></svg>
+      <span><span class="brand-name">VECTOR-IA</span><span class="brand-tag">OPTIMIZACIÓN INTELIGENTE</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#metodologias">Metodologías</a>
+      <a href="#ingenieros">Ingenieros</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="#asistente">Asistente IA</a>
+      <a href="#contratacion">Modalidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#asistente" class="btn btn-outline btn-sm">Diagnóstico IA</a>
+      <a href="#contratacion" class="btn btn-dark btn-sm">Contratar ingeniero</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><svg class="ico"><use href="#i-menu"/></svg></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#metodologias">Metodologías</a>
+    <a href="#ingenieros">Equipo de Ingenieros</a>
+    <a href="#herramientas">Herramientas gratuitas</a>
+    <a href="#asistente">Asistente IA</a>
+    <a href="#contratacion">Modalidades de trabajo</a>
+    <a href="#contacto">Contacto y cotización</a>
+  </div>
 </header>
-<section id="inicio" class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-slate-100 via-white to-slate-50 border-b border-slate-200/80">
-<div class="absolute inset-0 bg-[radial-gradient(#0077b6_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<div class="lg:col-span-7 space-y-6 text-left">
-<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-brand-blue border border-blue-200">
-<i data-lucide="shield-check" class="w-4 h-4 text-brand-blue"></i>
-Ingeniería Industrial • Lean Six Sigma • IA Integrada
-</div>
-<h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-Elimina desperdicios, reduce variabilidad y <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-sky-600 to-brand-orange">maximiza tu OEE</span>.
-</h1>
-<p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
-Somos una firma técnica especializada en <strong>Lean Six Sigma (DMAIC / DMADV)</strong>, optimización de <strong>procesos de manufactura</strong> y gestión de <strong>almacenes y logística</strong>. Accede a consultoría de ingenieros senior o potencia tu operación al instante con nuestro copiloto de IA con Gemini.
-</p>
-<div class="flex flex-wrap items-center gap-4 pt-2">
-<a href="#ia-gemini" class="px-6 py-3.5 bg-brand-navy hover:bg-slate-900 text-white font-semibold rounded-xl shadow-lg shadow-slate-900/20 flex items-center gap-2.5 transition-all transform hover:-translate-y-0.5">
-<i data-lucide="bot" class="w-5 h-5 text-brand-orange"></i>
-Probar Asistente Gemini en Vivo
-</a>
-<a href="#ingenieros" class="px-6 py-3.5 bg-white hover:bg-slate-50 text-slate-800 font-semibold rounded-xl border border-slate-300 shadow-sm flex items-center gap-2 transition-all">
-<i data-lucide="users" class="w-5 h-5 text-brand-blue"></i>
-Conocer los 2 Ingenieros
-</a>
-</div>
-<!-- Trust Metric Badges -->
-<div class="pt-6 border-t border-slate-200/90 grid grid-cols-3 gap-4 text-center sm:text-left">
-<div>
-<p class="text-2xl lg:text-3xl font-black text-brand-navy">3.4 DPMO</p>
-<p class="text-xs text-slate-500 font-medium">Estándar Six Sigma</p>
-</div>
-<div>
-<p class="text-2xl lg:text-3xl font-black text-brand-blue">+35%</p>
-<p class="text-xs text-slate-500 font-medium">OEE & Eficiencia</p>
-</div>
-<div>
-<p class="text-2xl lg:text-3xl font-black text-brand-orange">-60%</p>
-<p class="text-xs text-slate-500 font-medium">Tiempos de Ciclo & Setup</p>
-</div>
-</div>
-</div>
-<!-- Interactive Hero Widget Card -->
-<div class="lg:col-span-5">
-<div class="bg-white rounded-3xl p-6 lg:p-8 shadow-xl border border-slate-200/80 relative overflow-hidden">
-<div class="absolute -right-12 -top-12 w-44 h-44 bg-orange-100 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
-<div class="absolute -left-12 -bottom-12 w-44 h-44 bg-blue-100 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
-<div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
-<div class="flex items-center gap-2">
-<span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
-<span class="text-xs font-bold uppercase tracking-wider text-slate-700">Calculadora Rápida Sigma</span>
-</div>
-<span class="text-xs bg-slate-100 font-mono px-2 py-1 rounded text-slate-600">Herramienta Lean</span>
-</div>
-<div class="space-y-4">
-<div>
-<label class="block text-xs font-semibold text-slate-700 mb-1">Unidades Totales Inspeccionadas (N):</label>
-<input type="number" id="quickUnits" value="10000" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none font-mono">
-</div>
-<div class="grid grid-cols-2 gap-3">
-<div>
-<label class="block text-xs font-semibold text-slate-700 mb-1">Defectos Detectados (D):</label>
-<input type="number" id="quickDefects" value="12" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none font-mono">
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-700 mb-1">Oportunidades/Unidad (O):</label>
-<input type="number" id="quickOpp" value="5" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none font-mono">
-</div>
-</div>
-<button onclick="calculateQuickSigma()" class="w-full py-2.5 bg-brand-blue hover:bg-sky-700 text-white text-sm font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
-<i data-lucide="calculator" class="w-4 h-4"></i> Calcular DPMO & Nivel Sigma
-</button>
-<div id="quickResult" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
-<div class="text-xs text-slate-500 font-medium">Resultado Estimado</div>
-<div class="text-2xl font-black text-brand-navy" id="sigmaValDisplay">4.82 σ</div>
-<div class="text-xs text-slate-600" id="dpmoValDisplay">DPMO: 240.00 (Yield: 99.976%)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>Ingeniería Industrial · Lean Six Sigma · IA integrada</span>
+      <h1>Elimina desperdicios, reduce la variabilidad y <em>maximiza tu OEE</em>.</h1>
+      <p class="lead">Firma técnica especializada en <strong>Lean Six Sigma (DMAIC / DMADV)</strong>, optimización de <strong>procesos de manufactura</strong> y gestión de <strong>almacenes y logística</strong>. Consultoría con ingenieros senior y un asistente técnico con IA disponible al instante, sin registro.</p>
+      <div class="hero-actions">
+        <a href="#asistente" class="btn btn-primary"><svg class="ico"><use href="#i-bot"/></svg>Probar el asistente IA</a>
+        <a href="#ingenieros" class="btn btn-ghost-light"><svg class="ico"><use href="#i-users"/></svg>Conocer a los ingenieros</a>
+      </div>
+      <div class="metrics">
+        <div class="metric"><b>3.4</b><span>DPMO · estándar Six Sigma</span></div>
+        <div class="metric"><b>+35%</b><span>OEE y eficiencia</span></div>
+        <div class="metric"><b>−60%</b><span>Tiempos de ciclo y setup</span></div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-head">
+        <h3><svg class="ico"><use href="#i-calc"/></svg>Calculadora rápida Sigma</h3>
+        <span class="tag">Lean</span>
+      </div>
+      <div class="field"><label for="qUnits">Unidades inspeccionadas (N)</label><input class="input mono" type="number" min="1" id="qUnits" value="10000"></div>
+      <div class="row2">
+        <div class="field"><label for="qDefects">Defectos (D)</label><input class="input mono" type="number" min="0" id="qDefects" value="12"></div>
+        <div class="field"><label for="qOpp">Oportunidades / unidad</label><input class="input mono" type="number" min="1" id="qOpp" value="5"></div>
+      </div>
+      <button class="btn btn-dark btn-block" onclick="calcSigma()"><svg class="ico"><use href="#i-calc"/></svg>Calcular DPMO y nivel Sigma</button>
+      <div class="result">
+        <small>Resultado estimado</small>
+        <div class="big" id="sigmaOut">—</div>
+        <div class="sub" id="dpmoOut"></div>
+        <div class="bar"><i id="sigmaBar" style="width:0"></i></div>
+      </div>
+    </div>
+  </div>
 </section>
-<section id="metodologias" class="py-20 bg-white border-b border-slate-200">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-<span class="text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-50 px-3.5 py-1 rounded-full border border-orange-200">
-Estructura Metodológica de Clase Mundial
-</span>
-<h2 class="text-3xl sm:text-4xl font-black text-slate-900">
-Metodologías Rigurosas para Manufactura & Almacén
-</h2>
-<p class="text-slate-600 text-base">
-No improvisamos. Aplicamos hojas de ruta estandarizadas basadas en datos cuantitativos y análisis estadístico para resolver fallas crónicas y diseñar procesos impecables.
-</p>
-</div>
-<!-- Tab Buttons -->
-<div class="flex justify-center mb-10">
-<div class="inline-flex p-1.5 bg-slate-100 rounded-2xl border border-slate-200">
-<button id="tabDmaicBtn" onclick="switchMethodTab('dmaic')" class="px-6 py-2.5 rounded-xl font-bold text-sm bg-white text-brand-navy shadow-sm transition-all flex items-center gap-2">
-<i data-lucide="refresh-cw" class="w-4 h-4 text-brand-blue"></i> DMAIC (Mejora de Procesos Existentes)
-</button>
-<button id="tabDmadvBtn" onclick="switchMethodTab('dmadv')" class="px-6 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2">
-<i data-lucide="sparkles" class="w-4 h-4 text-brand-orange"></i> DMADV (Diseño / DFSS Nuevo Proceso)
-</button>
-</div>
-</div>
-<!-- DMAIC Container -->
-<div id="dmaicView" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-<!-- Define -->
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-blue hover:shadow-md transition-all group">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center font-black text-lg mb-3">D</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">1. Definir</h3>
-<p class="text-xs text-slate-600 leading-relaxed mb-3">Identificación del problema, Project Charter, VOC (Voz del Cliente), SIPOC y métricas críticas de calidad (CTQ).</p>
-<span class="text-[11px] font-semibold text-brand-blue block">Herramientas: SIPOC, Charter, CTQ Flowdown</span>
-</div>
-<!-- Measure -->
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-blue hover:shadow-md transition-all group">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center font-black text-lg mb-3">M</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">2. Medir</h3>
-<p class="text-xs text-slate-600 leading-relaxed mb-3">Mapeo de valor (VSM), estudios Gage R&R (MSA), cálculo de línea base, DPMO y capacidad de proceso (Cp, Cpk).</p>
-<span class="text-[11px] font-semibold text-brand-blue block">Herramientas: Gage R&R, Cpk, VSM actual</span>
-</div>
-<!-- Analyze -->
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-blue hover:shadow-md transition-all group">
-<div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center font-black text-lg mb-3">A</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">3. Analizar</h3>
-<p class="text-xs text-slate-600 leading-relaxed mb-3">Análisis de causa raíz (Ishikawa, 5 Porqués), FMEA (AMEF), regresiones, pruebas de hipótesis y Pareto de pérdidas.</p>
-<span class="text-[11px] font-semibold text-brand-blue block">Herramientas: FMEA, 5 Whys, ANOVA, Pareto</span>
-</div>
-<!-- Improve -->
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-orange hover:shadow-md transition-all group">
-<div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-black text-lg mb-3">I</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">4. Implementar</h3>
-<p class="text-xs text-slate-600 leading-relaxed mb-3">Eventos Kaizen, SMED para cambios rápidos de formato, Poka-Yoke anti-error, rediseño de flujo pull y balanceo.</p>
-<span class="text-[11px] font-semibold text-brand-orange block">Herramientas: SMED, Poka-Yoke, DOE, Kanban</span>
-</div>
-<!-- Control -->
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-navy hover:shadow-md transition-all group">
-<div class="w-10 h-10 rounded-xl bg-slate-200 text-brand-navy flex items-center justify-center font-black text-lg mb-3">C</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">5. Controlar</h3>
-<p class="text-xs text-slate-600 leading-relaxed mb-3">Gráficos de Control Estadístico de Procesos (SPC), planes de control, estandarización (SOP) y auditorías 5S.</p>
-<span class="text-[11px] font-semibold text-brand-navy block">Herramientas: Gráficos SPC, Control Plan, 5S</span>
-</div>
-</div>
-<!-- DMADV Container (Hidden by default) -->
-<div id="dmadvView" class="hidden grid grid-cols-1 md:grid-cols-5 gap-4">
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-orange hover:shadow-md transition-all">
-<div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-black text-lg mb-3">D</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">1. Define</h3>
-<p class="text-xs text-slate-600 leading-relaxed">Metas del proyecto de diseño alineadas con la estrategia de la empresa y necesidades de mercado.</p>
-</div>
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-orange hover:shadow-md transition-all">
-<div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-black text-lg mb-3">M</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">2. Measure</h3>
-<p class="text-xs text-slate-600 leading-relaxed">Identificar y traducir CTQs, especificaciones de tolerancia y requerimientos de producción.</p>
-</div>
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-orange hover:shadow-md transition-all">
-<div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-black text-lg mb-3">A</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">3. Analyze</h3>
-<p class="text-xs text-slate-600 leading-relaxed">Desarrollar y evaluar conceptos de diseño alternativos mediante simulación y House of Quality (QFD).</p>
-</div>
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-orange hover:shadow-md transition-all">
-<div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-black text-lg mb-3">D</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">4. Design</h3>
-<p class="text-xs text-slate-600 leading-relaxed">Ingeniería de detalle del proceso de manufactura o layout de almacén y plan de tolerancias.</p>
-</div>
-<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-orange hover:shadow-md transition-all">
-<div class="w-10 h-10 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-black text-lg mb-3">V</div>
-<h3 class="font-bold text-slate-900 text-base mb-1">5. Verify</h3>
-<p class="text-xs text-slate-600 leading-relaxed">Pruebas piloto, validación de capacidad (Ppk > 1.67) y traspaso al equipo de operaciones.</p>
-</div>
-</div>
-<!-- 8 Desperdicios (Muda) Quick Reference -->
-<div class="mt-12 p-6 rounded-3xl bg-slate-900 text-white flex flex-col lg:flex-row items-center justify-between gap-6">
-<div class="space-y-1">
-<h4 class="text-lg font-bold text-white flex items-center gap-2">
-<i data-lucide="zap" class="w-5 h-5 text-brand-orange"></i> Los 8 Desperdicios Industriales (TIMWOODS)
-</h4>
-<p class="text-xs text-slate-400">Transporte, Inventario, Movimiento, Esperas, Sobreproducción, Sobreprocesamiento, Defectos, Talento no aprovechado.</p>
-</div>
-<button onclick="requestAiWasteAnalysis()" class="px-5 py-2.5 bg-brand-orange hover:bg-amber-600 font-semibold text-xs rounded-xl whitespace-nowrap transition-all shadow-md">
-Analizar Desperdicios en mi Planta con IA →
-</button>
-</div>
-</div>
+
+<!-- METODOLOGÍAS -->
+<section id="metodologias">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Estructura metodológica de clase mundial</span>
+      <h2>Metodologías rigurosas para manufactura y almacén</h2>
+      <p class="lead">No improvisamos. Aplicamos hojas de ruta estandarizadas, basadas en datos cuantitativos y análisis estadístico, para resolver fallas crónicas y diseñar procesos robustos.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab active" id="tabDmaic" onclick="switchMethod('dmaic')"><svg class="ico sm"><use href="#i-refresh"/></svg>DMAIC · Mejora de procesos existentes</button>
+      <button class="tab" id="tabDmadv" onclick="switchMethod('dmadv')"><svg class="ico sm"><use href="#i-spark"/></svg>DMADV · Diseño de nuevos procesos</button>
+    </div>
+    <div class="phases" id="viewDmaic">
+      <div class="card phase"><div class="letter">D</div><h3>1. Definir</h3><p>Problema, Project Charter, Voz del Cliente (VOC), SIPOC y características críticas de calidad (CTQ).</p><div class="tools">SIPOC · Charter · CTQ</div></div>
+      <div class="card phase"><div class="letter">M</div><h3>2. Medir</h3><p>Mapa de valor (VSM), Gage R&amp;R (MSA), línea base, DPMO y capacidad de proceso (Cp, Cpk).</p><div class="tools">Gage R&amp;R · Cpk · VSM</div></div>
+      <div class="card phase"><div class="letter">A</div><h3>3. Analizar</h3><p>Causa raíz (Ishikawa, 5 Porqués), AMEF, regresiones, pruebas de hipótesis y Pareto de pérdidas.</p><div class="tools">AMEF · 5 Porqués · ANOVA</div></div>
+      <div class="card phase"><div class="letter">I</div><h3>4. Implementar</h3><p>Eventos Kaizen, SMED, Poka-Yoke, rediseño de flujo pull y balanceo de líneas.</p><div class="tools">SMED · Poka-Yoke · DOE</div></div>
+      <div class="card phase"><div class="letter">C</div><h3>5. Controlar</h3><p>Control estadístico (SPC), planes de control, estandarización (SOP) y auditorías 5S.</p><div class="tools">SPC · Control Plan · 5S</div></div>
+    </div>
+    <div class="phases" id="viewDmadv" hidden>
+      <div class="card phase"><div class="letter">D</div><h3>1. Define</h3><p>Metas del proyecto de diseño alineadas con la estrategia de la empresa y las necesidades del mercado.</p><div class="tools">Charter · VOC</div></div>
+      <div class="card phase"><div class="letter">M</div><h3>2. Measure</h3><p>Identificar y traducir CTQs, especificaciones de tolerancia y requerimientos de producción.</p><div class="tools">CTQ · Especificaciones</div></div>
+      <div class="card phase"><div class="letter">A</div><h3>3. Analyze</h3><p>Desarrollar y evaluar conceptos alternativos mediante simulación y House of Quality (QFD).</p><div class="tools">QFD · Simulación</div></div>
+      <div class="card phase"><div class="letter">D</div><h3>4. Design</h3><p>Ingeniería de detalle del proceso de manufactura o layout de almacén y plan de tolerancias.</p><div class="tools">Layout · Tolerancias</div></div>
+      <div class="card phase"><div class="letter">V</div><h3>5. Verify</h3><p>Pruebas piloto, validación de capacidad (Ppk &gt; 1.67) y traspaso al equipo de operaciones.</p><div class="tools">Piloto · Ppk</div></div>
+    </div>
+    <div class="card waste">
+      <div>
+        <h4><svg class="ico"><use href="#i-zap"/></svg>Los 8 desperdicios industriales (TIMWOODS)</h4>
+        <div class="chips">
+          <span class="chip"><b>T</b>Transporte</span><span class="chip"><b>I</b>Inventario</span><span class="chip"><b>M</b>Movimiento</span><span class="chip"><b>W</b>Esperas</span>
+          <span class="chip"><b>O</b>Sobreproducción</span><span class="chip"><b>O</b>Sobreprocesamiento</span><span class="chip"><b>D</b>Defectos</span><span class="chip"><b>S</b>Talento no aprovechado</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="askWaste()">Analizar desperdicios con IA<svg class="ico"><use href="#i-arrow"/></svg></button>
+    </div>
+  </div>
 </section>
-<section id="ingenieros" class="py-20 bg-slate-100/70 border-b border-slate-200">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-<span class="text-xs font-bold uppercase tracking-widest text-brand-blue bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200">
-Especialistas Industriales Disponibles
-</span>
-<h2 class="text-3xl sm:text-4xl font-black text-slate-900">
-Los Dos Ingenieros Especialistas para tu Operación
-</h2>
-<p class="text-slate-600 text-base">
-Perfiles de ingeniería senior listos para resolver problemas en planta o centro de distribución. Puedes contratarlos por proyecto determinado, horas de soporte técnico o asignación in-plant a tiempo completo.
-</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-<!-- Profile 1: Ingeniero de Procesos de Manufactura & Six Sigma -->
-<div class="bg-white rounded-3xl p-8 border border-slate-200/90 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-<div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -z-0 transition-transform group-hover:scale-110"></div>
-<div class="relative z-10 space-y-6">
-<div class="flex items-start justify-between gap-4">
-<div class="flex items-center gap-4">
-<div class="w-16 h-16 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-brand-blue">
-<i data-lucide="cog" class="w-8 h-8 text-brand-sky"></i>
-</div>
-<div>
-<div class="inline-block text-[11px] font-bold text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-1">
-Especialista en Línea & Planta
-</div>
-<h3 class="text-xl font-black text-slate-900">Ing. de Procesos de Manufactura</h3>
-<p class="text-xs text-slate-500 font-medium">Lean Six Sigma Black Belt • Optimización de OEE</p>
-</div>
-</div>
-<span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 flex items-center gap-1">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Disponible
-</span>
-</div>
-<p class="text-slate-600 text-sm leading-relaxed">
-Especialista en diagnosticar y erradicar cuellos de botella en líneas continuas y discretas. Implementa balanceo de líneas, reducción de tiempos de setup (SMED), diseño de celdas de manufactura en U y control estadístico SPC.
-</p>
-<!-- Key Capabilities & Solved Problems -->
-<div class="space-y-2">
-<h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Áreas de Impacto Inmediato:</h4>
-<div class="grid grid-cols-2 gap-2 text-xs text-slate-700">
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-blue"></i>
-<span>Incremento de OEE (+15% a +35%)</span>
-</div>
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-blue"></i>
-<span>SMED (Setup en &lt; 10 min)</span>
-</div>
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-blue"></i>
-<span>FMEA & Poka-Yoke Anti-error</span>
-</div>
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-blue"></i>
-<span>VSM y Reducción de Scrap</span>
-</div>
-</div>
-</div>
-<!-- Technical Stack -->
-<div>
-<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-2">Herramientas Dominadas:</span>
-<div class="flex flex-wrap gap-1.5 text-xs font-medium text-slate-600">
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">Minitab</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">AutoCAD Layouts</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">SPC Charts</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">TPM</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">Kaizen Blitz</span>
-</div>
-</div>
-</div>
-<div class="mt-8 pt-5 border-t border-slate-100 flex items-center justify-between gap-4">
-<button onclick="prefillHireForm('Ingeniero de Manufactura & Procesos')" class="w-full py-3 bg-brand-navy hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2">
-<i data-lucide="file-signature" class="w-4 h-4 text-brand-orange"></i> Solicitar Propuesta de Contratación
-</button>
-</div>
-</div>
-<!-- Profile 2: Ingeniero de Six Sigma en Almacén & Cadena de Suministro -->
-<div class="bg-white rounded-3xl p-8 border border-slate-200/90 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-<div class="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-full -z-0 transition-transform group-hover:scale-110"></div>
-<div class="relative z-10 space-y-6">
-<div class="flex items-start justify-between gap-4">
-<div class="flex items-center gap-4">
-<div class="w-16 h-16 rounded-2xl bg-brand-orange text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-amber-400">
-<i data-lucide="boxes" class="w-8 h-8 text-white"></i>
-</div>
-<div>
-<div class="inline-block text-[11px] font-bold text-brand-orange bg-orange-50 px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-1">
-Especialista en Almacén & Logística
-</div>
-<h3 class="text-xl font-black text-slate-900">Ing. de Almacén & Cadena Six Sigma</h3>
-<p class="text-xs text-slate-500 font-medium">Lean Logistics • Slotting & Reducción de DPMO</p>
-</div>
-</div>
-<span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 flex items-center gap-1">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Disponible
-</span>
-</div>
-<p class="text-slate-600 text-sm leading-relaxed">
-Especialista en la transformación de centros de distribución y almacenes de materia prima. Erradica errores de picking (DPMO en despacho), diseña slotting ABC dinámico, optimiza rutas de montacargas e implementa 5S de alto rigor.
-</p>
-<!-- Key Capabilities & Solved Problems -->
-<div class="space-y-2">
-<h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Áreas de Impacto Inmediato:</h4>
-<div class="grid grid-cols-2 gap-2 text-xs text-slate-700">
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-orange"></i>
-<span>Exactitud de Inventario (IRA &gt; 99.5%)</span>
-</div>
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-orange"></i>
-<span>Slotting ABC & Reducción de Tiempos</span>
-</div>
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-orange"></i>
-<span>Zero Defect Picking (Poka-Yoke WMS)</span>
-</div>
-<div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100">
-<i data-lucide="check-circle-2" class="w-4 h-4 text-brand-orange"></i>
-<span>5S Visual Management en Bodega</span>
-</div>
-</div>
-</div>
-<!-- Technical Stack -->
-<div>
-<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-2">Herramientas Dominadas:</span>
-<div class="flex flex-wrap gap-1.5 text-xs font-medium text-slate-600">
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">WMS Lean Config</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">Spaghetti Diagrams</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">Kanban Pull</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">Safety Stock Calc</span>
-<span class="bg-slate-100 px-2.5 py-1 rounded-md">Milk-run Logistics</span>
-</div>
-</div>
-</div>
-<div class="mt-8 pt-5 border-t border-slate-100 flex items-center justify-between gap-4">
-<button onclick="prefillHireForm('Ingeniero de Almacén & Cadena de Suministro')" class="w-full py-3 bg-brand-navy hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2">
-<i data-lucide="file-signature" class="w-4 h-4 text-brand-orange"></i> Solicitar Propuesta de Contratación
-</button>
-</div>
-</div>
-</div>
-</div>
+
+<!-- INGENIEROS -->
+<section id="ingenieros" class="bg-white">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Especialistas industriales disponibles</span>
+      <h2>Dos ingenieros especialistas para tu operación</h2>
+      <p class="lead">Perfiles senior listos para resolver problemas en planta o centro de distribución. Contrátalos por proyecto, por bolsa de horas o con asignación in-plant a tiempo completo.</p>
+    </div>
+    <div class="eng-grid">
+      <article class="card eng">
+        <div class="eng-top">
+          <div class="avatar"><svg class="ico lg"><use href="#i-cog"/></svg></div>
+          <div><small>Especialista en línea y planta</small><h3>Ing. de Procesos de Manufactura</h3><div class="role">Lean Six Sigma Black Belt · Optimización de OEE</div></div>
+          <span class="status">Disponible</span>
+        </div>
+        <p class="desc">Diagnostica y erradica cuellos de botella en líneas continuas y discretas. Implementa balanceo de líneas, reducción de setup (SMED), celdas de manufactura en U y control estadístico SPC.</p>
+        <div class="label-sm">Áreas de impacto inmediato</div>
+        <div class="impact">
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>Incremento de OEE (+15% a +35%)</div>
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>SMED (setup en &lt; 10 min)</div>
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>AMEF y Poka-Yoke anti-error</div>
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>VSM y reducción de scrap</div>
+        </div>
+        <div class="label-sm">Herramientas dominadas</div>
+        <div class="stack"><span>Minitab</span><span>AutoCAD Layouts</span><span>SPC Charts</span><span>TPM</span><span>Kaizen Blitz</span></div>
+        <button class="btn btn-dark btn-block" onclick="prefillHire('Ingeniero de Manufactura & Procesos')"><svg class="ico"><use href="#i-file"/></svg>Solicitar propuesta de contratación</button>
+      </article>
+      <article class="card eng">
+        <div class="eng-top">
+          <div class="avatar"><svg class="ico lg"><use href="#i-boxes"/></svg></div>
+          <div><small>Especialista en almacén y logística</small><h3>Ing. de Almacén y Cadena Six Sigma</h3><div class="role">Lean Logistics · Slotting y reducción de DPMO</div></div>
+          <span class="status">Disponible</span>
+        </div>
+        <p class="desc">Transforma centros de distribución y almacenes de materia prima. Erradica errores de picking (DPMO en despacho), diseña slotting ABC dinámico, optimiza rutas de montacargas e implementa 5S de alto rigor.</p>
+        <div class="label-sm">Áreas de impacto inmediato</div>
+        <div class="impact">
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>Exactitud de inventario (IRA &gt; 99.5%)</div>
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>Slotting ABC y reducción de tiempos</div>
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>Zero Defect Picking (Poka-Yoke WMS)</div>
+          <div><svg class="ico sm"><use href="#i-check-circle"/></svg>5S y gestión visual en bodega</div>
+        </div>
+        <div class="label-sm">Herramientas dominadas</div>
+        <div class="stack"><span>WMS Lean Config</span><span>Spaghetti Diagrams</span><span>Kanban Pull</span><span>Safety Stock</span><span>Milk-run</span></div>
+        <button class="btn btn-dark btn-block" onclick="prefillHire('Ingeniero de Almacén & Cadena de Suministro')"><svg class="ico"><use href="#i-file"/></svg>Solicitar propuesta de contratación</button>
+      </article>
+    </div>
+  </div>
 </section>
-<section id="ia-gemini" class="py-20 bg-slate-900 text-white relative overflow-hidden">
-<!-- Tech background glow -->
-<div class="absolute top-1/4 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute bottom-10 right-10 w-96 h-96 bg-orange-600/15 rounded-full blur-3xl pointer-events-none"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
-<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-orange-500/10 text-brand-orange border border-orange-500/30">
-<i data-lucide="sparkles" class="w-4 h-4 text-brand-orange animate-spin"></i>
-Impulsado por Gemini 3 Flash
-</div>
-<h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
-VECTOR-IA Engine: Asistente Experto en Tiempo Real
-</h2>
-<p class="text-slate-300 text-sm sm:text-base">
-Elige el apartado de tu problema operativo (Manufactura de Línea, Six Sigma en Almacenes o Metodología DMAIC/DMADV) y recibe un análisis técnico estructurado, cálculos o planes de acción al instante.
-</p>
-</div>
-<!-- Gemini Interface Card -->
-<div class="bg-slate-800/90 rounded-3xl border border-slate-700 shadow-2xl overflow-hidden backdrop-blur-xl">
-<!-- Domain / Specialization Selector Tabs -->
-<div class="border-b border-slate-700 bg-slate-800/50 p-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
-<div class="flex items-center gap-2">
-<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Módulo Activo:</span>
-<div class="flex flex-wrap gap-2" id="moduleTabs">
-<button onclick="setAiDomain('manufactura')" id="btnDomain-manufactura" class="domain-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-blue text-white transition-all flex items-center gap-1.5">
-<i data-lucide="factory" class="w-3.5 h-3.5"></i> Procesos de Manufactura
-</button>
-<button onclick="setAiDomain('almacen')" id="btnDomain-almacen" class="domain-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition-all flex items-center gap-1.5">
-<i data-lucide="archive" class="w-3.5 h-3.5"></i> Six Sigma en Almacén / WMS
-</button>
-<button onclick="setAiDomain('dmaic')" id="btnDomain-dmaic" class="domain-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition-all flex items-center gap-1.5">
-<i data-lucide="git-branch" class="w-3.5 h-3.5"></i> DMAIC / DMADV Roadmap
-</button>
-<button onclick="setAiDomain('fmea')" id="btnDomain-fmea" class="domain-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition-all flex items-center gap-1.5">
-<i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> AMEF (FMEA) & Calidad
-</button>
-</div>
-</div>
-<!-- API key + clear buttons -->
-<div class="flex items-center gap-4">
-<button onclick="configureApiKey()" id="apiKeyBtn" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
-<i data-lucide="key-round" class="w-3.5 h-3.5"></i> <span id="apiKeyStatus">Configurar API Key</span>
-</button>
-<button onclick="clearAiChat()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
-<i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Limpiar Chat
-</button>
-</div>
-</div>
-<!-- Chat History Window -->
-<div id="aiChatWindow" class="h-[430px] p-6 overflow-y-auto space-y-4 custom-scrollbar text-sm font-normal">
-<!-- AI Intro Message -->
-<div class="flex items-start gap-3.5">
-<div class="w-9 h-9 rounded-xl bg-brand-orange flex-shrink-0 flex items-center justify-center text-white shadow-md">
-<i data-lucide="cpu" class="w-5 h-5"></i>
-</div>
-<div class="bg-slate-700/70 border border-slate-600 rounded-2xl rounded-tl-none p-4 max-w-3xl text-slate-200 space-y-2">
-<div class="flex items-center justify-between gap-2 border-b border-slate-600/80 pb-2">
-<span class="font-bold text-xs text-brand-orange uppercase tracking-wider" id="chatDomainBadge">Módulo: Procesos de Manufactura</span>
-<span class="text-[10px] text-slate-400 font-mono">VECTOR-IA v3.1</span>
-</div>
-<p class="leading-relaxed" id="chatDomainIntro">
-Hola. Soy tu Ingeniero de Procesos con IA de <strong>VECTOR-IA</strong>. Cuéntame sobre tu cuello de botella, índice OEE, defectos en línea o tiempos de setup para generar un plan de acción técnico.
-</p>
-<div class="pt-2">
-<span class="text-[11px] font-semibold text-slate-400 block mb-1.5">Sugerencias rápidas:</span>
-<div class="flex flex-wrap gap-2" id="quickPromptsContainer">
-<!-- Dynamic quick prompts rendered via JS -->
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Input Box Form -->
-<div class="p-4 bg-slate-800 border-t border-slate-700">
-<form id="aiPromptForm" onsubmit="handleAiSubmit(event)" class="flex flex-col sm:flex-row gap-3">
-<div class="relative flex-1">
-<textarea id="aiUserInput" rows="2" placeholder="Describe tu problema industrial (ej: 'Tengo un cuello de botella en la estación de empaque y el OEE está en 54%...')" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange resize-none"></textarea>
-</div>
-<div class="flex sm:flex-col justify-end gap-2">
-<button type="submit" id="aiSendBtn" class="px-6 py-3 bg-brand-orange hover:bg-amber-600 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap">
-<i data-lucide="send" class="w-4 h-4"></i> Consultar IA
-</button>
-</div>
-</form>
-<div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 px-1">
-<span>💡 La IA genera borradores técnicos, SIPOCs y análisis 5 Porqués para evaluación de tus ingenieros.</span>
-<span class="font-mono text-slate-500">Gemini 3 Flash API</span>
-</div>
-</div>
-</div>
-</div>
+
+<!-- HERRAMIENTAS -->
+<section id="herramientas">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Herramientas gratuitas</span>
+      <h2>Calculadoras de ingeniería industrial</h2>
+      <p class="lead">Cálculos al instante en tu navegador, sin registro. Tus datos no salen de tu equipo.</p>
+    </div>
+    <div class="tools-grid">
+      <div class="card tool">
+        <h3><svg class="ico"><use href="#i-gauge"/></svg>OEE</h3>
+        <p>Disponibilidad × Rendimiento × Calidad.</p>
+        <div class="row2">
+          <div class="field"><label for="oPlan">Tiempo planificado (min)</label><input class="input mono" type="number" id="oPlan" value="480"></div>
+          <div class="field"><label for="oDown">Paros (min)</label><input class="input mono" type="number" id="oDown" value="60"></div>
+          <div class="field"><label for="oCycle">Ciclo ideal (seg/pz)</label><input class="input mono" type="number" id="oCycle" value="30"></div>
+          <div class="field"><label for="oTotal">Piezas producidas</label><input class="input mono" type="number" id="oTotal" value="700"></div>
+        </div>
+        <div class="field"><label for="oGood">Piezas buenas</label><input class="input mono" type="number" id="oGood" value="665"></div>
+        <button class="btn btn-dark btn-block" onclick="calcOEE()">Calcular OEE</button>
+        <div class="result"><small>OEE</small><div class="big" id="oeeOut">—</div><div class="sub" id="oeeSub"></div><div class="bar"><i id="oeeBar" style="width:0"></i></div></div>
+      </div>
+      <div class="card tool">
+        <h3><svg class="ico"><use href="#i-chart"/></svg>Capacidad Cp / Cpk</h3>
+        <p>Capacidad del proceso frente a la especificación.</p>
+        <div class="row2">
+          <div class="field"><label for="cLsl">LIE (límite inferior)</label><input class="input mono" type="number" step="any" id="cLsl" value="9.90"></div>
+          <div class="field"><label for="cUsl">LSE (límite superior)</label><input class="input mono" type="number" step="any" id="cUsl" value="10.10"></div>
+          <div class="field"><label for="cMean">Media (x̄)</label><input class="input mono" type="number" step="any" id="cMean" value="10.02"></div>
+          <div class="field"><label for="cSd">Desviación estándar (σ)</label><input class="input mono" type="number" step="any" id="cSd" value="0.025"></div>
+        </div>
+        <button class="btn btn-dark btn-block" onclick="calcCpk()">Calcular capacidad</button>
+        <div class="result"><small>Cpk</small><div class="big" id="cpkOut">—</div><div class="sub" id="cpkSub"></div></div>
+      </div>
+      <div class="card tool">
+        <h3><svg class="ico"><use href="#i-timer"/></svg>Takt time</h3>
+        <p>Ritmo de producción que exige la demanda.</p>
+        <div class="field"><label for="tTime">Tiempo disponible por turno (min)</label><input class="input mono" type="number" id="tTime" value="450"></div>
+        <div class="row2">
+          <div class="field"><label for="tShifts">Turnos por día</label><input class="input mono" type="number" id="tShifts" value="2"></div>
+          <div class="field"><label for="tDemand">Demanda diaria (pz)</label><input class="input mono" type="number" id="tDemand" value="1200"></div>
+        </div>
+        <div class="field"><label for="tCt">Suma de tiempos de ciclo (seg, opcional)</label><input class="input mono" type="number" id="tCt" value="180"></div>
+        <button class="btn btn-dark btn-block" onclick="calcTakt()">Calcular takt time</button>
+        <div class="result"><small>Takt time</small><div class="big" id="taktOut">—</div><div class="sub" id="taktSub"></div></div>
+      </div>
+    </div>
+  </div>
 </section>
-<section id="contratacion" class="py-20 bg-white border-b border-slate-200">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-<span class="text-xs font-bold uppercase tracking-widest text-brand-orange bg-orange-50 px-3.5 py-1 rounded-full border border-orange-200">
-Flexibilidad y Transparencia
-</span>
-<h2 class="text-3xl sm:text-4xl font-black text-slate-900">
-Modalidades de Trabajo & Contratación
-</h2>
-<p class="text-slate-600 text-base">
-Adapta nuestros recursos según el alcance de tu empresa: desde sprints específicos de mejora hasta ingenieros dedicados in-plant para liderar tu transformación Lean.
-</p>
-</div>
-<!-- Modality Cards Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Option 1: Por Proyecto Determinado -->
-<div class="rounded-3xl border border-slate-200 p-8 bg-slate-50/50 hover:bg-white hover:border-brand-blue hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-<div class="space-y-4">
-<div class="w-12 h-12 rounded-2xl bg-blue-100 text-brand-blue flex items-center justify-center mb-2">
-<i data-lucide="target" class="w-6 h-6"></i>
-</div>
-<h3 class="text-xl font-black text-slate-900">Por Proyecto Determinado</h3>
-<p class="text-xs text-slate-500 font-medium">Sprint DMAIC • Kaizen Blitz • Rediseño de Layout</p>
-<div class="py-3 border-y border-slate-200/80">
-<span class="text-xs text-slate-500 uppercase tracking-wider block font-semibold">Inversión por Entregables</span>
-<div class="text-3xl font-black text-slate-900 mt-1">Cotización <span class="text-sm font-normal text-slate-500">a medida</span></div>
-<span class="text-[11px] text-brand-blue font-semibold">Compromiso por KPI (Garantía de Ahorro)</span>
-</div>
-<ul class="space-y-2.5 text-xs text-slate-600">
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Alcance cerrado con Project Charter formal
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Duración típica: 4 a 12 semanas
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Entrega de SOPs, Control Plan y Dashboards
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Auditoría de cierre a los 60 días
-</li>
-</ul>
-</div>
-<button onclick="selectHiringPlan('Por Proyecto Determinado')" class="mt-8 w-full py-3 bg-white hover:bg-slate-900 hover:text-white border border-slate-300 text-slate-800 font-bold text-xs rounded-xl transition-all shadow-sm">
-Elegir Proyecto Determinado
-</button>
-</div>
-<!-- Option 2: Bolsa de Horas / Asesoría Técnica (Featured) -->
-<div class="rounded-3xl border-2 border-brand-orange p-8 bg-white shadow-xl relative flex flex-col justify-between group">
-<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-sm">
-Más Solicitado por PyMEs
-</div>
-<div class="space-y-4">
-<div class="w-12 h-12 rounded-2xl bg-orange-100 text-brand-orange flex items-center justify-center mb-2">
-<i data-lucide="clock" class="w-6 h-6"></i>
-</div>
-<h3 class="text-xl font-black text-slate-900">Bolsa de Horas de Ingeniería</h3>
-<p class="text-xs text-slate-500 font-medium">Resolución Puntual • Auditorías 5S • Minitab Support</p>
-<div class="py-3 border-y border-slate-200/80">
-<span class="text-xs text-slate-500 uppercase tracking-wider block font-semibold">Paquetes Flexibles</span>
-<div class="text-3xl font-black text-slate-900 mt-1">Desde 20 hrs <span class="text-sm font-normal text-slate-500">/ mes</span></div>
-<span class="text-[11px] text-brand-orange font-semibold">Uso remoto o en sitio coordinado</span>
-</div>
-<ul class="space-y-2.5 text-xs text-slate-600">
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Soporte ágil para resolver paros y rechazos
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Análisis estadístico y modelado de datos
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Capacitación a supervisores y operadores
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Acceso prioritario al motor VECTOR-IA
-</li>
-</ul>
-</div>
-<button onclick="selectHiringPlan('Bolsa de Horas de Ingeniería')" class="mt-8 w-full py-3 bg-brand-orange hover:bg-amber-600 text-white font-bold text-xs rounded-xl transition-all shadow-md">
-Contratar Horas de Asesoría
-</button>
-</div>
-<!-- Option 3: Tiempo Completo / In-Plant Outsourcing -->
-<div class="rounded-3xl border border-slate-200 p-8 bg-slate-50/50 hover:bg-white hover:border-brand-navy hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-<div class="space-y-4">
-<div class="w-12 h-12 rounded-2xl bg-slate-200 text-brand-navy flex items-center justify-center mb-2">
-<i data-lucide="briefcase" class="w-6 h-6"></i>
-</div>
-<h3 class="text-xl font-black text-slate-900">Ingeniero Tiempo Completo</h3>
-<p class="text-xs text-slate-500 font-medium">In-Plant Dedicado • Staff Augmentation</p>
-<div class="py-3 border-y border-slate-200/80">
-<span class="text-xs text-slate-500 uppercase tracking-wider block font-semibold">Asignación Mensual Exclusiva</span>
-<div class="text-3xl font-black text-slate-900 mt-1">Full-Time <span class="text-sm font-normal text-slate-500">In-Plant</span></div>
-<span class="text-[11px] text-brand-navy font-semibold">Integración total en planta o almacén</span>
-</div>
-<ul class="space-y-2.5 text-xs text-slate-600">
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Ingeniero certificado trabajando en tu piso
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Ejecución diaria de cultura Kaizen y 5S
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Reporte ejecutivo semanal de ahorros ($)
-</li>
-<li class="flex items-center gap-2">
-<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Respaldado por el equipo central de VECTOR-IA
-</li>
-</ul>
-</div>
-<button onclick="selectHiringPlan('Ingeniero Tiempo Completo In-Plant')" class="mt-8 w-full py-3 bg-white hover:bg-slate-900 hover:text-white border border-slate-300 text-slate-800 font-bold text-xs rounded-xl transition-all shadow-sm">
-Solicitar Ingeniero Dedicado
-</button>
-</div>
-</div>
-</div>
+
+<!-- ASISTENTE IA -->
+<section id="asistente" class="ai">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Gratis · sin registro · sin inicio de sesión</span>
+      <h2>VECTOR-IA Engine: asistente experto en tiempo real</h2>
+      <p class="lead">Elige el módulo de tu problema operativo y recibe un análisis técnico estructurado, cálculos o planes de acción al instante.</p>
+    </div>
+    <div class="chat">
+      <div class="chat-top">
+        <div class="domains" id="domains">
+          <button class="dom active" data-d="manufactura"><svg class="ico sm"><use href="#i-factory"/></svg>Manufactura</button>
+          <button class="dom" data-d="almacen"><svg class="ico sm"><use href="#i-archive"/></svg>Almacén / WMS</button>
+          <button class="dom" data-d="dmaic"><svg class="ico sm"><use href="#i-branch"/></svg>DMAIC / DMADV</button>
+          <button class="dom" data-d="fmea"><svg class="ico sm"><use href="#i-alert"/></svg>AMEF y Calidad</button>
+        </div>
+        <div class="chat-actions">
+          <div class="mode" title="Motor de respuesta">
+            <button id="modeOnline" class="active" onclick="setMode('online')">IA en línea</button>
+            <button id="modeLocal" onclick="setMode('local')">Motor local</button>
+          </div>
+          <button class="icon-btn" onclick="downloadChat()" title="Descargar conversación"><svg class="ico sm"><use href="#i-download"/></svg></button>
+          <button class="icon-btn" onclick="clearChat()" title="Limpiar chat"><svg class="ico sm"><use href="#i-trash"/></svg></button>
+        </div>
+      </div>
+      <div class="chat-win" id="chatWin" aria-live="polite"></div>
+      <div class="chat-input">
+        <form id="chatForm">
+          <textarea id="chatInput" rows="2" placeholder="Describe tu problema industrial (ej.: tengo un cuello de botella en empaque y el OEE está en 54%)"></textarea>
+          <button type="submit" class="btn btn-primary" id="sendBtn"><svg class="ico"><use href="#i-send"/></svg>Consultar</button>
+        </form>
+        <div class="chat-note">
+          <span>La IA genera borradores técnicos para evaluación de tus ingenieros. Enter para enviar · Shift+Enter para nueva línea.</span>
+          <span id="engineLabel">Motor: IA en línea gratuita + respaldo local</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<section id="contacto" class="py-20 bg-slate-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-<!-- Left Details and Payment Channels Info -->
-<div class="lg:col-span-5 space-y-8">
-<div class="space-y-4">
-<span class="text-xs font-bold uppercase tracking-widest text-brand-blue bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200">
-Contacto & Métodos de Pago
-</span>
-<h2 class="text-3xl font-black text-slate-900">
-Inicia la Transformación de tu Planta
-</h2>
-<p class="text-slate-600 text-sm leading-relaxed">
-Completa el formulario para recibir un diagnóstico preliminar sin costo, una cotización formal o agendar una visita técnica presencial o virtual.
-</p>
-</div>
-<div class="space-y-4">
-<div class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-<div class="w-10 h-10 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center font-bold">
-<i data-lucide="mail" class="w-5 h-5"></i>
-</div>
-<div>
-<span class="text-[11px] text-slate-400 font-semibold block uppercase">Correo Técnico</span>
-<a href="mailto:contacto@vector-ia.com" class="text-sm font-bold text-slate-800 hover:text-brand-blue">contacto@vector-ia.com</a>
-</div>
-</div>
-<div class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-<div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-<i data-lucide="phone-call" class="w-5 h-5"></i>
-</div>
-<div>
-<span class="text-[11px] text-slate-400 font-semibold block uppercase">WhatsApp Directo Ingenieros</span>
-<a href="https://wa.me/?text=Hola%20VECTOR-IA,%20deseo%20una%20cotizacion%20de%20ingenieria" target="_blank" class="text-sm font-bold text-slate-800 hover:text-emerald-600">+1 (800) 832-8674 (VECTOR)</a>
-</div>
-</div>
-<div class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-<div class="w-10 h-10 rounded-xl bg-orange-50 text-brand-orange flex items-center justify-center font-bold">
-<i data-lucide="credit-card" class="w-5 h-5"></i>
-</div>
-<div>
-<span class="text-[11px] text-slate-400 font-semibold block uppercase">Medios de Pago Aceptados</span>
-<span class="text-xs font-semibold text-slate-700">Transferencia Bancaria (Facturación Fiscal), Tarjeta Corporativa, Stripe & Pagos por Hito de Ahorro.</span>
-</div>
-</div>
-</div>
-<!-- Trust Box -->
-<div class="p-5 rounded-2xl bg-brand-navy text-white space-y-2">
-<div class="flex items-center gap-2 text-brand-orange font-bold text-xs uppercase tracking-wider">
-<i data-lucide="lock" class="w-4 h-4"></i> Acuerdo de Confidencialidad (NDA)
-</div>
-<p class="text-xs text-slate-300 leading-relaxed">
-Todos nuestros proyectos y diagnósticos generados con IA operan bajo estricto acuerdo de confidencialidad para proteger la propiedad intelectual de tu proceso productivo.
-</p>
-</div>
-</div>
-<!-- Right Form: Hiring & Inquiry Form -->
-<div class="lg:col-span-7">
-<div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
-<h3 class="text-xl font-black text-slate-900 mb-2">Solicitud de Contratación & Cotización</h3>
-<p class="text-xs text-slate-500 mb-6">Elige el servicio que necesitas y el ingeniero se contactará en menos de 24 horas.</p>
-<form id="hireForm" onsubmit="handleHireSubmit(event)" class="space-y-4">
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo *</label>
-<input type="text" required id="formName" placeholder="Ing. Carlos Mendoza" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
-</div>
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Empresa / Planta Industrial *</label>
-<input type="text" required id="formCompany" placeholder="Industrias Metálicas S.A." class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Correo Corporativo *</label>
-<input type="email" required id="formEmail" placeholder="carlos@empresa.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
-</div>
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Teléfono / WhatsApp *</label>
-<input type="tel" required id="formPhone" placeholder="+502 5555 1234" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Ingeniero / Enfoque Requerido</label>
-<select id="formEngineer" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none font-medium">
-<option value="Ingeniero de Manufactura & Procesos">Ing. de Procesos de Manufactura (OEE / Línea)</option>
-<option value="Ingeniero de Almacén & Cadena de Suministro">Ing. de Almacenes & Six Sigma (Picking / Slotting)</option>
-<option value="Ambos Perfiles (Equipo Completo)">Ambos Ingenieros (Solución Integral)</option>
-<option value="Solo Asistencia IA Gemini">Solo Diagnóstico Inicial con Gemini IA</option>
-</select>
-</div>
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Modalidad de Trabajo</label>
-<select id="formModality" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none font-medium">
-<option value="Por Proyecto Determinado">Proyecto Determinado (Sprint DMAIC)</option>
-<option value="Bolsa de Horas de Ingeniería">Bolsa de Horas / Asesoría Técnica</option>
-<option value="Ingeniero Tiempo Completo In-Plant">Tiempo Completo (In-Plant)</option>
-<option value="Evaluación Previa">Requiere Asesoría para Definir</option>
-</select>
-</div>
-</div>
-<div>
-<label class="block text-xs font-bold text-slate-700 mb-1">Descripción del Problema u Oportunidad</label>
-<textarea id="formDetails" rows="3" placeholder="Describe brevemente: ¿Qué cuello de botella, desperdicio o variación de calidad deseas eliminar?" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-brand-blue outline-none resize-none"></textarea>
-</div>
-<button type="submit" class="w-full py-3.5 bg-brand-orange hover:bg-amber-600 text-white font-black text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
-<i data-lucide="send" class="w-4 h-4"></i> Enviar Solicitud & Recibir Propuesta
-</button>
-<div id="formSuccessMessage" class="hidden p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-medium text-center">
-¡Solicitud recibida con éxito! Nuestro equipo de ingenieros revisará tus requerimientos y te contactará en breve con una propuesta técnica.
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
+
+<!-- MODALIDADES -->
+<section id="contratacion" class="bg-white">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Flexibilidad y transparencia</span>
+      <h2>Modalidades de trabajo y contratación</h2>
+      <p class="lead">Adapta nuestros recursos al alcance de tu empresa: desde sprints de mejora hasta ingenieros dedicados in-plant que lideren tu transformación Lean.</p>
+    </div>
+    <div class="plans">
+      <div class="card plan">
+        <div class="picon"><svg class="ico lg"><use href="#i-target"/></svg></div>
+        <h3>Por proyecto determinado</h3>
+        <div class="kind">Sprint DMAIC · Kaizen Blitz · Rediseño de layout</div>
+        <div class="price"><small>Inversión por entregables</small><b>Cotización a medida</b><span>Compromiso por KPI (garantía de ahorro)</span></div>
+        <ul>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Alcance cerrado con Project Charter formal</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Duración típica: 4 a 12 semanas</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Entrega de SOPs, Control Plan y dashboards</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Auditoría de cierre a los 60 días</li>
+        </ul>
+        <button class="btn btn-outline btn-block" onclick="selectPlan('Por Proyecto Determinado')">Elegir proyecto determinado</button>
+      </div>
+      <div class="card plan featured">
+        <span class="badge">Más solicitado por PyMEs</span>
+        <div class="picon"><svg class="ico lg"><use href="#i-clock"/></svg></div>
+        <h3>Bolsa de horas de ingeniería</h3>
+        <div class="kind">Resolución puntual · Auditorías 5S · Soporte Minitab</div>
+        <div class="price"><small>Paquetes flexibles</small><b>Desde 20 h / mes</b><span>Uso remoto o en sitio coordinado</span></div>
+        <ul>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Soporte ágil para resolver paros y rechazos</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Análisis estadístico y modelado de datos</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Capacitación a supervisores y operadores</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Acceso prioritario al motor VECTOR-IA</li>
+        </ul>
+        <button class="btn btn-primary btn-block" onclick="selectPlan('Bolsa de Horas de Ingeniería')">Contratar horas de asesoría</button>
+      </div>
+      <div class="card plan">
+        <div class="picon"><svg class="ico lg"><use href="#i-brief"/></svg></div>
+        <h3>Ingeniero tiempo completo</h3>
+        <div class="kind">In-plant dedicado · Staff augmentation</div>
+        <div class="price"><small>Asignación mensual exclusiva</small><b>Full-time in-plant</b><span>Integración total en planta o almacén</span></div>
+        <ul>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Ingeniero certificado trabajando en tu piso</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Ejecución diaria de cultura Kaizen y 5S</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Reporte ejecutivo semanal de ahorros ($)</li>
+          <li><svg class="ico sm"><use href="#i-check"/></svg>Respaldado por el equipo central de VECTOR-IA</li>
+        </ul>
+        <button class="btn btn-outline btn-block" onclick="selectPlan('Ingeniero Tiempo Completo In-Plant')">Solicitar ingeniero dedicado</button>
+      </div>
+    </div>
+  </div>
 </section>
-<footer class="bg-brand-darkNavy text-slate-400 py-12 border-t border-slate-800">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col md:flex-row items-center justify-between gap-6">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 flex items-center justify-center bg-white rounded-xl">
-<svg viewBox="0 0 100 100" class="w-8 h-8" fill="none">
-<path d="M15 18 H52 L70 47 H33 L15 18Z" fill="#223843"/>
-<circle cx="38" cy="32" r="3.5" fill="#FFFFFF"/>
-<path d="M15 82 H52 L70 53 H33 L15 82Z" fill="#0077B6"/>
-<circle cx="38" cy="68" r="3.5" fill="#FFFFFF"/>
-<path d="M72 26 L100 50 L72 74 Z" fill="#E87A24"/>
-<circle cx="83" cy="50" r="3" fill="#FFFFFF"/>
-</svg>
-</div>
-<div>
-<span class="text-lg font-black text-white tracking-wider block leading-none">VECTOR-IA</span>
-<span class="text-[9px] uppercase font-bold tracking-widest text-brand-sky block mt-1">OPTIMIZACIÓN INTELIGENTE</span>
-</div>
-</div>
-<div class="text-xs text-center md:text-right space-y-1">
-<p class="text-slate-300">© <span id="currentYear">2026</span> VECTOR-IA. Todos los derechos reservados.</p>
-<p class="text-slate-500">Lean Six Sigma DMAIC • DMADV • Manufactura Esbelta • Almacén 4.0</p>
-</div>
-</div>
-</div>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container contact-grid">
+    <div>
+      <span class="eyebrow">Contacto y métodos de pago</span>
+      <h2>Inicia la transformación de tu planta</h2>
+      <p class="lead">Completa el formulario para recibir un diagnóstico preliminar sin costo, una cotización formal o agendar una visita técnica presencial o virtual.</p>
+      <div class="cinfo">
+        <div class="cinfo-item"><div class="ci"><svg class="ico"><use href="#i-mail"/></svg></div><div><small>Correo técnico</small><a id="emailLink" href="#">contacto@vector-ia.com</a></div></div>
+        <div class="cinfo-item"><div class="ci"><svg class="ico"><use href="#i-phone"/></svg></div><div><small>WhatsApp directo ingenieros</small><a id="waLink" href="#" target="_blank" rel="noopener">+1 (800) 832-8674 (VECTOR)</a></div></div>
+        <div class="cinfo-item"><div class="ci"><svg class="ico"><use href="#i-card"/></svg></div><div><small>Medios de pago aceptados</small><p>Transferencia bancaria (facturación fiscal), tarjeta corporativa, Stripe y pagos por hito de ahorro.</p></div></div>
+      </div>
+      <div class="nda"><b><svg class="ico sm"><use href="#i-lock"/></svg>Acuerdo de confidencialidad (NDA)</b>Todos nuestros proyectos y diagnósticos operan bajo estricto acuerdo de confidencialidad para proteger la propiedad intelectual de tu proceso productivo.</div>
+    </div>
+    <div class="card form-card">
+      <h3>Solicitud de contratación y cotización</h3>
+      <p>Elige el servicio que necesitas; un ingeniero te contactará en menos de 24 horas.</p>
+      <form id="hireForm">
+        <div class="row2 stack-sm">
+          <div class="field"><label for="fName">Nombre completo *</label><input class="input" required id="fName" placeholder="Ing. Carlos Mendoza"></div>
+          <div class="field"><label for="fCompany">Empresa / planta *</label><input class="input" required id="fCompany" placeholder="Industrias Metálicas S.A."></div>
+          <div class="field"><label for="fEmail">Correo corporativo *</label><input class="input" type="email" required id="fEmail" placeholder="carlos@empresa.com"></div>
+          <div class="field"><label for="fPhone">Teléfono / WhatsApp *</label><input class="input" type="tel" required id="fPhone" placeholder="+502 5555 1234"></div>
+          <div class="field"><label for="fEngineer">Ingeniero / enfoque</label>
+            <select class="input" id="fEngineer">
+              <option value="Ingeniero de Manufactura & Procesos">Ing. de Procesos de Manufactura (OEE / línea)</option>
+              <option value="Ingeniero de Almacén & Cadena de Suministro">Ing. de Almacenes y Six Sigma (picking / slotting)</option>
+              <option value="Ambos Perfiles (Equipo Completo)">Ambos ingenieros (solución integral)</option>
+              <option value="Solo Diagnóstico Inicial con IA">Solo diagnóstico inicial con IA</option>
+            </select></div>
+          <div class="field"><label for="fModality">Modalidad de trabajo</label>
+            <select class="input" id="fModality">
+              <option value="Por Proyecto Determinado">Proyecto determinado (sprint DMAIC)</option>
+              <option value="Bolsa de Horas de Ingeniería">Bolsa de horas / asesoría técnica</option>
+              <option value="Ingeniero Tiempo Completo In-Plant">Tiempo completo (in-plant)</option>
+              <option value="Evaluación Previa">Requiere asesoría para definir</option>
+            </select></div>
+        </div>
+        <div class="field"><label for="fDetails">Descripción del problema u oportunidad</label><textarea class="input" id="fDetails" rows="4" placeholder="¿Qué cuello de botella, desperdicio o variación de calidad deseas eliminar?"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block"><svg class="ico"><use href="#i-send"/></svg>Preparar solicitud</button>
+      </form>
+      <div class="success" id="hireSuccess"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div class="brand">
+        <span style="background:#fff;border-radius:10px;padding:4px"><svg width="32" height="32"><use href="#logo"/></svg></span>
+        <span><span class="brand-name">VECTOR-IA</span><span class="brand-tag" style="color:var(--sky)">OPTIMIZACIÓN INTELIGENTE</span></span>
+      </div>
+      <nav class="foot-links">
+        <a href="#metodologias">Metodologías</a><a href="#ingenieros">Ingenieros</a><a href="#herramientas">Herramientas</a><a href="#asistente">Asistente IA</a><a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> VECTOR-IA. Todos los derechos reservados.</span>
+      <span>Lean Six Sigma DMAIC · DMADV · Manufactura esbelta · Almacén 4.0</span>
+    </div>
+  </div>
 </footer>
+
+<div class="toast" id="toast"></div>
+
 <script>
-// ================= CONFIGURACIÓN =================
-// API Key de Google Gemini (gratis en https://aistudio.google.com/apikey).
-// Puedes escribirla aquí, o dejarla vacía y pegarla desde el botón "Configurar API Key"
-// del chat (se guarda solo en el navegador del visitante).
-// Ojo: si la escribes aquí y publicas la página, cualquiera puede verla en el código fuente.
-const GEMINI_API_KEY = "";
-const GEMINI_MODEL = "gemini-3-flash-preview";
-// Número de WhatsApp que recibe las solicitudes del formulario, solo dígitos con código de país
-// (ej: "50255551234"). Si se deja vacío, WhatsApp pedirá elegir el contacto.
+/* ================= CONFIGURACIÓN =================
+   CONTACT_WHATSAPP: número que recibe las solicitudes, solo dígitos con código de país
+   (ej. "50255551234"). Vacío = WhatsApp pedirá elegir el contacto.
+   CONTACT_EMAIL: correo que recibe las solicitudes.
+   ONLINE_AI_URL: servicio de IA gratuito sin clave. Si falla o tarda, se usa el motor local. */
 const CONTACT_WHATSAPP = "";
-// =================================================
-// Set dynamic current year in footer
-document.getElementById('currentYear').innerText = new Date().getFullYear();
-// State management for Gemini IA Domain
-let currentDomain = 'manufactura';
-let isAiGenerating = false;
-let chatHistory = [];
-function getApiKey() {
-if (GEMINI_API_KEY) return GEMINI_API_KEY;
-try { return localStorage.getItem('vectoria_gemini_key') || ''; } catch (e) { return ''; }
-}
-function updateApiKeyStatus() {
-const el = document.getElementById('apiKeyStatus');
-if (el) el.innerText = getApiKey() ? 'API Key ✓' : 'Configurar API Key';
-}
-function configureApiKey() {
-if (GEMINI_API_KEY) { alert('La API Key ya está configurada en el código de la página.'); return; }
-const key = prompt('Pega tu API Key de Google Gemini (obtenla gratis en https://aistudio.google.com/apikey).\nDéjalo vacío para borrarla.', getApiKey());
-if (key === null) return;
-try {
-if (key.trim()) localStorage.setItem('vectoria_gemini_key', key.trim());
-else localStorage.removeItem('vectoria_gemini_key');
-} catch (e) { alert('Tu navegador no permite guardar la clave.'); }
-updateApiKeyStatus();
-}
-const domainPrompts = {
-manufactura: {
-title: "Módulo: Procesos de Manufactura & OEE",
-intro: "Hola. Soy tu Ingeniero de Manufactura de **VECTOR-IA**. Analizo tiempos de ciclo, cuellos de botella (TOC), paros no programados, balanceo de líneas y estandarización SMED. ¿Qué proceso deseas optimizar hoy?",
-systemPrompt: `Eres un Ingeniero Senior de Manufactura y Master Black Belt de la firma "VECTOR-IA". 
-Tu objetivo es ayudar a ingenieros de planta y gerentes de operaciones a resolver problemas reales de manufactura usando Lean Manufacturing, Six Sigma (DMAIC), cálculo de OEE (Disponibilidad x Rendimiento x Calidad), SMED, Poka-Yoke y balanceo de líneas.
-Responde de forma técnica, estructurada (usando listas, pasos claros y métricas numéricas cuando aplique) y en español profesional. Si el usuario describe un problema de cuello de botella o scrap, ofrece una metodología paso a paso y sugiere qué herramientas estadísticas o físicas implementar.`,
-quickPrompts: [
-"Diagnosticar cuello de botella en línea de ensamble",
-"Reducir tiempo de cambio de formato con SMED",
-"Plan para elevar OEE del 55% al 85%",
-"Crear Poka-Yoke para ensamble incorrecto"
-]
-},
-almacen: {
-title: "Módulo: Six Sigma en Almacén & Logística",
-intro: "Hola. Soy el Ingeniero de Almacenes y Logística Lean de **VECTOR-IA**. Optimizo exactitud de inventario (IRA), elimino errores de picking (DPMO en despacho), diseño slotting ABC y rutas eficientes de montacargas. ¿Qué reto tienes en tu almacén?",
-systemPrompt: `Eres un Ingeniero Especialista en Almacenes, Cadena de Suministro y Logística Lean Six Sigma de "VECTOR-IA".
-Tu objetivo es asistir en problemas de gestión de centros de distribución (CEDIS), bodegas de materia prima y producto terminado.
-Dominas:
-- Reducción de defectos por millón de oportunidades (DPMO) en picking y empaque.
-- Clasificación y Slotting ABC dinámico.
-- Exactitud de registro de inventarios (IRA) y conteos cíclicos con enfoque Six Sigma.
-- 5S aplicado a almacenamiento y optimización de flujos de montacargas (Diagramas de Spaghetti).
-- Nivel de servicio OTIF (On-Time In-Full) y stock de seguridad estadístico.
-Responde con claridad técnica, estructurado con viñetas y sugerencias prácticas de implementación.`,
-quickPrompts: [
-"Reducir errores de picking en almacén (DPMO)",
-"Diseñar estrategia de Slotting ABC en racks",
-"Mejorar exactitud de inventario (IRA) al 99.8%",
-"Implementar 5S y gestión visual en bodega"
-]
-},
-dmaic: {
-title: "Módulo: DMAIC / DMADV Roadmap",
-intro: "Hola. Soy el Lead Six Sigma Consultant de **VECTOR-IA**. Te guiaré paso a paso en cada fase de DMAIC (Definir, Medir, Analizar, Implementar, Controlar) o DMADV para nuevos diseños de procesos.",
-systemPrompt: `Eres un Consultor Master Black Belt de "VECTOR-IA" especializado en metodologías formales DMAIC y DMADV.
-Tu misión es estructurar proyectos Six Sigma rigurosos:
-- Fase D: Project Charter, VOC, SIPOC, CTQ Tree.
-- Fase M: Plan de recolección de datos, Gage R&R (MSA), cálculo de DPMO y Z-Score (Cp, Cpk).
-- Fase A: Diagrama de Ishikawa, 5 Porqués, Matriz Causa-Efecto, FMEA, ANOVA y Regresiones.
-- Fase I: Matrices de priorización, pruebas piloto, DOE (Diseño de Experimentos), Kaizen.
-- Fase C: Gráficos de control SPC (X-barra R, I-MR, p, c), Control Plan y estandarización.
-Proporciona esquemas estructurados y tablas conceptuales claras.`,
-quickPrompts: [
-"Generar SIPOC para proceso de inyección",
-"Estructurar un Project Charter Six Sigma",
-"Calcular e interpretar Cp y Cpk",
-"Diseñar Plan de Control Estadístico (SPC)"
-]
-},
-fmea: {
-title: "Módulo: AMEF (FMEA) & Análisis Causa Raíz",
-intro: "Hola. Soy el Especialista en Confiabilidad y Calidad de **VECTOR-IA**. Diseñemos matrices FMEA para calcular el Número de Prioridad de Riesgo (NPR/AP) y desarrollemos árboles de 5 Porqués.",
-systemPrompt: `Eres un Especialista en Calidad, FMEA (AIAG-VDA) y Análisis de Causa Raíz de "VECTOR-IA".
-Tu función es ayudar a evaluar modos de falla potenciales, sus efectos y causas, evaluando Severidad (S), Ocurrencia (O) y Detección (D) para priorizar acciones correctivas.
-Proporciona respuestas con estructura de matriz clara, identificando controles preventivos y de detección.`,
-quickPrompts: [
-"Matriz FMEA para proceso de soldadura/ensamble",
-"Análisis de 5 Porqués para derrame en línea",
-"Definir acciones de contingencia vs preventivas",
-"Calcular NPR (Severidad x Ocurrencia x Detección)"
-]
-}
+const CONTACT_EMAIL = "contacto@vector-ia.com";
+const ONLINE_AI_URL = "https://text.pollinations.ai/openai";
+const ONLINE_AI_TIMEOUT_MS = 25000;
+/* ================================================= */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+const fmt = (n, d = 2) => Number(n).toLocaleString('es', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
 };
-// Initialize UI components
-window.addEventListener('DOMContentLoaded', () => {
-lucide.createIcons();
-renderDomainUI();
-updateApiKeyStatus();
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2600); }
+
+$('year').textContent = new Date().getFullYear();
+$('emailLink').textContent = CONTACT_EMAIL;
+$('emailLink').href = 'mailto:' + CONTACT_EMAIL;
+$('waLink').href = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent('Hola VECTOR-IA, deseo una cotización de ingeniería.')}`;
+
+/* ---------- Menú móvil ---------- */
+$('menuBtn').addEventListener('click', () => {
+  const open = $('mobileMenu').classList.toggle('open');
+  $('menuBtn').setAttribute('aria-expanded', open);
 });
-function toggleMobileMenu() {
-const menu = document.getElementById('mobileMenu');
-menu.classList.toggle('hidden');
+document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => $('mobileMenu').classList.remove('open')));
+
+/* ---------- DMAIC / DMADV ---------- */
+function switchMethod(t){
+  $('viewDmaic').hidden = t !== 'dmaic';
+  $('viewDmadv').hidden = t !== 'dmadv';
+  $('tabDmaic').classList.toggle('active', t === 'dmaic');
+  $('tabDmadv').classList.toggle('active', t === 'dmadv');
 }
-document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
-// Switch between DMAIC and DMADV view
-function switchMethodTab(type) {
-const dmaicView = document.getElementById('dmaicView');
-const dmadvView = document.getElementById('dmadvView');
-const tabDmaicBtn = document.getElementById('tabDmaicBtn');
-const tabDmadvBtn = document.getElementById('tabDmadvBtn');
-if (type === 'dmaic') {
-dmaicView.classList.remove('hidden');
-dmadvView.classList.add('hidden');
-tabDmaicBtn.className = "px-6 py-2.5 rounded-xl font-bold text-sm bg-white text-brand-navy shadow-sm transition-all flex items-center gap-2";
-tabDmadvBtn.className = "px-6 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2";
-} else {
-dmaicView.classList.add('hidden');
-dmadvView.classList.remove('hidden');
-tabDmadvBtn.className = "px-6 py-2.5 rounded-xl font-bold text-sm bg-white text-brand-navy shadow-sm transition-all flex items-center gap-2";
-tabDmaicBtn.className = "px-6 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2";
+
+/* ---------- Estadística ---------- */
+// Inversa de la normal estándar (algoritmo de Acklam)
+function normInv(p){
+  if (p <= 0) return -Infinity; if (p >= 1) return Infinity;
+  const a=[-39.69683028665376,220.9460984245205,-275.9285104469687,138.357751867269,-30.66479806614716,2.506628277459239],
+        b=[-54.47609879822406,161.5858368580409,-155.6989798598866,66.80131188771972,-13.28068155288572],
+        c=[-0.007784894002430293,-0.3223964580411365,-2.400758277161838,-2.549732539343734,4.374664141464968,2.938163982698783],
+        d=[0.007784695709041462,0.3224671290700398,2.445134137142996,3.754408661907416];
+  const pl=0.02425, ph=1-pl; let q,r;
+  if (p < pl){ q=Math.sqrt(-2*Math.log(p)); return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1); }
+  if (p <= ph){ q=p-0.5; r=q*q; return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1); }
+  q=Math.sqrt(-2*Math.log(1-p)); return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
 }
-lucide.createIcons();
+function sigmaFromDpmo(dpmo){
+  if (dpmo <= 0) return 6.0;
+  return Math.max(0, Math.min(6, normInv(1 - dpmo/1e6) + 1.5)); // con desplazamiento de 1.5σ
 }
-// Quick Sigma Calculator Logic
-function calculateQuickSigma() {
-const units = parseFloat(document.getElementById('quickUnits').value) || 1;
-const defects = parseFloat(document.getElementById('quickDefects').value) || 0;
-const opp = parseFloat(document.getElementById('quickOpp').value) || 1;
-const totalOpportunities = units * opp;
-const dpo = defects / totalOpportunities;
-const dpmo = dpo * 1000000;
-const yieldRate = (1 - (defects / units)) * 100;
-// Approximate Sigma Level with 1.5 sigma shift
-let sigma = 0;
-if (dpmo <= 3.4) {
-sigma = 6.0;
-} else if (dpmo <= 233) {
-sigma = 5.0;
-} else if (dpmo <= 6210) {
-sigma = 4.0;
-} else if (dpmo <= 66807) {
-sigma = 3.0;
-} else if (dpmo <= 308538) {
-sigma = 2.0;
-} else {
-sigma = 1.0;
+function num(id){ const v = parseFloat($(id).value); return isFinite(v) ? v : NaN; }
+
+function calcSigma(){
+  const n=num('qUnits'), d=num('qDefects'), o=num('qOpp');
+  if (!(n>0) || !(o>0) || !(d>=0)) { $('sigmaOut').textContent='—'; $('dpmoOut').textContent='Ingresa unidades y oportunidades mayores que 0.'; return; }
+  const dpmo = d/(n*o)*1e6, s = sigmaFromDpmo(dpmo), yld = Math.max(0,(1 - d/(n*o))*100);
+  $('sigmaOut').textContent = s.toFixed(2) + ' σ';
+  $('dpmoOut').textContent = `DPMO: ${fmt(dpmo,1)} · Rendimiento: ${fmt(yld,3)}%`;
+  $('sigmaBar').style.width = (s/6*100) + '%';
 }
-// Refined interpolation for better visual estimation
-const calculatedSigma = Math.max(0.8, (0.8406 + Math.sqrt(29.37 - 2.221 * Math.log(Math.max(1, dpmo))))).toFixed(2);
-document.getElementById('sigmaValDisplay').innerText = `${calculatedSigma} σ`;
-document.getElementById('dpmoValDisplay').innerText = `DPMO: ${dpmo.toLocaleString(undefined, {maximumFractionDigits: 1})} (Rendimiento: ${yieldRate.toFixed(3)}%)`;
+function calcOEE(){
+  const plan=num('oPlan'), down=num('oDown'), cyc=num('oCycle'), tot=num('oTotal'), good=num('oGood');
+  if (!(plan>0) || !(cyc>0) || !(tot>0) || down<0 || good<0 || down>=plan) { $('oeeOut').textContent='—'; $('oeeSub').textContent='Revisa los datos: tiempo planificado > paros y piezas > 0.'; return; }
+  const run = plan - down, A = run/plan, P = Math.min(1,(cyc*tot/60)/run), Q = Math.min(1, good/tot), oee = A*P*Q;
+  const lvl = oee>=.85 ? 'Clase mundial' : oee>=.65 ? 'Aceptable, con oportunidad' : 'Bajo: requiere intervención';
+  $('oeeOut').textContent = fmt(oee*100,1) + '%';
+  $('oeeSub').textContent = `Disp. ${fmt(A*100,1)}% · Rend. ${fmt(P*100,1)}% · Calidad ${fmt(Q*100,1)}% — ${lvl}`;
+  $('oeeBar').style.width = (oee*100) + '%';
 }
-// Domain Selector for Gemini IA
-function setAiDomain(domainKey) {
-if (domainKey !== currentDomain) chatHistory = [];
-currentDomain = domainKey;
-// Update button styles
-document.querySelectorAll('.domain-btn').forEach(btn => {
-btn.className = "domain-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition-all flex items-center gap-1.5";
-});
-const activeBtn = document.getElementById(`btnDomain-${domainKey}`);
-if (activeBtn) {
-activeBtn.className = "domain-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-orange text-white transition-all flex items-center gap-1.5 shadow-sm";
+function calcCpk(){
+  const l=num('cLsl'), u=num('cUsl'), m=num('cMean'), s=num('cSd');
+  if (!(s>0) || !(u>l) || isNaN(m)) { $('cpkOut').textContent='—'; $('cpkSub').textContent='Requiere LSE > LIE y σ > 0.'; return; }
+  const cp=(u-l)/(6*s), cpk=Math.min(u-m, m-l)/(3*s);
+  const lvl = cpk>=1.67 ? 'Excelente (≥1.67)' : cpk>=1.33 ? 'Capaz (≥1.33)' : cpk>=1 ? 'Marginal (1.00–1.33)' : 'No capaz (<1.00)';
+  $('cpkOut').textContent = cpk.toFixed(2);
+  $('cpkSub').textContent = `Cp ${cp.toFixed(2)} · ${lvl}${Math.abs(cp-cpk)>0.1 ? ' · Proceso descentrado' : ''}`;
 }
-renderDomainUI();
+function calcTakt(){
+  const t=num('tTime'), sh=num('tShifts'), dem=num('tDemand'), ct=num('tCt');
+  if (!(t>0) || !(sh>0) || !(dem>0)) { $('taktOut').textContent='—'; $('taktSub').textContent='Ingresa tiempo, turnos y demanda mayores que 0.'; return; }
+  const takt = t*sh*60/dem;
+  $('taktOut').textContent = fmt(takt,1) + ' s/pz';
+  $('taktSub').textContent = ct>0 ? `Operadores / estaciones mínimas: ${Math.ceil(ct/takt)} (${fmt(ct/takt,2)} teórico)` : 'Agrega la suma de tiempos de ciclo para estimar estaciones.';
 }
-function renderDomainUI() {
-const config = domainPrompts[currentDomain];
-document.getElementById('chatDomainBadge').innerText = config.title;
-document.getElementById('chatDomainIntro').innerHTML = marked.parse(config.intro);
-const container = document.getElementById('quickPromptsContainer');
-container.innerHTML = '';
-config.quickPrompts.forEach(pText => {
-const btn = document.createElement('button');
-btn.className = "text-[11px] bg-slate-800 hover:bg-brand-blue/30 text-slate-300 hover:text-white border border-slate-600 rounded-lg px-2.5 py-1 text-left transition-colors";
-btn.innerText = `→ ${pText}`;
-btn.onclick = () => {
-document.getElementById('aiUserInput').value = pText;
-document.getElementById('aiUserInput').focus();
+calcSigma(); calcOEE(); calcCpk(); calcTakt();
+document.querySelectorAll('.calc-card input').forEach(i => i.addEventListener('input', calcSigma));
+document.querySelectorAll('#oPlan,#oDown,#oCycle,#oTotal,#oGood').forEach(i => i.addEventListener('input', calcOEE));
+document.querySelectorAll('#cLsl,#cUsl,#cMean,#cSd').forEach(i => i.addEventListener('input', calcCpk));
+document.querySelectorAll('#tTime,#tShifts,#tDemand,#tCt').forEach(i => i.addEventListener('input', calcTakt));
+
+/* ---------- Markdown mínimo ---------- */
+function md(src){
+  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>');
+  const lines = String(src).replace(/\r/g,'').split('\n'); let out=[], list=null, para=[];
+  const flushP = () => { if (para.length){ out.push('<p>'+inline(para.join(' '))+'</p>'); para=[]; } };
+  const flushL = () => { if (list){ out.push(`<${list.t}>`+list.items.map(i=>'<li>'+inline(i)+'</li>').join('')+`</${list.t}>`); list=null; } };
+  for (let i=0;i<lines.length;i++){
+    const ln = lines[i]; let m;
+    if (/^\s*\|.*\|\s*$/.test(ln)){
+      flushP(); flushL(); const rows=[];
+      while (i<lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) { rows.push(lines[i]); i++; } i--;
+      const cells = r => r.trim().replace(/^\||\|$/g,'').split('|').map(c=>c.trim());
+      const body = rows.filter(r => !/^\s*\|[\s:|-]+\|\s*$/.test(r));
+      out.push('<table><thead><tr>'+cells(body[0]).map(c=>'<th>'+inline(c)+'</th>').join('')+'</tr></thead><tbody>'+
+        body.slice(1).map(r=>'<tr>'+cells(r).map(c=>'<td>'+inline(c)+'</td>').join('')+'</tr>').join('')+'</tbody></table>');
+    } else if ((m = ln.match(/^(#{1,4})\s+(.*)/))) { flushP(); flushL(); const h=Math.min(4,m[1].length+1); out.push(`<h${h}>${inline(m[2])}</h${h}>`); }
+    else if ((m = ln.match(/^\s*[-*•]\s+(.*)/))) { flushP(); if (!list||list.t!=='ul'){ flushL(); list={t:'ul',items:[]}; } list.items.push(m[1]); }
+    else if ((m = ln.match(/^\s*\d+[.)]\s+(.*)/))) { flushP(); if (!list||list.t!=='ol'){ flushL(); list={t:'ol',items:[]}; } list.items.push(m[1]); }
+    else if (!ln.trim()) { flushP(); flushL(); }
+    else { flushL(); para.push(ln.trim()); }
+  }
+  flushP(); flushL(); return out.join('');
+}
+
+/* ---------- Módulos del asistente ---------- */
+const DOMAINS = {
+  manufactura: {
+    title: "Procesos de Manufactura y OEE",
+    intro: "Hola. Soy tu Ingeniero de Manufactura de **VECTOR-IA**. Analizo tiempos de ciclo, cuellos de botella (TOC), paros no programados, balanceo de líneas y estandarización SMED. ¿Qué proceso deseas optimizar hoy?",
+    system: "Eres un Ingeniero Senior de Manufactura y Master Black Belt de la firma VECTOR-IA. Ayudas a ingenieros de planta y gerentes de operaciones a resolver problemas reales con Lean Manufacturing, Six Sigma (DMAIC), OEE (Disponibilidad x Rendimiento x Calidad), SMED, Poka-Yoke y balanceo de líneas. Responde en español profesional, técnico y estructurado (títulos, listas, pasos y métricas numéricas cuando aplique).",
+    quick: ["Diagnosticar cuello de botella en línea de ensamble","Reducir tiempo de cambio de formato con SMED","Plan para elevar OEE del 55% al 85%","Crear Poka-Yoke para ensamble incorrecto"]
+  },
+  almacen: {
+    title: "Six Sigma en Almacén y Logística",
+    intro: "Hola. Soy el Ingeniero de Almacenes y Logística Lean de **VECTOR-IA**. Optimizo exactitud de inventario (IRA), elimino errores de picking (DPMO en despacho), diseño slotting ABC y rutas eficientes de montacargas. ¿Qué reto tienes en tu almacén?",
+    system: "Eres un Ingeniero Especialista en Almacenes, Cadena de Suministro y Logística Lean Six Sigma de VECTOR-IA. Dominas DPMO en picking y empaque, slotting ABC, exactitud de inventario (IRA) y conteos cíclicos, 5S en almacén, diagramas de spaghetti, OTIF y stock de seguridad estadístico. Responde en español con claridad técnica, viñetas y sugerencias prácticas de implementación.",
+    quick: ["Reducir errores de picking en almacén (DPMO)","Diseñar estrategia de Slotting ABC en racks","Mejorar exactitud de inventario (IRA) al 99.8%","Implementar 5S y gestión visual en bodega"]
+  },
+  dmaic: {
+    title: "DMAIC / DMADV Roadmap",
+    intro: "Hola. Soy el Lead Six Sigma Consultant de **VECTOR-IA**. Te guiaré paso a paso en cada fase de DMAIC (Definir, Medir, Analizar, Implementar, Controlar) o DMADV para el diseño de nuevos procesos.",
+    system: "Eres un Consultor Master Black Belt de VECTOR-IA especializado en DMAIC y DMADV: Charter, VOC, SIPOC, CTQ; recolección de datos, Gage R&R, DPMO, Cp/Cpk; Ishikawa, 5 Porqués, FMEA, ANOVA; Kaizen, DOE; SPC y planes de control. Responde en español con esquemas estructurados y tablas claras.",
+    quick: ["Generar SIPOC para proceso de inyección","Estructurar un Project Charter Six Sigma","Calcular e interpretar Cp y Cpk","Diseñar Plan de Control Estadístico (SPC)"]
+  },
+  fmea: {
+    title: "AMEF (FMEA) y Análisis Causa Raíz",
+    intro: "Hola. Soy el Especialista en Confiabilidad y Calidad de **VECTOR-IA**. Diseñemos matrices AMEF para priorizar riesgos (NPR / AP) y desarrollemos análisis de 5 Porqués.",
+    system: "Eres un Especialista en Calidad, FMEA (AIAG-VDA) y Análisis de Causa Raíz de VECTOR-IA. Evalúas modos de falla, efectos y causas con Severidad, Ocurrencia y Detección para priorizar acciones. Responde en español con matrices claras, controles preventivos y de detección.",
+    quick: ["Matriz AMEF para proceso de soldadura/ensamble","Análisis de 5 Porqués para derrame en línea","Definir acciones de contingencia vs preventivas","Calcular NPR (Severidad x Ocurrencia x Detección)"]
+  }
 };
-container.appendChild(btn);
+
+/* ---------- Motor experto local (funciona sin internet) ---------- */
+const KB = [
+ { d:'manufactura', k:['cuello de botella','botella','toc','restriccion','capacidad','cola','acumula'], t:'Diagnóstico de cuello de botella (TOC)', a:
+`## Diagnóstico de cuello de botella (Teoría de Restricciones)
+**1. Identificar la restricción**
+- Mide el tiempo de ciclo real de cada estación (mínimo 30 observaciones) y compáralo con el **takt time**.
+- La estación con mayor ciclo, mayor WIP acumulado antes de ella y menor inventario después es la restricción.
+- Confirma con un gráfico de **utilización** por estación (la restricción suele estar > 90%).
+
+**2. Explotar la restricción (sin inversión)**
+- Nunca debe parar: relevos en comidas, material pre-posicionado, operador multifuncional de respaldo.
+- Inspección de calidad **antes** de la restricción para no procesar piezas defectuosas.
+- Aplica **SMED** si hay cambios de formato en esa estación.
+
+**3. Subordinar todo a la restricción**
+- Libera material con lógica **Drum-Buffer-Rope**: el ritmo lo marca la restricción.
+- Buffer de tiempo (no de piezas) antes de la restricción.
+
+**4. Elevar** (si aún no alcanza): segundo equipo, balanceo de tareas hacia estaciones vecinas, horas extra solo en la restricción.
+
+**5. Repetir**: al romperse la restricción, aparecerá otra; vuelve al paso 1.
+
+| KPI | Meta sugerida |
+|---|---|
+| Utilización de la restricción | > 95% del tiempo disponible |
+| WIP antes de la restricción | Estable, buffer de 1–2 h |
+| Throughput de la línea | +15% a +30% |` },
+ { d:'manufactura', k:['smed','setup','cambio de formato','cambio de molde','changeover','preparacion','cambio rapido'], t:'SMED', a:
+`## Plan SMED para reducir el cambio de formato
+**Fase 0 · Línea base**: graba en video 2–3 cambios completos y registra cada actividad con su duración (hoja de observación).
+
+**Fase 1 · Separar interno vs externo**
+- **Interno**: solo puede hacerse con la máquina parada.
+- **Externo**: puede hacerse con la máquina en marcha (preparar herramentales, moldes, documentos, materiales).
+- Solo con checklist y carrito de cambio se logra típicamente **−30% a −50%**.
+
+**Fase 2 · Convertir interno en externo**
+- Precalentado de moldes, pre-ajuste de herramentales fuera de línea, alturas estandarizadas.
+
+**Fase 3 · Racionalizar**
+- Sujeción rápida (¼ de vuelta, levas, clamps), eliminar ajustes con topes y guías fijas.
+- Operaciones en paralelo con 2 personas y secuencia estándar.
+- Eliminar pruebas de ajuste con parámetros validados (receta).
+
+**Fase 4 · Estandarizar**: SOP visual del cambio, tablero de tiempos por turno y meta **SMED < 10 min**.
+
+| Métrica | Antes | Meta |
+|---|---|---|
+| Tiempo de cambio | medir | −50% a −75% |
+| Piezas de ajuste (scrap) | medir | −80% |
+| Tamaño de lote posible | medir | reducir proporcionalmente |` },
+ { d:'manufactura', k:['oee','disponibilidad','rendimiento','eficiencia global','85%','perdidas'], t:'Plan de mejora de OEE', a: null },
+ { d:'manufactura', k:['poka','yoke','error humano','a prueba de error','ensamble incorrecto','invertid','mal ensambl'], t:'Poka-Yoke', a:
+`## Diseño de Poka-Yoke para ensamble incorrecto
+**1. Caracteriza el error**: ¿pieza invertida, faltante, equivocada o secuencia incorrecta? Pareto de los últimos 3 meses.
+
+**2. Elige el nivel de control** (de mayor a menor efectividad)
+1. **Eliminación**: rediseña la pieza para que sea simétrica o solo entre en una posición.
+2. **Control / paro**: la máquina no cicla si la condición no es correcta.
+3. **Advertencia**: alarma luminosa o sonora.
+
+**3. Tipos de dispositivo**
+| Método | Ejemplo |
+|---|---|
+| Contacto | Guías, pines de orientación o nido con forma de la pieza |
+| Valor fijo | Kit de piezas contado; sensor que cuenta tornillos colocados |
+| Secuencia | Pick-to-light: solo se habilita la gaveta correcta |
+| Sensórico | Sensor de presencia / visión artificial antes de liberar la estación |
+
+**4. Validación**: prueba con piezas maestras malas (*red rabbits*) al inicio de cada turno y regístralo.
+
+**Meta**: defectos de ensamble → **0 escapes al cliente** y reducción > 90% en la estación.` },
+ { d:'manufactura', k:['balanceo','takt','estaciones','carga de trabajo','yamazumi','operadores'], t:'Balanceo de líneas', a:
+`## Balanceo de línea
+1. Calcula el **takt time** = tiempo disponible / demanda (usa la calculadora de la sección Herramientas).
+2. Descompón cada estación en elementos de trabajo y mide su tiempo.
+3. Construye un **diagrama Yamazumi** (barras apiladas por estación) contra la línea de takt.
+4. Número mínimo de estaciones = Σ tiempos de ciclo / takt (redondeado hacia arriba).
+5. Reasigna elementos respetando precedencias hasta que ninguna estación supere el takt y la eficiencia de balanceo sea > 85%.
+
+**Eficiencia de balanceo** = Σ tiempos / (n.º estaciones × ciclo máximo).` },
+ { d:'manufactura', k:['scrap','merma','rechazo','defecto','desperdicio de material','retrabajo','vsm','mapa de valor'], t:'Reducción de scrap', a:
+`## Reducción de scrap y retrabajo
+1. **Cuantifica**: costo mensual de scrap por familia y Pareto por tipo de defecto.
+2. **Mapa de valor (VSM)** para ubicar dónde se genera y dónde se detecta.
+3. **Mide el sistema de medición** (Gage R&R < 10%) antes de culpar al proceso.
+4. **Causa raíz**: Ishikawa (6M) + 5 Porqués sobre el defecto #1 del Pareto.
+5. **Controla variables de entrada** (temperatura, presión, velocidad) con SPC.
+6. Contención inmediata: inspección 100% temporal y bloqueo del lote sospechoso.
+
+**Meta típica**: −50% de scrap en 90 días en el defecto principal.` },
+ { d:'manufactura', k:['paro','averia','mantenimiento','tpm','falla de maquina','mtbf','mttr'], t:'TPM', a:
+`## Reducción de paros no programados (TPM)
+- Registra cada paro con causa, duración y equipo → Pareto de **tiempo perdido**.
+- KPI: **MTBF** (tiempo medio entre fallas) ↑ y **MTTR** (tiempo medio de reparación) ↓.
+- **Mantenimiento autónomo**: limpieza-inspección-lubricación por el operador con estándar visual.
+- **Mantenimiento planificado** en los 5 equipos con más paros; kit de refacciones críticas.
+- Análisis de falla (5 Porqués) en todo paro > 30 minutos.` },
+ { d:'almacen', k:['picking','error de picking','dpmo','despacho','pedido incorrecto','surtido'], t:'Errores de picking', a:
+`## Reducción de errores de picking (DPMO)
+**Medición**
+- DPMO = errores / (líneas despachadas × oportunidades por línea) × 1 000 000.
+- Clasifica: SKU equivocado, cantidad incorrecta, faltante, ubicación errónea, daño.
+
+**Causas frecuentes**: SKUs similares adyacentes, ubicaciones mal rotuladas, picking de memoria, presión de tiempo.
+
+**Acciones**
+1. **Poka-Yoke WMS**: escaneo obligatorio de ubicación + producto + cantidad.
+2. Separa SKUs parecidos (diferente pasillo o nivel).
+3. Etiquetado de ubicaciones legible, con código de color por zona.
+4. Pick-to-light o put-to-light en SKUs de alta rotación.
+5. Verificación por peso en empaque.
+6. Retroalimentación diaria por operador (tablero visual).
+
+| Nivel | DPMO | Exactitud de pedido |
+|---|---|---|
+| Actual típico | 5 000 – 10 000 | 99.0% – 99.5% |
+| Meta | < 1 000 | > 99.9% |` },
+ { d:'almacen', k:['slotting','abc','ubicacion','racks','acomodo','rotacion'], t:'Slotting ABC', a:
+`## Estrategia de slotting ABC
+1. **Clasificación ABC por frecuencia de picking** (no solo por valor): A ≈ 80% de los picks, B ≈ 15%, C ≈ 5%.
+2. **Zona dorada**: coloca los SKU A a la altura de cintura-hombros y más cerca de despacho.
+3. Considera el **cubicaje**: volumen por pick vs tamaño de ubicación.
+4. Agrupa SKUs que se piden juntos (afinidad de pedidos).
+5. **Re-slotting** mensual o trimestral según estacionalidad.
+6. Mide antes y después: metros recorridos por pedido y líneas/hora.
+
+**Resultado típico**: −20% a −40% en distancia recorrida y +15% a +30% en productividad de picking.` },
+ { d:'almacen', k:['inventario','ira','exactitud','conteo','ciclico','diferencias'], t:'Exactitud de inventario (IRA)', a:
+`## Exactitud de inventario (IRA) al 99.8%
+**Fórmula**: IRA = ubicaciones correctas / ubicaciones contadas × 100 (con tolerancia definida por clase).
+
+**Plan**
+1. **Conteos cíclicos ABC**: A mensual, B trimestral, C semestral.
+2. Tolerancias: A 0%, B ±2%, C ±5%.
+3. **Causa raíz** de cada diferencia (no solo ajustar): recepción sin registro, picking erróneo, transacciones tardías, merma.
+4. Transacciones en tiempo real (escáner) y cero movimientos sin registro.
+5. Ubicación única por pallet y control de accesos a la bodega.
+6. Indicador semanal publicado.
+
+**Meta**: 99.5% en 60 días, 99.8% en 120 días.` },
+ { d:'almacen', k:['5s','orden','limpieza','gestion visual','bodega'], t:'5S en bodega', a:
+`## Implementación de 5S y gestión visual en bodega
+1. **Seiri (clasificar)**: tarjeta roja para obsoletos, dañados y lento movimiento.
+2. **Seiton (ordenar)**: ubicación fija, rotulada, marcaje de piso (pasillos, zonas de staging, prohibido estacionar).
+3. **Seiso (limpiar)**: rutina de 10 min por turno con responsable por zona.
+4. **Seiketsu (estandarizar)**: fotos del estado estándar en cada zona.
+5. **Shitsuke (disciplina)**: auditoría semanal con puntaje (0–5 por S) publicada en tablero.
+
+**Gestión visual**: semáforos de nivel de inventario, tablero de pedidos del día, códigos de color por cliente o ruta.` },
+ { d:'almacen', k:['stock de seguridad','safety stock','otif','punto de reorden','quiebre','faltante'], t:'Stock de seguridad y OTIF', a:
+`## Stock de seguridad y OTIF
+**Stock de seguridad** = Z × σ_demanda × √(lead time)
+- Z = 1.65 para 95% de nivel de servicio; 2.05 para 98%; 2.33 para 99%.
+- **Punto de reorden** = demanda promedio × lead time + stock de seguridad.
+
+**OTIF** = pedidos entregados a tiempo y completos / total de pedidos.
+- Pareto de causas de incumplimiento: faltante de inventario, error de picking, transporte, documentación.
+- Meta típica: **OTIF > 95%**.` },
+ { d:'dmaic', k:['sipoc','proveedores','entradas','salidas'], t:'SIPOC', a:
+`## SIPOC · Proceso de inyección de plástico
+| Proveedores | Entradas | Proceso | Salidas | Clientes |
+|---|---|---|---|---|
+| Proveedor de resina | Resina, colorante | 1. Secado de material | Piezas moldeadas | Ensamble |
+| Taller de moldes | Molde validado | 2. Montaje y ajuste del molde | Reporte de producción | Calidad |
+| Mantenimiento | Máquina calibrada | 3. Inyección (ciclo) | Scrap / purga | Almacén |
+| Ingeniería | Hoja de parámetros | 4. Enfriamiento y expulsión | Registros SPC | Cliente final |
+| Calidad | Plan de inspección | 5. Inspección y empaque | Producto etiquetado | Logística |
+
+**CTQs típicos**: dimensiones críticas, ausencia de rebaba o rechupes, peso de la pieza, color.` },
+ { d:'dmaic', k:['charter','project charter','acta','alcance del proyecto'], t:'Project Charter', a:
+`## Project Charter Six Sigma
+| Elemento | Contenido |
+|---|---|
+| Caso de negocio | Por qué importa ahora (costo, cliente, estrategia) |
+| Problema | Qué, dónde, cuándo y cuánto, con datos (sin causas ni soluciones) |
+| Objetivo (SMART) | Ej.: reducir scrap de 4.2% a 1.5% al 30/06 |
+| Alcance | Dentro / fuera: líneas, turnos, productos |
+| CTQ / Y del proyecto | Métrica principal y métricas de contrapeso |
+| Beneficio estimado | $ anual validado por finanzas |
+| Equipo | Sponsor, Champion, Black/Green Belt, miembros |
+| Cronograma | Fechas objetivo por fase D-M-A-I-C |` },
+ { d:'dmaic', k:['cp','cpk','capacidad','ppk','indice de capacidad'], t:'Cp y Cpk', a:
+`## Cálculo e interpretación de Cp y Cpk
+- **Cp** = (LSE − LIE) / 6σ → potencial del proceso (si estuviera centrado).
+- **Cpk** = mín[(LSE − x̄), (x̄ − LIE)] / 3σ → capacidad real considerando el centrado.
+
+| Cpk | Interpretación | Acción |
+|---|---|---|
+| < 1.00 | No capaz | Contención 100% y reducir variación |
+| 1.00 – 1.33 | Marginal | Mejora y SPC |
+| 1.33 – 1.67 | Capaz | Mantener control |
+| ≥ 1.67 | Excelente | Evaluar reducir inspección |
+
+**Cp ≫ Cpk** → el proceso está descentrado: ajusta la media. **Cp bajo** → hay que reducir la variación.
+Requisitos: proceso estable (en control) y datos aproximadamente normales. Usa la calculadora de la sección Herramientas.` },
+ { d:'dmaic', k:['spc','control estadistico','grafico de control','plan de control','carta de control','xbarra'], t:'Plan de control SPC', a:
+`## Plan de control estadístico (SPC)
+**Selección de gráfico**
+| Tipo de dato | Gráfico |
+|---|---|
+| Continuo, subgrupos 2–9 | X̄-R |
+| Continuo, subgrupos ≥ 10 | X̄-S |
+| Continuo, individual | I-MR |
+| Proporción de defectuosos | p / np |
+| Número de defectos | c / u |
+
+**Plan de control** (por característica): proceso, característica, especificación, método de medición, tamaño y frecuencia de muestra, gráfico, responsable y **plan de reacción**.
+
+**Reglas de Western Electric**: 1 punto fuera de 3σ; 8 consecutivos del mismo lado; 6 en tendencia; 2 de 3 más allá de 2σ.` },
+ { d:'dmaic', k:['gage','r&r','msa','sistema de medicion','repetibilidad'], t:'Gage R&R', a:
+`## Estudio Gage R&R (MSA)
+- Diseño típico: **10 piezas × 3 operadores × 3 repeticiones**, en orden aleatorio y a ciegas.
+- Criterios (% de la variación total): **< 10%** aceptable, **10–30%** condicional, **> 30%** no aceptable.
+- **Número de categorías distintas (ndc) ≥ 5**.
+- Si domina la **repetibilidad**: el instrumento. Si domina la **reproducibilidad**: el método o la capacitación.` },
+ { d:'dmaic', k:['dmadv','dfss','diseno nuevo','nuevo proceso','qfd'], t:'DMADV', a:
+`## Hoja de ruta DMADV (Design for Six Sigma)
+1. **Define**: charter del diseño, riesgos y alcance.
+2. **Measure**: VOC → CTQs con especificaciones medibles.
+3. **Analyze**: conceptos alternativos, matriz de Pugh, QFD (casa de la calidad).
+4. **Design**: diseño detallado, tolerancias, DFMEA / PFMEA, simulación.
+5. **Verify**: piloto, **Ppk > 1.67** y traspaso con plan de control.` },
+ { d:'dmaic', k:['ishikawa','espina de pescado','6m','causa efecto'], t:'Ishikawa', a:
+`## Diagrama de Ishikawa (6M)
+- **Método**: procedimientos, secuencia, parámetros.
+- **Máquina**: desgaste, calibración, mantenimiento.
+- **Material**: proveedor, lote, especificación.
+- **Mano de obra**: capacitación, fatiga, rotación.
+- **Medición**: instrumento, MSA, criterio de aceptación.
+- **Medio ambiente**: temperatura, humedad, iluminación.
+
+Prioriza causas con votación del equipo y **valídalas con datos** (prueba de hipótesis) antes de actuar.` },
+ { d:'fmea', k:['amef','fmea','modo de falla','matriz'], t:'Matriz AMEF', a:
+`## AMEF de proceso · Soldadura / ensamble
+| Paso | Modo de falla | Efecto | S | Causa | O | Control actual | D | NPR | Acción recomendada |
+|---|---|---|---|---|---|---|---|---|---|
+| Soldadura | Penetración insuficiente | Falla estructural | 9 | Corriente fuera de rango | 5 | Inspección visual | 7 | 315 | Monitoreo de parámetros + interlock |
+| Soldadura | Porosidad | Fuga / rechazo | 7 | Gas contaminado o flujo bajo | 4 | Prueba de fuga por muestreo | 5 | 140 | Sensor de flujo de gas |
+| Ensamble | Tornillo sin torque | Aflojamiento en campo | 8 | Herramienta sin control | 4 | Auditoría | 6 | 192 | Atornillador con control de torque y conteo |
+| Ensamble | Pieza invertida | No funciona | 7 | Pieza simétrica | 3 | Inspección final | 4 | 84 | Poka-Yoke de orientación |
+
+**Escalas 1–10**: S (severidad), O (ocurrencia), D (detección: 10 = no se detecta).
+**Priorización**: atiende primero toda **S ≥ 9** sin importar el NPR; luego NPR > 100 o Action Priority (AP) alta según AIAG-VDA.` },
+ { d:'fmea', k:['5 porques','porque','cinco porques','derrame','fuga'], t:'5 Porqués', a:
+`## Análisis de 5 Porqués · Derrame en línea
+**Problema**: derrame de producto en la estación de llenado, turno 2, 3 veces en la última semana.
+1. ¿Por qué hubo derrame? → La boquilla goteó después del ciclo de llenado.
+2. ¿Por qué goteó? → La válvula de corte no sella completamente.
+3. ¿Por qué no sella? → El empaque de la válvula está desgastado.
+4. ¿Por qué está desgastado? → No se reemplazó en el intervalo recomendado.
+5. ¿Por qué no se reemplazó? → **El empaque no está en el plan de mantenimiento preventivo** (causa raíz sistémica).
+
+**Acciones**
+- Contención: limpieza y cambio inmediato del empaque; charola de contención.
+- Correctiva: agregar el empaque al PM con frecuencia basada en ciclos.
+- Preventiva: revisar el PM de todas las válvulas similares (**horizontal deployment**).
+- Verificación: 0 derrames en 30 días.` },
+ { d:'fmea', k:['contingencia','preventiva','correctiva','contencion','8d'], t:'Contingencia vs preventivas', a:
+`## Acciones de contingencia vs correctivas vs preventivas
+| Tipo | Objetivo | Cuándo | Ejemplo |
+|---|---|---|---|
+| **Contención / contingencia** | Proteger al cliente ya | Horas | Bloquear lote, inspección 100% |
+| **Correctiva** | Eliminar la causa raíz del problema ocurrido | Días a semanas | Cambiar parámetro, Poka-Yoke |
+| **Preventiva** | Evitar que ocurra en otros procesos o productos | Semanas | Replicar en líneas similares, actualizar AMEF |
+
+Metodología recomendada: **8D** (D3 contención, D4 causa raíz, D5–D6 correctiva, D7 preventiva).` },
+ { d:'fmea', k:['npr','rpn','severidad','ocurrencia','deteccion'], t:'Cálculo de NPR', a: null },
+ { d:'*', k:['timwoods','desperdicio','muda','8 desperdicios','ocho desperdicios'], t:'Los 8 desperdicios', a:
+`## Diagnóstico de los 8 desperdicios (TIMWOODS)
+| Desperdicio | Qué observar en planta | Indicador |
+|---|---|---|
+| **T**ransporte | Movimientos de material entre áreas lejanas | Metros por pieza |
+| **I**nventario | WIP acumulado, bodegas llenas | Días de inventario |
+| **M**ovimiento | Operadores caminando o buscando herramientas | % de tiempo sin valor |
+| **W** Esperas | Operadores o máquinas esperando material | Minutos de espera por turno |
+| **O** Sobreproducción | Producir antes o más de lo pedido | Piezas sin orden |
+| **O** Sobreprocesamiento | Pasos que el cliente no valora | Pasos sin valor en el VSM |
+| **D**efectos | Scrap, retrabajo, reclamos | % scrap, PPM |
+| **S** Talento | Ideas del personal no aprovechadas | Sugerencias implementadas |
+
+**Cómo priorizar**
+1. Recorrido **Gemba** de 2 horas con esta lista y fotos.
+2. Cuantifica cada desperdicio en **$ / mes**.
+3. Matriz **impacto vs esfuerzo**: empieza por los de alto impacto y bajo esfuerzo (quick wins).
+4. Los defectos y la sobreproducción suelen ser los más costosos: atácalos con DMAIC y pull / Kanban.` },
+ { d:'*', k:['kaizen','mejora continua','evento','blitz'], t:'Kaizen', a:
+`## Evento Kaizen (3–5 días)
+- **Día 0**: alcance, métrica objetivo y equipo multidisciplinario.
+- **Día 1**: capacitación y observación del estado actual (Gemba, tiempos, VSM).
+- **Día 2**: análisis de causas y lluvia de ideas.
+- **Día 3–4**: implementación y prueba en piso.
+- **Día 5**: estandarización (SOP), resultados y plan de seguimiento a 30 días.` }
+];
+
+function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+
+function oeeAnswer(text){
+  const pcts = (text.match(/(\d+(?:[.,]\d+)?)\s*%/g) || []).map(p => parseFloat(p.replace(',', '.')));
+  const cur = pcts.length ? pcts[0] : null, goal = pcts.length > 1 ? pcts[1] : 85;
+  let head = '## Plan para elevar el OEE\n';
+  if (cur !== null) head += `**Situación**: OEE actual **${cur}%** → meta **${goal}%** (brecha de **${fmt(goal-cur,1)} puntos**, +${fmt((goal/cur-1)*100,0)}% de capacidad efectiva sin invertir en equipo).\n\n`;
+  return head +
+`**OEE = Disponibilidad × Rendimiento × Calidad** (clase mundial ≈ 90% × 95% × 99.9% ≈ 85%).
+
+**Semanas 1–2 · Medición**
+- Registro de paros por causa en cada turno (las **6 grandes pérdidas**: averías, setups, micro-paros, velocidad reducida, scrap de arranque, scrap de proceso).
+- Separa el OEE en sus 3 factores: el más bajo define el foco.
+
+**Semanas 3–8 · Atacar la pérdida mayor**
+| Factor bajo | Herramienta |
+|---|---|
+| Disponibilidad | SMED para setups, TPM para averías, análisis de paros > 10 min |
+| Rendimiento | Eliminar micro-paros, restaurar velocidad nominal, balanceo |
+| Calidad | SPC, Poka-Yoke, AMEF en el defecto principal |
+
+**Semanas 9–12 · Sostener**
+- Tablero de OEE por hora en la línea y reunión diaria de 15 minutos.
+- Estandarización (SOP) y auditorías.
+
+Usa la calculadora de OEE de la sección **Herramientas** para validar cada factor.`;
+}
+function nprAnswer(text){
+  const t = norm(text);
+  const pick = r => { const m = t.match(r); return m ? parseInt(m[1],10) : null; };
+  let s = pick(/(?:s|sev|severidad)\s*[=:]?\s*(\d{1,2})/), o = pick(/(?:o|ocu|ocurrencia)\s*[=:]?\s*(\d{1,2})/), d = pick(/(?:d|det|deteccion)\s*[=:]?\s*(\d{1,2})/);
+  if (s == null || o == null || d == null) { const n = (t.match(/\b\d{1,2}\b/g) || []).map(Number).filter(x => x >= 1 && x <= 10); if (n.length >= 3) [s,o,d] = n; }
+  let calc = '';
+  if (s && o && d) {
+    const npr = s*o*d, lvl = s >= 9 ? '**Prioridad máxima** (severidad ≥ 9: actuar aunque el NPR sea bajo)' : npr > 200 ? '**Alta**: acción obligatoria' : npr > 100 ? '**Media**: planear acción' : '**Baja**: monitorear';
+    calc = `**Tu cálculo**: NPR = ${s} × ${o} × ${d} = **${npr}** (máximo 1000) → ${lvl}.\n\n`;
+  }
+  return `## Cálculo de NPR (Número de Prioridad de Riesgo)
+${calc}**NPR = Severidad × Ocurrencia × Detección** (cada una en escala 1–10).
+
+| Escala | 1 | 5 | 10 |
+|---|---|---|---|
+| Severidad | Sin efecto | Molestia / retrabajo | Riesgo de seguridad o legal |
+| Ocurrencia | Casi imposible | Ocasional | Casi segura |
+| Detección | Casi segura | Moderada | No se detecta |
+
+**Buenas prácticas**
+- No compares NPRs como si fueran lineales: 9×2×2 = 36 es más crítico que 4×4×4 = 64 por la severidad.
+- AIAG-VDA recomienda **Action Priority (AP)**: alta, media o baja según la combinación S-O-D.
+- Reduce primero **O** (prevención) y después **D** (detección); la S solo baja con rediseño.
+
+*Tip: escribe por ejemplo "S=8 O=4 D=6" y lo calculo por ti.*`;
+}
+
+function localAnswer(text, domain){
+  const t = norm(text);
+  let best = null, bestScore = 0;
+  for (const item of KB) {
+    let score = 0;
+    for (const k of item.k) if (t.includes(norm(k))) score += k.length > 4 ? 2 : 1;
+    if (score && (item.d === domain || item.d === '*')) score += 1;
+    if (score > bestScore) { bestScore = score; best = item; }
+  }
+  if (best) {
+    if (best.t === 'Plan de mejora de OEE') return oeeAnswer(text);
+    if (best.t === 'Cálculo de NPR') return nprAnswer(text);
+    return best.a;
+  }
+  const d = DOMAINS[domain];
+  return `## Diagnóstico inicial · ${d.title}
+Para darte un plan preciso necesito algunos datos de tu proceso:
+1. **¿Qué métrica te preocupa?** (OEE, scrap %, tiempo de ciclo, errores de picking, exactitud de inventario…)
+2. **Valor actual y meta** (ej.: OEE 55% → 85%).
+3. **¿Desde cuándo ocurre** y en qué línea, turno o producto?
+4. **¿Qué se ha intentado** hasta ahora?
+
+Mientras tanto, la ruta recomendada es **DMAIC**: define el problema con datos, mide la línea base, analiza causas con Ishikawa y 5 Porqués, implementa mejoras piloto y controla con SPC.
+
+Temas en los que puedo ayudarte al instante: ${d.quick.map(q => '*' + q + '*').join(' · ')}.`;
+}
+
+/* ---------- IA en línea gratuita (sin clave ni registro) ---------- */
+async function onlineAnswer(history, domain){
+  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), ONLINE_AI_TIMEOUT_MS);
+  try {
+    const res = await fetch(ONLINE_AI_URL, {
+      method: 'POST', signal: ctrl.signal, headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'openai', messages: [{ role: 'system', content: DOMAINS[domain].system }, ...history.slice(-10)] })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const ct = res.headers.get('content-type') || '';
+    let text;
+    if (ct.includes('json')) { const j = await res.json(); text = j.choices?.[0]?.message?.content; }
+    else text = await res.text();
+    if (!text || !text.trim()) throw new Error('Respuesta vacía');
+    return text.trim();
+  } finally { clearTimeout(timer); }
+}
+
+/* ---------- Chat UI ---------- */
+let domain = 'manufactura', mode = store.get('vectoria_mode') === 'local' ? 'local' : 'online', busy = false, history = [];
+
+function setMode(m){
+  mode = m; store.set('vectoria_mode', m);
+  $('modeOnline').classList.toggle('active', m === 'online');
+  $('modeLocal').classList.toggle('active', m === 'local');
+  $('engineLabel').textContent = m === 'online' ? 'Motor: IA en línea gratuita + respaldo local' : 'Motor: experto local (funciona sin internet)';
+}
+function addMsg(role, html, head){
+  const el = document.createElement('div');
+  el.className = 'msg ' + role;
+  el.innerHTML = `<div class="av">${role === 'user' ? 'TÚ' : '<svg class="ico sm"><use href="#i-bot"/></svg>'}</div><div class="bubble">${head ? `<div class="bubble-head"><span>${esc(head[0])}</span><span>${esc(head[1])}</span></div>` : ''}<div class="md">${html}</div></div>`;
+  $('chatWin').appendChild(el);
+  $('chatWin').scrollTop = $('chatWin').scrollHeight;
+  return el;
+}
+function renderIntro(){
+  const d = DOMAINS[domain];
+  const el = addMsg('bot', md(d.intro), ['Módulo: ' + d.title, 'VECTOR-IA v4']);
+  const q = document.createElement('div'); q.className = 'quick';
+  d.quick.forEach(p => { const b = document.createElement('button'); b.textContent = '→ ' + p; b.onclick = () => send(p); q.appendChild(b); });
+  el.querySelector('.bubble').appendChild(q);
+}
+function clearChat(){ history = []; $('chatWin').innerHTML = ''; renderIntro(); }
+function setDomain(d){
+  if (d === domain) return;
+  domain = d;
+  document.querySelectorAll('.dom').forEach(b => b.classList.toggle('active', b.dataset.d === d));
+  clearChat();
+}
+document.querySelectorAll('.dom').forEach(b => b.addEventListener('click', () => setDomain(b.dataset.d)));
+
+async function send(text){
+  text = (text || '').trim();
+  if (!text || busy) return;
+  busy = true; $('sendBtn').disabled = true; $('chatInput').value = '';
+  addMsg('user', '<p>' + esc(text).replace(/\n/g,'<br>') + '</p>');
+  history.push({ role: 'user', content: text });
+  const wait = addMsg('bot', '<div class="typing"><i></i><i></i><i></i></div>', [DOMAINS[domain].title, 'analizando…']);
+  let answer, engine;
+  if (mode === 'online') {
+    try { answer = await onlineAnswer(history, domain); engine = 'IA en línea'; }
+    catch (e) { answer = localAnswer(text, domain); engine = 'Motor local (IA en línea no disponible)'; }
+  } else {
+    await new Promise(r => setTimeout(r, 450));
+    answer = localAnswer(text, domain); engine = 'Motor local';
+  }
+  history.push({ role: 'assistant', content: answer });
+  wait.querySelector('.bubble').innerHTML = `<div class="bubble-head"><span>${esc(DOMAINS[domain].title)}</span><span>${esc(engine)}</span></div><div class="md">${md(answer)}</div>`;
+  $('chatWin').scrollTop = $('chatWin').scrollHeight;
+  busy = false; $('sendBtn').disabled = false; $('chatInput').focus();
+}
+$('chatForm').addEventListener('submit', e => { e.preventDefault(); send($('chatInput').value); });
+$('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send($('chatInput').value); } });
+
+function downloadChat(){
+  if (!history.length) { toast('Aún no hay conversación para descargar.'); return; }
+  const txt = `VECTOR-IA · ${DOMAINS[domain].title}\n${new Date().toLocaleString('es')}\n\n` +
+    history.map(m => (m.role === 'user' ? '▶ TÚ:\n' : '▶ VECTOR-IA:\n') + m.content).join('\n\n---\n\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([txt], { type: 'text/plain;charset=utf-8' }));
+  a.download = 'diagnostico-vector-ia.txt'; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function askWaste(){
+  location.hash = 'asistente';
+  setDomain('manufactura');
+  send('Realiza un diagnóstico de los 8 desperdicios (TIMWOODS) para mi planta industrial y dime cómo priorizarlos.');
+}
+
+/* ---------- Formulario ---------- */
+function prefillHire(v){ $('fEngineer').value = v; location.hash = 'contacto'; setTimeout(() => $('fName').focus(), 400); }
+function selectPlan(v){ $('fModality').value = v; location.hash = 'contacto'; setTimeout(() => $('fName').focus(), 400); }
+
+$('hireForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = id => $(id).value.trim();
+  const body = `Hola VECTOR-IA, deseo una cotización de ingeniería.
+
+Nombre: ${f('fName')}
+Empresa: ${f('fCompany')}
+Correo: ${f('fEmail')}
+Teléfono: ${f('fPhone')}
+Ingeniero / enfoque: ${f('fEngineer')}
+Modalidad: ${f('fModality')}
+Descripción: ${f('fDetails') || '-'}`;
+  const wa = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent(body)}`;
+  const mail = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Solicitud de cotización - ' + f('fCompany'))}&body=${encodeURIComponent(body)}`;
+  const s = $('hireSuccess');
+  s.innerHTML = `<strong>¡Gracias, ${esc(f('fName'))}!</strong> Tu solicitud para <strong>${esc(f('fCompany'))}</strong> está lista. Elige cómo enviarla:
+    <div class="btns">
+      <a class="btn btn-primary btn-sm" href="${wa}" target="_blank" rel="noopener"><svg class="ico sm"><use href="#i-wa"/></svg>Enviar por WhatsApp</a>
+      <a class="btn btn-outline btn-sm" href="${mail}"><svg class="ico sm"><use href="#i-mail"/></svg>Enviar por correo</a>
+      <button type="button" class="btn btn-outline btn-sm" id="copyReq">Copiar texto</button>
+    </div>`;
+  s.classList.add('show');
+  $('copyReq').onclick = () => { (navigator.clipboard ? navigator.clipboard.writeText(body) : Promise.reject()).then(() => toast('Solicitud copiada al portapapeles.'), () => toast('No se pudo copiar automáticamente.')); };
+  s.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
-lucide.createIcons();
-}
-function clearAiChat() {
-chatHistory = [];
-const chatWindow = document.getElementById('aiChatWindow');
-chatWindow.innerHTML = `
-<div class="flex items-start gap-3.5">
-<div class="w-9 h-9 rounded-xl bg-brand-orange flex-shrink-0 flex items-center justify-center text-white shadow-md">
-<i data-lucide="cpu" class="w-5 h-5"></i>
-</div>
-<div class="bg-slate-700/70 border border-slate-600 rounded-2xl rounded-tl-none p-4 max-w-3xl text-slate-200 space-y-2">
-<div class="flex items-center justify-between gap-2 border-b border-slate-600/80 pb-2">
-<span class="font-bold text-xs text-brand-orange uppercase tracking-wider" id="chatDomainBadge">${domainPrompts[currentDomain].title}</span>
-<span class="text-[10px] text-slate-400 font-mono">VECTOR-IA v3.1</span>
-</div>
-<p class="leading-relaxed" id="chatDomainIntro">${marked.parse(domainPrompts[currentDomain].intro)}</p>
-<div class="pt-2">
-<span class="text-[11px] font-semibold text-slate-400 block mb-1.5">Sugerencias rápidas:</span>
-<div class="flex flex-wrap gap-2" id="quickPromptsContainer"></div>
-</div>
-</div>
-</div>
-`;
-renderDomainUI();
-}
-// Trigger AI with waste analysis prompt
-function requestAiWasteAnalysis() {
-window.location.hash = "ia-gemini";
-setAiDomain('manufactura');
-document.getElementById('aiUserInput').value = "Por favor realiza un diagnóstico de los 8 desperdicios (TIMWOODS) para mi planta industrial y dime cómo priorizarlos.";
-document.getElementById('aiUserInput').focus();
-}
-// Handle user prompt submission with exponential backoff and Gemini API call
-async function handleAiSubmit(event) {
-event.preventDefault();
-const inputField = document.getElementById('aiUserInput');
-const userText = inputField.value.trim();
-if (!userText || isAiGenerating) return;
-if (!getApiKey()) {
-configureApiKey();
-if (!getApiKey()) return;
-}
-isAiGenerating = true;
-inputField.value = '';
-const chatWindow = document.getElementById('aiChatWindow');
-// 1. Append User Bubble
-const userBubble = document.createElement('div');
-userBubble.className = "flex items-start justify-end gap-3";
-userBubble.innerHTML = `
-<div class="bg-brand-blue text-white rounded-2xl rounded-tr-none p-4 max-w-2xl text-sm leading-relaxed shadow-md">
-<p>${escapeHtml(userText)}</p>
-</div>
-<div class="w-8 h-8 rounded-xl bg-slate-700 flex-shrink-0 flex items-center justify-center text-slate-300 font-bold text-xs">
-TÚ
-</div>
-`;
-chatWindow.appendChild(userBubble);
-// 2. Append AI Loading Placeholder
-const aiBubble = document.createElement('div');
-aiBubble.className = "flex items-start gap-3.5";
-const bubbleId = `ai-resp-${Date.now()}`;
-aiBubble.innerHTML = `
-<div class="w-9 h-9 rounded-xl bg-brand-orange flex-shrink-0 flex items-center justify-center text-white shadow-md">
-<i data-lucide="cpu" class="w-5 h-5"></i>
-</div>
-<div id="${bubbleId}" class="bg-slate-700/80 border border-slate-600 rounded-2xl rounded-tl-none p-4 max-w-3xl text-slate-200 text-sm leading-relaxed space-y-2">
-<div class="flex items-center gap-2 text-brand-orange text-xs font-semibold animate-pulse">
-<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Procesando diagnóstico técnico con Gemini...
-</div>
-</div>
-`;
-chatWindow.appendChild(aiBubble);
-lucide.createIcons();
-chatWindow.scrollTop = chatWindow.scrollHeight;
-// 3. Perform Gemini API call
-try {
-const systemPrompt = domainPrompts[currentDomain].systemPrompt;
-const responseText = await callGeminiWithBackoff(userText, systemPrompt);
-chatHistory.push({ role: 'user', parts: [{ text: userText }] });
-chatHistory.push({ role: 'model', parts: [{ text: responseText }] });
-const targetContainer = document.getElementById(bubbleId);
-if (targetContainer) {
-targetContainer.innerHTML = `
-<div class="flex items-center justify-between border-b border-slate-600 pb-2 mb-2">
-<span class="font-bold text-xs text-brand-orange uppercase tracking-wider">${domainPrompts[currentDomain].title}</span>
-<span class="text-[10px] text-slate-400 font-mono">Gemini 3 Flash</span>
-</div>
-<div class="prose prose-invert prose-sm max-w-none text-slate-200 space-y-2">
-${marked.parse(responseText)}
-</div>
-`;
-}
-} catch (err) {
-const targetContainer = document.getElementById(bubbleId);
-if (targetContainer) {
-targetContainer.innerHTML = `
-<div class="text-xs text-rose-400 font-medium">
-Hubo un inconveniente al conectar con el motor de IA. Por favor, reintenta tu consulta o contacta directamente a nuestros ingenieros.
-<br><span class="text-slate-400">Detalle: ${escapeHtml(err.message || String(err))}</span>
-</div>
-`;
-}
-} finally {
-isAiGenerating = false;
-lucide.createIcons();
-chatWindow.scrollTop = chatWindow.scrollHeight;
-}
-}
-// Gemini API call helper with Exponential Backoff
-async function callGeminiWithBackoff(userQuery, systemPrompt, retries = 3) {
-const apiKey = getApiKey();
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
-const payload = {
-contents: [...chatHistory, { role: 'user', parts: [{ text: userQuery }] }],
-systemInstruction: {
-parts: [{ text: systemPrompt }]
-}
-};
-let delay = 1000;
-for (let i = 0; i < retries; i++) {
-try {
-const response = await fetch(apiUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify(payload)
-});
-if (!response.ok) {
-let msg = `HTTP ${response.status}`;
-try { const e = await response.json(); if (e.error && e.error.message) msg += ` - ${e.error.message}`; } catch (_) {}
-const err = new Error(msg);
-// 4xx (clave inválida, modelo inexistente...) no se arregla reintentando, salvo 429
-if (response.status >= 400 && response.status < 500 && response.status !== 429) err.noRetry = true;
-throw err;
-}
-const result = await response.json();
-const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-if (text) return text;
-throw new Error("Respuesta vacía");
-} catch (error) {
-if (error.noRetry || i === retries - 1) throw error;
-await new Promise(res => setTimeout(res, delay));
-delay *= 2;
-}
-}
-}
-// Helper: escape HTML
-function escapeHtml(str) {
-return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-}
-// Prefill form from Engineer Profiles
-function prefillHireForm(engineerType) {
-const selectEng = document.getElementById('formEngineer');
-if (selectEng) {
-selectEng.value = engineerType;
-}
-window.location.hash = "contacto";
-document.getElementById('formName').focus();
-}
-// Prefill form from Pricing / Modality Cards
-function selectHiringPlan(modalityName) {
-const selectMod = document.getElementById('formModality');
-if (selectMod) {
-selectMod.value = modalityName;
-}
-window.location.hash = "contacto";
-document.getElementById('formName').focus();
-}
-// Handle contact form submission
-function handleHireSubmit(e) {
-e.preventDefault();
-const name = document.getElementById('formName').value;
-const company = document.getElementById('formCompany').value;
-const engineer = document.getElementById('formEngineer').value;
-const modality = document.getElementById('formModality').value;
-const email = document.getElementById('formEmail').value;
-const phone = document.getElementById('formPhone').value;
-const details = document.getElementById('formDetails').value;
-const waText = `Hola VECTOR-IA, deseo una cotización de ingeniería.
-*Nombre:* ${name}
-*Empresa:* ${company}
-*Correo:* ${email}
-*Teléfono:* ${phone}
-*Ingeniero / Enfoque:* ${engineer}
-*Modalidad:* ${modality}
-*Descripción:* ${details || '-'}`;
-window.open(`https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent(waText)}`, '_blank');
-const successMsg = document.getElementById('formSuccessMessage');
-successMsg.classList.remove('hidden');
-successMsg.innerHTML = `
-<strong>¡Gracias, ${escapeHtml(name)}!</strong> Se abrió WhatsApp con tu solicitud lista para enviar.<br>
-Hemos registrado tu solicitud para <strong>${escapeHtml(company)}</strong> enfocada en <em>"${escapeHtml(engineer)}"</em> bajo la modalidad <em>"${escapeHtml(modality)}"</em>. Un ingeniero asignado se pondrá en contacto al teléfono/correo proporcionado.
-`;
-// Reset form fields
-document.getElementById('formDetails').value = '';
-}
+
+setMode(mode);
+renderIntro();
 </script>
 </body>
 </html>
