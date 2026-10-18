@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deportes 1 y 2 · Facultad de Ingeniería</title>
+<meta name="description" content="Cursos de Deportes 1 y Deportes 2: disciplinas, lugares, contenidos por nivel y pénsum de cada carrera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2545; --navy-2:#13315C; --ink:#0F1C2E; --text:#334155; --muted:#64748B;
+  --line:#E2E8F0; --line-2:#CBD5E1; --bg:#F5F7FB; --card:#fff;
+  --d1:#1D6FD8; --d1-bg:#E8F1FD; --d2:#E0590B; --d2-bg:#FDEEE4;
+  --c-equipo:#0E9F6E; --c-individual:#7C3AED; --c-fisica:#DB2777; --c-estrategia:#0369A1;
+  --radius:14px; --shadow:0 1px 2px rgba(15,28,46,.05),0 8px 24px rgba(15,28,46,.06);
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+a{color:inherit}
+.container{max-width:1160px;margin:0 auto;padding:0 20px}
+.ico{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ico.sm{width:15px;height:15px}
+h1,h2,h3{color:var(--ink);line-height:1.2;letter-spacing:-.02em}
+h2{font-size:clamp(26px,3.2vw,34px);font-weight:800;margin:10px 0 12px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--d1)}
+.lead{font-size:16.5px;color:var(--muted);max-width:720px}
+section{padding:72px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+/* Hero */
+.hero{background:var(--navy);color:#C7D3E3;padding:64px 0 72px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 85% 10%,rgba(29,111,216,.35),transparent),radial-gradient(500px 260px at 100% 100%,rgba(224,89,11,.22),transparent);pointer-events:none}
+.hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.hero small{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8FB6EE}
+.hero h1{color:#fff;font-size:clamp(34px,4.6vw,52px);font-weight:800;margin:14px 0 16px;letter-spacing:-.03em}
+.hero p{font-size:17px;max-width:600px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer;text-decoration:none}
+.btn-light{background:#fff;color:var(--navy)}.btn-light:hover{background:#E8EEF7}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.16)}
+.route{display:grid;gap:14px}
+.step{display:flex;gap:14px;align-items:center;padding:18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.step .num{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;flex:none}
+.step b{display:block;color:#fff;font-size:17px}
+.step span{font-size:13.5px}
+.arrow{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#8FB6EE;padding-left:16px}
+
+/* Sticky level switch */
+.levelbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.levelbar .container{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.levelbar nav{display:flex;gap:22px;font-size:14px;font-weight:500;color:var(--muted);white-space:nowrap}
+.levelbar nav a{text-decoration:none}.levelbar nav a:hover{color:var(--ink)}
+.switch{display:inline-flex;background:#EDF1F7;padding:4px;border-radius:12px;gap:4px}
+.switch button{border:0;background:transparent;padding:8px 16px;border-radius:9px;font-weight:700;font-size:14px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.switch button[aria-pressed="true"]{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.switch button[data-l="1"][aria-pressed="true"]{color:var(--d1)}
+.switch button[data-l="2"][aria-pressed="true"]{color:var(--d2)}
+
+/* Compare */
+.compare{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden}
+.compare th,.compare td{padding:16px 20px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:14.5px}
+.compare tr:last-child td{border-bottom:0}
+.compare thead th{font-size:16px;color:#fff}
+.compare thead th:first-child{background:var(--navy)}
+.compare thead th.h1{background:var(--d1)}.compare thead th.h2{background:var(--d2)}
+.compare tbody th{width:22%;color:var(--ink);font-weight:700;background:#FAFBFD}
+.compare td.on1{background:var(--d1-bg)}.compare td.on2{background:var(--d2-bg)}
+.table-wrap{overflow-x:auto;border-radius:var(--radius)}
+
+/* About */
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+.about .card{padding:28px}
+.about p{margin-bottom:12px}
+.goals{list-style:none;display:grid;gap:14px;counter-reset:g}
+.goals li{counter-increment:g;display:flex;gap:14px}
+.goals li::before{content:counter(g);width:30px;height:30px;border-radius:8px;background:var(--navy);color:#fff;font-weight:800;display:grid;place-items:center;flex:none;font-size:14px}
+.card h3{font-size:18px;margin-bottom:14px}
+
+/* Filters */
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:24px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line-2);background:#fff;padding:7px 13px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.input{padding:9px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:14px;outline:none;min-width:0}
+.input:focus{border-color:var(--d1);box-shadow:0 0 0 3px rgba(29,111,216,.15)}
+.count{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+
+/* Discipline cards */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.disc{display:flex;flex-direction:column;overflow:hidden}
+.disc-top{padding:20px 20px 0;display:flex;gap:14px;align-items:flex-start}
+.disc .em{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:24px;flex:none}
+.disc h3{font-size:17.5px;margin-bottom:4px}
+.cat{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.disc .sum{padding:12px 20px 0;font-size:14px;color:var(--muted)}
+.place{margin:12px 20px 0;display:flex;gap:7px;align-items:flex-start;font-size:13px;font-weight:600;color:var(--ink)}
+.place .ico{color:var(--muted);margin-top:2px}
+.level{margin:16px 20px 0;padding:14px 16px;border-radius:12px}
+.level.l1{background:var(--d1-bg)}.level.l2{background:var(--d2-bg)}
+.level b{font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:6px}
+.level.l1 b{color:var(--d1)}.level.l2 b{color:var(--d2)}
+.level ul{list-style:none;display:grid;gap:5px}
+.level li{font-size:13.5px;padding-left:18px;position:relative;color:var(--ink)}
+.level li::before{content:"";position:absolute;left:2px;top:8px;width:7px;height:7px;border-radius:2px;background:currentColor;opacity:.35}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:14px 20px 20px;margin-top:auto}
+.tags span{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--text)}
+.empty{grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)}
+body.both .level{display:block}
+.level[hidden]{display:none}
+
+/* Places */
+.places{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.placecard{padding:20px}
+.placecard h3{font-size:16px;display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.placecard .ico{color:var(--d1)}
+.placecard ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.placecard li{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+
+/* Pensum */
+.pensum{padding:0;overflow:hidden}
+.pensum table{width:100%;border-collapse:collapse}
+.pensum th,.pensum td{padding:13px 18px;border-bottom:1px solid var(--line);font-size:14.5px;text-align:left}
+.pensum thead th{background:#FAFBFD;color:var(--ink);font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.pensum td.c{text-align:center;width:140px}
+.pensum tr:last-child td{border-bottom:0}
+.yes,.no{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-weight:800;font-size:13px}
+.yes{background:#DCFCE7;color:#15803D}.no{background:#F1F5F9;color:#94A3B8}
+
+/* FAQ */
+.faq{display:grid;gap:12px;max-width:820px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+.faq summary{font-weight:700;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";font-size:20px;line-height:1;color:var(--muted)}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin-top:10px;font-size:14.5px}
+
+footer{background:var(--navy);color:#8FA3BF;padding:32px 0;font-size:13.5px}
+footer .container{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:1000px){
+  .hero .container,.about{grid-template-columns:1fr}
+  .grid,.places{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .levelbar nav{display:none}
+}
+@media (max-width:640px){
+  section{padding:56px 0}
+  .container{padding:0 16px}
+  .grid,.places{grid-template-columns:minmax(0,1fr)}
+  .levelbar .container{justify-content:center}
+  .switch button{padding:8px 12px;font-size:13px}
+  .compare th,.compare td{padding:12px;font-size:13.5px}
+  .pensum td.c{width:auto}
+  .filters{flex-direction:column;align-items:stretch}
+  .tools .input{flex:1}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+</svg>
+
+<!-- HERO -->
+<header class="hero" id="inicio">
+  <div class="container">
+    <div>
+      <small>Facultad de Ingeniería · Cursos de Deportes</small>
+      <h1>Deportes&nbsp;1 y Deportes&nbsp;2</h1>
+      <p>Actividad física para un estilo de vida saludable. Elige una disciplina, aprende sus fundamentos en <strong style="color:#fff">Deportes 1</strong> y perfecciónala en <strong style="color:#fff">Deportes 2</strong>.</p>
+      <div class="hero-actions">
+        <a href="#disciplinas" class="btn btn-light">Ver disciplinas</a>
+        <a href="#comparar" class="btn btn-ghost">¿Qué cambia entre D1 y D2?</a>
+      </div>
+    </div>
+    <div class="route" aria-label="Ruta del curso">
+      <div class="step"><div class="num" style="background:var(--d1)">1</div><div><b>Deportes 1 <span id="codeD1"></span></b><span>Iniciación: fundamentos, técnica básica y reglas.</span></div></div>
+      <div class="arrow"><svg class="ico sm"><use href="#i-lock"/></svg>Requisito: aprobar Deportes 1</div>
+      <div class="step"><div class="num" style="background:var(--d2)">2</div><div><b>Deportes 2 <span id="codeD2"></span></b><span>Perfeccionamiento: táctica, juego real y constancia.</span></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- LEVEL SWITCH -->
+<div class="levelbar">
+  <div class="container">
+    <nav>
+      <a href="#comparar">D1 vs D2</a>
+      <a href="#curso">El curso</a>
+      <a href="#disciplinas">Disciplinas</a>
+      <a href="#lugares">Lugares</a>
+      <a href="#pensum">Pénsum</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <div class="switch" role="group" aria-label="Nivel a mostrar">
+      <button data-l="1" aria-pressed="false">Deportes 1</button>
+      <button data-l="2" aria-pressed="false">Deportes 2</button>
+      <button data-l="both" aria-pressed="true">Ambos</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARE -->
+<section id="comparar">
+  <div class="container">
+    <span class="eyebrow">Dos cursos, una misma ruta</span>
+    <h2>¿Qué cambia entre Deportes 1 y Deportes 2?</h2>
+    <p class="lead" style="margin-bottom:28px">Ambos cursos ofrecen las mismas disciplinas. La diferencia está en el nivel: Deportes 1 construye la base y Deportes 2 la lleva a situaciones de juego reales.</p>
+    <div class="table-wrap card">
+      <table class="compare">
+        <thead><tr><th></th><th class="h1">Deportes 1</th><th class="h2">Deportes 2</th></tr></thead>
+        <tbody>
+          <tr><th>Enfoque</th><td class="on1">Iniciación: fundamentos, técnica básica y reglas de la disciplina.</td><td class="on2">Perfeccionamiento: técnica avanzada, táctica y situaciones reales de juego.</td></tr>
+          <tr><th>Para quién</th><td class="on1">Estudiantes que se acercan por primera vez a la disciplina.</td><td class="on2">Estudiantes con la base de Deportes 1 que desean seguir desarrollándose.</td></tr>
+          <tr><th>Requisito</th><td class="on1">Ninguno.</td><td class="on2">Haber aprobado Deportes 1.</td></tr>
+          <tr><th>Al finalizar</th><td class="on1">Conoces las reglas, ejecutas la técnica básica y participas en ejercicios guiados.</td><td class="on2">Aplicas la técnica en juego, tomas decisiones tácticas y mantienes una rutina propia.</td></tr>
+          <tr><th>Código</th><td class="on1" id="cmpCode1"></td><td class="on2" id="cmpCode2"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="curso" style="padding-top:0">
+  <div class="container">
+    <span class="eyebrow">Sobre el curso</span>
+    <h2>Ejercicio creativo y lúdico</h2>
+    <div class="about">
+      <div class="card">
+        <p>El curso busca que el estudiante desarrolle una buena condición física como base para tener y conservar su salud física y mental, mediante un estilo de vida saludable basado en la actividad física que él mismo elige.</p>
+        <p>Se introducen los conceptos básicos de distintas disciplinas deportivas, con sus técnicas y reglas actualizadas, para que cada estudiante encuentre una actividad acorde con sus intereses y capacidades.</p>
+        <p style="margin:0">Los contenidos están planificados para que el estudiante los integre gradualmente a su vida diaria, a partir de un programa marco y de la disciplina que elija, promoviendo la participación, la constancia y el trabajo individual y en equipo.</p>
+      </div>
+      <div class="card">
+        <h3>Objetivos generales</h3>
+        <ol class="goals">
+          <li>Promover un estilo de vida saludable mediante rutinas de ejercicio y actividad física planificada, e incentivar al estudiante a hacer del ejercicio parte de su vida cotidiana.</li>
+          <li>Orientar al estudiante en la adquisición de hábitos alimenticios y nutricionales correctos, la ingesta adecuada de kilocalorías y líquidos, y el descanso físico y mental necesario.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCIPLINES -->
+<section id="disciplinas" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <span class="eyebrow">Disciplinas</span>
+    <h2>Elige tu disciplina</h2>
+    <p class="lead" style="margin-bottom:28px">Cada disciplina muestra lo que aprenderás en cada nivel. Usa el selector de arriba para ver solo Deportes 1, solo Deportes 2 o ambos.</p>
+    <div class="filters">
+      <div class="chips" id="catChips"></div>
+      <div class="tools">
+        <select class="input" id="placeSel" aria-label="Filtrar por lugar"></select>
+        <input class="input" id="search" type="search" placeholder="Buscar disciplina…" aria-label="Buscar disciplina">
+      </div>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- PLACES -->
+<section id="lugares">
+  <div class="container">
+    <span class="eyebrow">Lugares</span>
+    <h2>¿Dónde se imparte cada disciplina?</h2>
+    <p class="lead" style="margin-bottom:28px">Toca un lugar para ver solo las disciplinas que se imparten ahí.</p>
+    <div class="places" id="places"></div>
+  </div>
+</section>
+
+<!-- PENSUM -->
+<section id="pensum" style="padding-top:0">
+  <div class="container">
+    <span class="eyebrow">Pénsum</span>
+    <h2>¿Qué carreras llevan Deportes 1 y 2?</h2>
+    <p class="lead" style="margin-bottom:28px">Carreras en cuyo pénsum aparece cada curso.</p>
+    <div class="card pensum table-wrap">
+      <table>
+        <thead><tr><th>Carrera</th><th class="c">Deportes 1</th><th class="c">Deportes 2</th></tr></thead>
+        <tbody id="pensumBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="preguntas" style="padding-top:0">
+  <div class="container">
+    <span class="eyebrow">Preguntas frecuentes</span>
+    <h2>Antes de asignarte</h2>
+    <div class="faq">
+      <details open><summary>¿Necesito aprobar Deportes 1 para llevar Deportes 2?</summary><p>Sí. Deportes 1 es requisito de Deportes 2.</p></details>
+      <details><summary>¿Las disciplinas son las mismas en ambos cursos?</summary><p>Sí. Todas las disciplinas se ofrecen en Deportes 1 y en Deportes 2; lo que cambia es el nivel de los contenidos.</p></details>
+      <details><summary>¿Necesito experiencia previa?</summary><p>No para Deportes 1: está pensado para quienes practican la disciplina por primera vez. Si ya tienes experiencia, también puedes llevarlo y seguir desarrollando tus habilidades.</p></details>
+      <details><summary>¿Qué se evalúa?</summary><p>La participación, la constancia y el progreso en la disciplina, además de los hábitos de vida saludable que promueve el curso.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>Cursos de Deportes · Facultad de Ingeniería</span>
+    <span>Deportes 1 · Deportes 2</span>
+  </div>
+</footer>
+
+<script>
+/* ================== DATOS EDITABLES ==================
+   Para agregar, quitar o cambiar una disciplina, edita la lista DISCIPLINAS.
+   niveles: [1, 2] = se ofrece en ambos cursos; [1] = solo Deportes 1; [2] = solo Deportes 2. */
+const CODIGO_D1 = "039";
+const CODIGO_D2 = "039";
+
+const CATEGORIAS = {
+  equipo:     { nombre: "Deportes de equipo",          color: "var(--c-equipo)",     bg: "#E7F7F0" },
+  individual: { nombre: "Individuales y de combate",   color: "var(--c-individual)", bg: "#F1EBFE" },
+  fisica:     { nombre: "Condición física y expresión", color: "var(--c-fisica)",    bg: "#FDE9F2" },
+  estrategia: { nombre: "Estrategia",                  color: "var(--c-estrategia)", bg: "#E5F2FA" }
+};
+
+const DISCIPLINAS = [
+  { nombre: "Baloncesto y Baloncesto 3x3", emoji: "🏀", cat: "equipo", niveles: [1, 2],
+    lugares: ["Polideportivo USAC"],
+    resumen: "Deporte colectivo en sus modalidades tradicional (5x5) y 3x3.",
+    d1: ["Manejo y control del balón, drible", "Pases y recepción", "Lanzamiento y bandeja", "Reglas básicas de ambas modalidades"],
+    d2: ["Juego 3x3 y 5x5 con reglamento completo", "Defensa individual y en zona", "Jugadas de ataque básicas", "Partidos y torneo interno"],
+    desarrolla: ["Coordinación", "Trabajo en equipo", "Desplazamiento"] },
+  { nombre: "Fútbol 5 femenino", emoji: "⚽", cat: "equipo", niveles: [1, 2],
+    lugares: ["Cancha de la Facultad de Ingeniería"],
+    resumen: "Fútbol de espacio reducido para estudiantes mujeres.",
+    d1: ["Conducción, pase y recepción", "Dominio del balón", "Reglas del fútbol 5", "Posicionamiento básico en cancha"],
+    d2: ["Finalización y remate", "Principios tácticos de ataque y defensa", "Jugadas a balón parado", "Partidos y torneo interno"],
+    desarrolla: ["Trabajo en equipo", "Seguridad en cancha", "Resistencia"] },
+  { nombre: "Fútbol 5 masculino", emoji: "⚽", cat: "equipo", niveles: [1, 2],
+    lugares: ["Polideportivo USAC", "Cancha de la Facultad de Ingeniería"],
+    resumen: "Fútbol de espacio reducido, dinámico y de mucha toma de decisiones.",
+    d1: ["Dominio del balón, conducción y pase", "Recepción y remate", "Reglas del fútbol 5", "Movimientos básicos en cancha"],
+    d2: ["Principios tácticos y posicionamiento", "Comunicación y toma de decisiones", "Transiciones ataque-defensa", "Partidos y torneo interno"],
+    desarrolla: ["Toma de decisiones", "Comunicación", "Resistencia"] },
+  { nombre: "Voleibol", emoji: "🏐", cat: "equipo", niveles: [1, 2],
+    lugares: ["Cancha de la Facultad de Ingeniería"],
+    resumen: "Deporte colectivo de red basado en coordinación y rotación.",
+    d1: ["Saque y recepción", "Pase de antebrazo y voleo", "Posicionamiento y rotación", "Reglas fundamentales"],
+    d2: ["Colocación y ataque", "Bloqueo", "Sistemas de juego", "Partidos y torneo interno"],
+    desarrolla: ["Coordinación", "Trabajo en equipo", "Reacción"] },
+  { nombre: "Tenis de mesa", emoji: "🏓", cat: "individual", niveles: [1, 2],
+    lugares: ["Área frente al Auditorio Francisco Vela"],
+    resumen: "Disciplina individual o por parejas de precisión y velocidad.",
+    d1: ["Agarre de la raqueta y posición corporal", "Golpes básicos", "Saque y recepción", "Desplazamiento"],
+    d2: ["Golpes con efecto", "Saques con efecto", "Juego de dobles", "Partidos y ranking interno"],
+    desarrolla: ["Concentración", "Velocidad de reacción", "Precisión"] },
+  { nombre: "Taekwondo", emoji: "🥋", cat: "individual", niveles: [1, 2],
+    lugares: ["Polideportivo USAC"],
+    resumen: "Arte marcial de combate centrado en el control corporal y las patadas.",
+    d1: ["Posiciones y desplazamientos", "Técnicas básicas de defensa y ataque", "Patadas fundamentales", "Disciplina, autocontrol y respeto"],
+    d2: ["Combinaciones de patadas", "Formas (poomsae)", "Combate controlado con protección", "Flexibilidad y potencia"],
+    desarrolla: ["Flexibilidad", "Equilibrio", "Autocontrol"] },
+  { nombre: "Running", emoji: "🏃", cat: "individual", niveles: [1, 2],
+    lugares: ["Estadio Revolución"],
+    resumen: "Carrera para desarrollar resistencia cardiovascular de forma progresiva.",
+    d1: ["Técnica de carrera", "Calentamiento y respiración", "Control de ritmo", "Resistencia base progresiva"],
+    d2: ["Entrenamiento por intervalos", "Plan de carrera para 5K o 10K", "Control de ritmo y frecuencia cardiaca", "Prevención de lesiones"],
+    desarrolla: ["Resistencia", "Constancia", "Salud cardiovascular"] },
+  { nombre: "Gimnasio", emoji: "🏋️", cat: "fisica", niveles: [1, 2],
+    lugares: ["Gimnasio de la Facultad de Agronomía"],
+    resumen: "Ejercicios de fuerza y acondicionamiento con equipos de gimnasio.",
+    d1: ["Uso adecuado de los equipos", "Postura y técnica de ejecución", "Ejercicios básicos de fuerza", "Rutina guiada"],
+    d2: ["Diseño de rutina propia", "Progresión de series, repeticiones y cargas", "Fuerza y resistencia muscular", "Movilidad"],
+    desarrolla: ["Fuerza", "Postura", "Autonomía"] },
+  { nombre: "Acondicionamiento físico", emoji: "💪", cat: "fisica", niveles: [1, 2],
+    lugares: ["Cancha de la Facultad de Ingeniería"],
+    resumen: "Desarrollo integral de las capacidades físicas, individual y en grupo.",
+    d1: ["Fuerza y resistencia", "Coordinación", "Flexibilidad y movilidad", "Circuitos grupales"],
+    d2: ["Velocidad y agilidad", "Entrenamiento funcional", "Entrenamiento por intervalos", "Evaluación de condición física y metas"],
+    desarrolla: ["Condición física", "Movilidad", "Velocidad"] },
+  { nombre: "Ballet", emoji: "🩰", cat: "fisica", niveles: [1, 2],
+    lugares: ["Polideportivo USAC"],
+    resumen: "Disciplina artística y física de movimiento y expresión corporal.",
+    d1: ["Posiciones básicas", "Ejercicios de barra", "Postura y equilibrio", "Coordinación"],
+    d2: ["Ejercicios de centro y desplazamientos", "Giros", "Secuencias coreográficas", "Expresión corporal"],
+    desarrolla: ["Flexibilidad", "Equilibrio", "Expresión"] },
+  { nombre: "Ajedrez", emoji: "♟️", cat: "estrategia", niveles: [1, 2],
+    lugares: ["Edificio T3"],
+    resumen: "Juego de estrategia que entrena el razonamiento y la planificación.",
+    d1: ["Movimiento de las piezas y reglas", "Principios de apertura", "Tácticas básicas", "Mates elementales"],
+    d2: ["Estrategia de medio juego", "Finales básicos", "Notación y análisis de partidas", "Partidas con reloj y torneo"],
+    desarrolla: ["Concentración", "Razonamiento lógico", "Planificación"] },
+  { nombre: "Go", emoji: "⚫", cat: "estrategia", niveles: [1, 2],
+    lugares: ["Edificio T3"],
+    resumen: "Juego de estrategia sobre tablero cuyo objetivo es controlar territorio.",
+    d1: ["Reglas y colocación de piedras", "Captura y libertades", "Formación de grupos", "Conteo de territorio"],
+    d2: ["Aperturas y formas", "Vida y muerte de grupos", "Partidas en tablero completo", "Análisis de partidas"],
+    desarrolla: ["Análisis", "Planificación", "Visión estratégica"] }
+];
+
+const PENSUM = [
+  { carrera: "Ingeniería Ambiental",                d1: true, d2: true },
+  { carrera: "Ingeniería en Ciencias y Sistemas",   d1: true, d2: true },
+  { carrera: "Ingeniería Electrónica",              d1: true, d2: true },
+  { carrera: "Ingeniería Mecánica Eléctrica",       d1: true, d2: true },
+  { carrera: "Ingeniería Eléctrica",                d1: true, d2: true },
+  { carrera: "Ingeniería Mecánica",                 d1: true, d2: true },
+  { carrera: "Ingeniería Química",                  d1: true, d2: true },
+  { carrera: "Ingeniería Civil",                    d1: true, d2: false }
+];
+/* ===================================================== */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const state = { level: 'both', cat: 'todas', place: 'todos', q: '' };
+try { const saved = localStorage.getItem('deportes_nivel'); if (['1','2','both'].includes(saved)) state.level = saved; } catch (e) {}
+
+// Códigos
+const code = c => c ? `(Código ${esc(c)})` : '';
+$('codeD1').innerHTML = code(CODIGO_D1); $('codeD2').innerHTML = code(CODIGO_D2);
+$('cmpCode1').textContent = CODIGO_D1 || '—'; $('cmpCode2').textContent = CODIGO_D2 || '—';
+
+// Lugares únicos
+const LUGARES = [...new Set(DISCIPLINAS.flatMap(d => d.lugares))];
+
+// Chips de categoría
+$('catChips').innerHTML = `<button class="chip" data-cat="todas" aria-pressed="true">Todas</button>` +
+  Object.entries(CATEGORIAS).map(([k, c]) => `<button class="chip" data-cat="${k}" aria-pressed="false"><i style="background:${c.color}"></i>${esc(c.nombre)}</button>`).join('');
+$('catChips').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  state.cat = b.dataset.cat; render();
+});
+
+// Selector de lugar
+$('placeSel').innerHTML = `<option value="todos">Todos los lugares</option>` + LUGARES.map(l => `<option>${esc(l)}</option>`).join('');
+$('placeSel').addEventListener('change', e => { state.place = e.target.value; render(); });
+$('search').addEventListener('input', e => { state.q = e.target.value; render(); });
+
+// Selector de nivel
+document.querySelectorAll('.switch button').forEach(b => b.addEventListener('click', () => {
+  state.level = b.dataset.l;
+  try { localStorage.setItem('deportes_nivel', state.level); } catch (e) {}
+  render();
+}));
+
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+function card(d){
+  const c = CATEGORIAS[d.cat];
+  const lvl = (n, items) => {
+    const show = d.niveles.includes(n) && (state.level === 'both' || state.level === String(n));
+    return `<div class="level l${n}"${show ? '' : ' hidden'}><b>En Deportes ${n} aprenderás</b><ul>${items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
+  };
+  return `<article class="card disc">
+    <div class="disc-top"><div class="em" style="background:${c.bg}" aria-hidden="true">${d.emoji}</div>
+      <div><h3>${esc(d.nombre)}</h3><div class="cat" style="color:${c.color}">${esc(c.nombre)}</div></div></div>
+    <p class="sum">${esc(d.resumen)}</p>
+    <div class="place"><svg class="ico sm"><use href="#i-pin"/></svg>${d.lugares.map(esc).join(' · ')}</div>
+    ${lvl(1, d.d1)}${lvl(2, d.d2)}
+    <div class="tags">${d.desarrolla.map(t => `<span>${esc(t)}</span>`).join('')}</div>
+  </article>`;
+}
+
+function render(){
+  document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === state.level));
+  document.querySelectorAll('#catChips .chip').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === state.cat));
+  $('placeSel').value = state.place;
+  const q = norm(state.q.trim());
+  const list = DISCIPLINAS.filter(d =>
+    (state.cat === 'todas' || d.cat === state.cat) &&
+    (state.place === 'todos' || d.lugares.includes(state.place)) &&
+    (state.level === 'both' || d.niveles.includes(Number(state.level))) &&
+    (!q || norm(d.nombre + ' ' + d.resumen + ' ' + d.d1.join(' ') + ' ' + d.d2.join(' ')).includes(q)));
+  const lvlTxt = state.level === 'both' ? 'Deportes 1 y 2' : 'Deportes ' + state.level;
+  $('count').textContent = `${list.length} ${list.length === 1 ? 'disciplina' : 'disciplinas'} · mostrando contenidos de ${lvlTxt}`;
+  $('grid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">No hay disciplinas con esos filtros.</div>`;
+}
+
+// Lugares
+$('places').innerHTML = LUGARES.map(l => `<button class="card placecard" data-place="${esc(l)}" style="text-align:left;cursor:pointer">
+  <h3><svg class="ico"><use href="#i-pin"/></svg>${esc(l)}</h3>
+  <ul>${DISCIPLINAS.filter(d => d.lugares.includes(l)).map(d => `<li>${d.emoji} ${esc(d.nombre)}</li>`).join('')}</ul></button>`).join('');
+$('places').addEventListener('click', e => {
+  const b = e.target.closest('[data-place]'); if (!b) return;
+  state.place = b.dataset.place; state.cat = 'todas'; render();
+  $('disciplinas').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Pénsum
+const mark = v => v ? '<span class="yes" title="Sí">✓</span>' : '<span class="no" title="No">–</span>';
+$('pensumBody').innerHTML = PENSUM.map(p => `<tr><td>${esc(p.carrera)}</td><td class="c">${mark(p.d1)}</td><td class="c">${mark(p.d2)}</td></tr>`).join('');
+
+render();
+</script>
+</body>
+</html>
